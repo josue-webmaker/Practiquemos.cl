@@ -7,6 +7,8 @@ import { questionsPart2 } from './questions-part2';
 import { questionsPart3 } from './questions-part3';
 import { questionsPart4 } from './questions-part4';
 import { questionsPart5 } from './questions-part5';
+import { questionsPart6 } from './questions-part6';
+import { questionsPart7 } from './questions-part7';
 import type { Question } from './questionsData';
 
 const allQuestions: Question[] = [
@@ -15,6 +17,8 @@ const allQuestions: Question[] = [
   ...questionsPart3,
   ...questionsPart4,
   ...questionsPart5,
+  ...questionsPart6,
+  ...questionsPart7,
 ];
 
 export const mockQuestions = allQuestions;
