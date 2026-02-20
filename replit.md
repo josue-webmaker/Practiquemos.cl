@@ -74,7 +74,15 @@ Preferred communication style: Simple, everyday language.
 
 ### Question Data
 
-Questions are currently stored client-side in `lib/mockDatabase.ts` as a static array. This file contains the full question bank, license types, categories, and temario (study material) chapters. The exam engine (`app/exam.tsx`) pulls from this local data and supports multiple exam modes: daily, easy, hard, category-specific, and smart (randomized).
+Questions are stored client-side across multiple files and combined in `lib/mockDatabase.ts`:
+- `lib/questionsData.ts` — Base 235 questions (IDs 1-235)
+- `lib/questions-part2.ts` — 150 questions: Ley de Tránsito + Señalización (IDs 236-385)
+- `lib/questions-part3.ts` — 150 questions: Mecánica Básica + Primeros Auxilios (IDs 386-535)
+- `lib/questions-part4.ts` — 150 questions: Conducción Segura + Defensiva + Medio Ambiente (IDs 536-685)
+- `lib/questions-part5.ts` — 120 questions: Advanced scenarios + specific signals (IDs 686-805)
+
+Total: 805 questions across 10 categories, covering all Chilean driving exam topics.
+Study materials in `lib/temarioData.ts` with 6 chapters, 83 sections. The exam engine (`app/exam.tsx`) pulls from this local data and supports multiple exam modes: daily, easy, hard, category-specific, and smart (randomized).
 
 ### Build & Deployment
 
