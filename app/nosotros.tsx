@@ -39,11 +39,11 @@ export default function NosotrosScreen() {
 
         <View style={styles.statsRow}>
           <View style={styles.statBox}>
-            <Text style={styles.statNum}>200+</Text>
+            <Text style={styles.statNum}>235+</Text>
             <Text style={styles.statLabel}>Preguntas</Text>
           </View>
           <View style={styles.statBox}>
-            <Text style={styles.statNum}>6</Text>
+            <Text style={styles.statNum}>10</Text>
             <Text style={styles.statLabel}>Categorias</Text>
           </View>
           <View style={styles.statBox}>

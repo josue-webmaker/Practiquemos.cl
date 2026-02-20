@@ -89,7 +89,7 @@ export const temarioChapters: TemarioChapter[] = [
   {
     id: 'ch2',
     title: 'Señalización Vial',
-    icon: 'sign-post-outline',
+    icon: 'map-outline',
     sections: [
       {
         title: 'Señales reglamentarias - prohibición (fondo blanco, borde rojo)',

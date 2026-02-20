@@ -17,7 +17,7 @@ export default function PlansScreen() {
     { icon: 'infinite-outline' as const, text: 'Examenes ilimitados' },
     { icon: 'book-outline' as const, text: 'Explicaciones detalladas' },
     { icon: 'analytics-outline' as const, text: 'Estadisticas avanzadas' },
-    { icon: 'brain' as const, text: 'Test Inteligente con IA', lib: 'MaterialCommunityIcons' },
+    { icon: 'bulb-outline' as const, text: 'Test Inteligente con IA' },
     { icon: 'star-outline' as const, text: 'Favoritos ilimitados' },
     { icon: 'layers-outline' as const, text: 'Todas las categorias' },
   ];
