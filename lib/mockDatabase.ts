@@ -1,10 +1,23 @@
 export type { Question } from './questionsData';
 export { categorias, licenseTypes } from './questionsData';
-export { questionsBank as mockQuestions } from './questionsData';
 export { temarioChapters } from './temarioData';
 
 import { questionsBank } from './questionsData';
+import { questionsPart2 } from './questions-part2';
+import { questionsPart3 } from './questions-part3';
+import { questionsPart4 } from './questions-part4';
+import { questionsPart5 } from './questions-part5';
 import type { Question } from './questionsData';
+
+const allQuestions: Question[] = [
+  ...questionsBank,
+  ...questionsPart2,
+  ...questionsPart3,
+  ...questionsPart4,
+  ...questionsPart5,
+];
+
+export const mockQuestions = allQuestions;
 
 export const EXAM_CONFIG = {
   questionsPerExam: 35,
@@ -22,7 +35,7 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 export function getQuestionsByLicense(licenseType: string): Question[] {
-  return questionsBank.filter(q => q.licenseTypes.includes(licenseType));
+  return allQuestions.filter(q => q.licenseTypes.includes(licenseType));
 }
 
 export function getRandomExam(count: number, licenseType: string): Question[] {
