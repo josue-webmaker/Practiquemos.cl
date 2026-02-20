@@ -1,0 +1,67 @@
+Actúa como un Ingeniero de Software Full-Stack Mobile Senior y experto en UX/UI. Necesito que construyas el MVP de una plataforma llamada "Practiquemos.cl", enfocada en la preparación del examen de conducir chileno (actualizado a 2026).
+
+Condición Crítica de Arquitectura: El proyecto será inicialmente una Web App, pero DEBE estar estructurado y preparado para ser compilado como una aplicación nativa (iOS App Store y Google Play) utilizando Capacitor.js en el futuro. Todo el ruteo y manejo de estado debe ser compatible con un entorno móvil nativo.
+
+La propuesta de valor central es el acompañamiento y el refuerzo positivo. El usuario nunca debe sentirse solo; está estudiando con su "copiloto" (una mascota).
+
+Stack Tecnológico:
+
+Frontend: React (Vite) preparado para Capacitor.
+
+Estilos: Tailwind CSS (Mobile-first estricto).
+
+Iconos: Lucide React.
+
+Animaciones: Framer Motion.
+
+Routing: React Router DOM.
+
+1. Identidad Visual y Sistema de Diseño (Tailwind Config):
+
+Colores Base: 50% tonos neutros (blancos, grises claros slate-50 para fondos limpios).
+
+Color Principal (35%): Azul corporativo/confianza (blue-700, inspirado en el Libro del Nuevo Conductor).
+
+Color de Acento (15%): Amarillo vial (amber-400).
+
+REGLA ESTRICTA DE UX: PROHIBIDO usar rojos fuertes. Utiliza anaranjados suaves o amarillos para las correcciones. Enfoque 100% en aprendizaje positivo, cero castigos.
+
+2. Arquitectura de Vistas:
+
+A. Landing Page (Pública):
+
+Hero Section: Título: "Practiquemos juntos hasta que apruebes". Subtítulo: "No manejas solo, practicas con tu copiloto".
+
+Planes (Freemium):
+
+Plan Gratuito: 1 ensayo completo de demo.
+
+Premium (10 y 30 días): Acceso total a la base de datos completa de preguntas, audios y revisión de errores.
+
+Patrocinadores: Banner destacando a "Escuela de Conductores CAPCHILE".
+
+B. Motor de Exámenes (Preparado para Gran Volumen de Datos):
+
+Escalabilidad: El motor debe estar diseñado para manejar todo el banco oficial de preguntas (más de 800+ preguntas). Debe usar un sistema de paginación o carga diferida (lazy loading) para no saturar la memoria del dispositivo.
+
+Interfaz: Cronómetro discreto y contador de progreso. Botones de "Atrás" y "Siguiente" sin perder respuestas y sin recargar la vista.
+
+Feedback Interactivo: En lugar de "Correcto/Incorrecto", usar un componente <MascotaCopiloto /> (un perrito estilo semi-ilustrado, color café claro/beige).
+
+Acierto: "¡Bien hecho, sigamos practicando!"
+
+Error: "Revisemos juntos qué pasó..." (con botón a la explicación).
+
+Módulo de Audio: Botón con icono de volumen: "Escuchemos juntos la explicación".
+
+C. Vista de Resultados:
+
+Aprobado: Celebración con la mascota. "¡Vamos por esa licencia!"
+
+Reprobado: PROHIBIDA la palabra "REPROBADO". Usar: "Aún no es el resultado que buscamos, pero vamos bien. Revisemos los temas donde necesitas reforzar".
+
+3. Lógica de Negocio y Base de Datos (Mocks escalables):
+
+Implementa un estado global (Context API) para controlar los accesos Free vs Premium.
+
+Genera un archivo mockDatabase.js simulando una estructura JSON robusta que contemple: id, categoria (ej. Ley de Tránsito, Mecánica), pregunta, opciones, respuestaCorrecta, explicacionTexto, y urlAudio (null si no tiene).
