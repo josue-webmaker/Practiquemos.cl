@@ -1,111 +1,196 @@
-const SIGN_IMAGES: Record<string, string> = {
+const IMAGES: Record<string, string> = {
   pare: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Chilean_Road_Sign_R1-1.svg/200px-Chilean_Road_Sign_R1-1.svg.png',
   ceda_paso: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Chilean_Road_Sign_R1-2.svg/200px-Chilean_Road_Sign_R1-2.svg.png',
-  velocidad_max_30: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Chilean_Road_Sign_R4-1_30.svg/200px-Chilean_Road_Sign_R4-1_30.svg.png',
-  velocidad_max_40: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Chilean_Road_Sign_R4-1_40.svg/200px-Chilean_Road_Sign_R4-1_40.svg.png',
-  velocidad_max_50: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Chilean_Road_Sign_R4-1_50.svg/200px-Chilean_Road_Sign_R4-1_50.svg.png',
-  velocidad_max_60: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Chilean_Road_Sign_R4-1_60.svg/200px-Chilean_Road_Sign_R4-1_60.svg.png',
-  velocidad_max_80: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Chilean_Road_Sign_R4-1_80.svg/200px-Chilean_Road_Sign_R4-1_80.svg.png',
-  velocidad_max_100: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Chilean_Road_Sign_R4-1_100.svg/200px-Chilean_Road_Sign_R4-1_100.svg.png',
-  velocidad_max_120: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Chilean_Road_Sign_R4-1_120.svg/200px-Chilean_Road_Sign_R4-1_120.svg.png',
+  vel_30: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Chilean_Road_Sign_R4-1_30.svg/200px-Chilean_Road_Sign_R4-1_30.svg.png',
+  vel_40: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Chilean_Road_Sign_R4-1_40.svg/200px-Chilean_Road_Sign_R4-1_40.svg.png',
+  vel_50: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Chilean_Road_Sign_R4-1_50.svg/200px-Chilean_Road_Sign_R4-1_50.svg.png',
+  vel_60: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Chilean_Road_Sign_R4-1_60.svg/200px-Chilean_Road_Sign_R4-1_60.svg.png',
+  vel_80: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Chilean_Road_Sign_R4-1_80.svg/200px-Chilean_Road_Sign_R4-1_80.svg.png',
+  vel_100: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Chilean_Road_Sign_R4-1_100.svg/200px-Chilean_Road_Sign_R4-1_100.svg.png',
+  vel_120: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Chilean_Road_Sign_R4-1_120.svg/200px-Chilean_Road_Sign_R4-1_120.svg.png',
   no_adelantar: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Chilean_Road_Sign_R5-1.svg/200px-Chilean_Road_Sign_R5-1.svg.png',
-  no_girar_izquierda: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Chilean_Road_Sign_R3-2.svg/200px-Chilean_Road_Sign_R3-2.svg.png',
-  no_girar_derecha: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Chilean_Road_Sign_R3-1.svg/200px-Chilean_Road_Sign_R3-1.svg.png',
-  direccion_prohibida: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Chilean_Road_Sign_R2-1.svg/200px-Chilean_Road_Sign_R2-1.svg.png',
+  no_girar_izq: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Chilean_Road_Sign_R3-2.svg/200px-Chilean_Road_Sign_R3-2.svg.png',
+  no_girar_der: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Chilean_Road_Sign_R3-1.svg/200px-Chilean_Road_Sign_R3-1.svg.png',
+  dir_prohibida: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Chilean_Road_Sign_R2-1.svg/200px-Chilean_Road_Sign_R2-1.svg.png',
   solo_derecha: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Chilean_Road_Sign_R6-1.svg/200px-Chilean_Road_Sign_R6-1.svg.png',
   solo_izquierda: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Chilean_Road_Sign_R6-2.svg/200px-Chilean_Road_Sign_R6-2.svg.png',
-  curva_derecha: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Chilean_Road_Sign_P1-1.svg/200px-Chilean_Road_Sign_P1-1.svg.png',
-  curva_izquierda: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Chilean_Road_Sign_P1-2.svg/200px-Chilean_Road_Sign_P1-2.svg.png',
-  curva_peligrosa: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Chilean_Road_Sign_P1-1.svg/200px-Chilean_Road_Sign_P1-1.svg.png',
+  curva_der: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Chilean_Road_Sign_P1-1.svg/200px-Chilean_Road_Sign_P1-1.svg.png',
+  curva_izq: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Chilean_Road_Sign_P1-2.svg/200px-Chilean_Road_Sign_P1-2.svg.png',
   peatones: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Chilean_Road_Sign_P5-2.svg/200px-Chilean_Road_Sign_P5-2.svg.png',
   ninos: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Chilean_Road_Sign_P5-1.svg/200px-Chilean_Road_Sign_P5-1.svg.png',
   semaforo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Chilean_Road_Sign_P7-1.svg/200px-Chilean_Road_Sign_P7-1.svg.png',
-  cruce_ferroviario: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Chilean_Road_Sign_P3-1.svg/200px-Chilean_Road_Sign_P3-1.svg.png',
+  cruce_ferro: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Chilean_Road_Sign_P3-1.svg/200px-Chilean_Road_Sign_P3-1.svg.png',
   badenes: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Chilean_Road_Sign_P8-2.svg/200px-Chilean_Road_Sign_P8-2.svg.png',
-  calle_sin_salida: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Chilean_Road_Sign_I5-1.svg/200px-Chilean_Road_Sign_I5-1.svg.png',
+  sin_salida: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Chilean_Road_Sign_I5-1.svg/200px-Chilean_Road_Sign_I5-1.svg.png',
   estacionamiento: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Chilean_Road_Sign_I4-1.svg/200px-Chilean_Road_Sign_I4-1.svg.png',
   no_estacionar: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Chilean_Road_Sign_R8-1.svg/200px-Chilean_Road_Sign_R8-1.svg.png',
   cruce_peatonal: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Chilean_Road_Sign_I2-1.svg/200px-Chilean_Road_Sign_I2-1.svg.png',
   autopista: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Chilean_Road_Sign_I1-1.svg/200px-Chilean_Road_Sign_I1-1.svg.png',
-  zona_escolar: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Chilean_Road_Sign_P5-1.svg/200px-Chilean_Road_Sign_P5-1.svg.png',
   animales: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Chilean_Road_Sign_P6-1.svg/200px-Chilean_Road_Sign_P6-1.svg.png',
   obras: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Chilean_Road_Sign_P9-1.svg/200px-Chilean_Road_Sign_P9-1.svg.png',
-  amarilla: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Chilean_Road_Sign_P1-1.svg/200px-Chilean_Road_Sign_P1-1.svg.png',
-  roja_octogonal: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Chilean_Road_Sign_R1-1.svg/200px-Chilean_Road_Sign_R1-1.svg.png',
-  triangulo_invertido: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Chilean_Road_Sign_R1-2.svg/200px-Chilean_Road_Sign_R1-2.svg.png',
-  luz_roja: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Traffic_lights_3_states.svg/80px-Traffic_lights_3_states.svg.png',
-  luz_verde: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Traffic_lights_3_states.svg/80px-Traffic_lights_3_states.svg.png',
-  luz_amarilla: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Traffic_lights_3_states.svg/80px-Traffic_lights_3_states.svg.png',
-  semaforo_peatonal: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Traffic_lights_3_states.svg/80px-Traffic_lights_3_states.svg.png',
+  preventiva_gen: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Chilean_Road_Sign_P1-1.svg/200px-Chilean_Road_Sign_P1-1.svg.png',
+  semaforo_color: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Traffic_lights_3_states.svg/80px-Traffic_lights_3_states.svg.png',
+  no_virar_u: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Chilean_Road_Sign_R3-3.svg/200px-Chilean_Road_Sign_R3-3.svg.png',
+  doble_via: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Chilean_Road_Sign_P10-1.svg/200px-Chilean_Road_Sign_P10-1.svg.png',
+  pendiente: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Chilean_Road_Sign_P2-1.svg/200px-Chilean_Road_Sign_P2-1.svg.png',
+  rotonda: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Chilean_Road_Sign_R7-1.svg/200px-Chilean_Road_Sign_R7-1.svg.png',
+  hospital: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Chilean_Road_Sign_I3-1.svg/200px-Chilean_Road_Sign_I3-1.svg.png',
+  telefono: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Chilean_Road_Sign_I3-2.svg/200px-Chilean_Road_Sign_I3-2.svg.png',
+  gasolinera: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Chilean_Road_Sign_I3-3.svg/200px-Chilean_Road_Sign_I3-3.svg.png',
+  cinturon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Seatbelt_signal.svg/200px-Seatbelt_signal.svg.png',
+  neumatico: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Car_tire.svg/200px-Car_tire.svg.png',
+  volante: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Steering_wheel_icon.svg/200px-Steering_wheel_icon.svg.png',
+  frenos: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Disc_brake.svg/200px-Disc_brake.svg.png',
+  motor: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Car_engine_%28PSF%29.svg/200px-Car_engine_%28PSF%29.svg.png',
+  aceite: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Oil_lamp_symbol.svg/200px-Oil_lamp_symbol.svg.png',
+  bateria: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Car_battery_icon.svg/200px-Car_battery_icon.svg.png',
+  temperatura: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Temperature_icon.svg/200px-Temperature_icon.svg.png',
+  luces: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/High_beam_icon.svg/200px-High_beam_icon.svg.png',
+  espejo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Wing_mirror.svg/200px-Wing_mirror.svg.png',
+  alcohol: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/No_alcohol.svg/200px-No_alcohol.svg.png',
+  primeros_aux: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/First_aid_sign.svg/200px-First_aid_sign.svg.png',
+  extintor: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Fire_extinguisher.svg/200px-Fire_extinguisher.svg.png',
+  triangulo_emerg: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Triangle_warning_sign_%28red_and_white%29.svg/200px-Triangle_warning_sign_%28red_and_white%29.svg.png',
+  ambulancia: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Ambulance_sign.svg/200px-Ambulance_sign.svg.png',
+  contaminacion: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/CO2_icon.svg/200px-CO2_icon.svg.png',
+  reciclaje: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Recycling_symbol2.svg/200px-Recycling_symbol2.svg.png',
+  casco: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Helmet_icon.svg/200px-Helmet_icon.svg.png',
+  lluvia: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Rain_icon.svg/200px-Rain_icon.svg.png',
+  niebla: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Fog_icon.svg/200px-Fog_icon.svg.png',
+  distancia: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Following_distance.svg/200px-Following_distance.svg.png',
+  adelantamiento: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Chilean_Road_Sign_R5-1.svg/200px-Chilean_Road_Sign_R5-1.svg.png',
+  interseccion: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Chilean_Road_Sign_P7-1.svg/200px-Chilean_Road_Sign_P7-1.svg.png',
+  licencia: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Driver%27s_license_icon.svg/200px-Driver%27s_license_icon.svg.png',
+  multa: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Dollar_sign_in_circle.svg/200px-Dollar_sign_in_circle.svg.png',
+  accidente: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Accident_icon.svg/200px-Accident_icon.svg.png',
+  bicicleta: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Chilean_Road_Sign_P5-3.svg/200px-Chilean_Road_Sign_P5-3.svg.png',
+  carga: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Truck_pictogram.svg/200px-Truck_pictogram.svg.png',
+  suspension: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Car_engine_%28PSF%29.svg/200px-Car_engine_%28PSF%29.svg.png',
+  radiador: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Temperature_icon.svg/200px-Temperature_icon.svg.png',
+  embrague: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Car_engine_%28PSF%29.svg/200px-Car_engine_%28PSF%29.svg.png',
+  transmision: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Car_engine_%28PSF%29.svg/200px-Car_engine_%28PSF%29.svg.png',
+  rcp: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/First_aid_sign.svg/200px-First_aid_sign.svg.png',
+  hemorragia: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/First_aid_sign.svg/200px-First_aid_sign.svg.png',
+  fractura: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/First_aid_sign.svg/200px-First_aid_sign.svg.png',
+  quemadura: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/First_aid_sign.svg/200px-First_aid_sign.svg.png',
+  catalogo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/CO2_icon.svg/200px-CO2_icon.svg.png',
 };
 
-const KEYWORD_MAP: Array<{ keywords: string[]; imageKey: string }> = [
-  { keywords: ['PARE', 'señal de PARE', 'octagonal roja', 'octogonal'], imageKey: 'pare' },
-  { keywords: ['CEDA EL PASO', 'ceda el paso', 'triángulo invertido'], imageKey: 'ceda_paso' },
-  { keywords: ['30 km', '30km', 'velocidad máxima de 30'], imageKey: 'velocidad_max_30' },
-  { keywords: ['40 km', '40km', 'velocidad máxima de 40'], imageKey: 'velocidad_max_40' },
-  { keywords: ['50 km', '50km', 'velocidad máxima de 50'], imageKey: 'velocidad_max_50' },
-  { keywords: ['60 km', '60km', 'velocidad máxima de 60'], imageKey: 'velocidad_max_60' },
-  { keywords: ['80 km', '80km', 'velocidad máxima de 80'], imageKey: 'velocidad_max_80' },
-  { keywords: ['100 km', '100km', 'velocidad máxima de 100'], imageKey: 'velocidad_max_100' },
-  { keywords: ['120 km', '120km', 'velocidad máxima de 120'], imageKey: 'velocidad_max_120' },
-  { keywords: ['no adelantar', 'prohibido adelantar', 'prohibido sobrepasar'], imageKey: 'no_adelantar' },
-  { keywords: ['no girar a la izquierda', 'prohibido girar izquierda'], imageKey: 'no_girar_izquierda' },
-  { keywords: ['no girar a la derecha', 'prohibido girar derecha'], imageKey: 'no_girar_derecha' },
-  { keywords: ['dirección prohibida', 'prohibido el tránsito', 'acceso prohibido'], imageKey: 'direccion_prohibida' },
-  { keywords: ['solo derecha', 'únicamente derecha', 'gire derecha'], imageKey: 'solo_derecha' },
-  { keywords: ['solo izquierda', 'únicamente izquierda', 'gire izquierda'], imageKey: 'solo_izquierda' },
-  { keywords: ['curva a la derecha', 'curva pronunciada derecha'], imageKey: 'curva_derecha' },
-  { keywords: ['curva a la izquierda', 'curva pronunciada izquierda'], imageKey: 'curva_izquierda' },
-  { keywords: ['curva peligrosa', 'curvas peligrosas', 'doble curva'], imageKey: 'curva_peligrosa' },
-  { keywords: ['peatones', 'paso peatonal', 'cruce peatonal'], imageKey: 'cruce_peatonal' },
-  { keywords: ['zona escolar', 'escuela', 'niños', 'zona de niños'], imageKey: 'zona_escolar' },
-  { keywords: ['semáforo', 'semaforo', 'luz roja', 'luz verde', 'luz amarilla', 'señal luminosa'], imageKey: 'semaforo' },
-  { keywords: ['cruce ferroviario', 'paso a nivel', 'ferrocarril', 'tren'], imageKey: 'cruce_ferroviario' },
-  { keywords: ['baden', 'badén', 'lomada', 'resalto'], imageKey: 'badenes' },
-  { keywords: ['estacionamiento prohibido', 'no estacionar', 'prohibido estacionar'], imageKey: 'no_estacionar' },
-  { keywords: ['estacionamiento', 'zona de estacionamiento'], imageKey: 'estacionamiento' },
-  { keywords: ['autopista', 'autoexpreso', 'vía rápida'], imageKey: 'autopista' },
-  { keywords: ['animales', 'ganado', 'animal'], imageKey: 'animales' },
-  { keywords: ['obras', 'trabajo vial', 'trabajadores'], imageKey: 'obras' },
-  { keywords: ['amarilla', 'romboidales', 'fondo amarillo', 'preventiva'], imageKey: 'amarilla' },
-  { keywords: ['octogonal', 'octagonal', 'fondo rojo reglamentaria'], imageKey: 'roja_octogonal' },
+const KEYWORDS: Array<{ kw: string[]; img: string }> = [
+  { kw: ['pare', 'señal pare', 'octagonal roja', 'octogonal'], img: 'pare' },
+  { kw: ['ceda el paso', 'triángulo invertido', 'ceda paso'], img: 'ceda_paso' },
+  { kw: ['30 km', '30km', 'velocidad máxima de 30', 'máxima 30'], img: 'vel_30' },
+  { kw: ['40 km', '40km', 'velocidad máxima de 40', 'máxima 40'], img: 'vel_40' },
+  { kw: ['50 km', '50km', 'velocidad máxima de 50', 'máxima 50', 'zona urbana'], img: 'vel_50' },
+  { kw: ['60 km', '60km', 'velocidad máxima de 60', 'máxima 60'], img: 'vel_60' },
+  { kw: ['80 km', '80km', 'velocidad máxima de 80', 'máxima 80'], img: 'vel_80' },
+  { kw: ['100 km', '100km', 'velocidad máxima de 100', 'máxima 100'], img: 'vel_100' },
+  { kw: ['120 km', '120km', 'velocidad máxima de 120', 'máxima 120'], img: 'vel_120' },
+  { kw: ['no adelantar', 'prohibido adelantar', 'prohibido sobrepasar'], img: 'no_adelantar' },
+  { kw: ['no girar a la izquierda', 'prohibido girar izquierda', 'no virar izquierda'], img: 'no_girar_izq' },
+  { kw: ['no girar a la derecha', 'prohibido girar derecha', 'no virar derecha'], img: 'no_girar_der' },
+  { kw: ['dirección prohibida', 'prohibido el tránsito', 'acceso prohibido', 'no entrar'], img: 'dir_prohibida' },
+  { kw: ['solo derecha', 'únicamente derecha', 'gire derecha', 'obligación derecha'], img: 'solo_derecha' },
+  { kw: ['solo izquierda', 'únicamente izquierda', 'gire izquierda', 'obligación izquierda'], img: 'solo_izquierda' },
+  { kw: ['curva a la derecha', 'curva pronunciada derecha'], img: 'curva_der' },
+  { kw: ['curva a la izquierda', 'curva pronunciada izquierda'], img: 'curva_izq' },
+  { kw: ['rotonda', 'glorieta', 'redondel'], img: 'rotonda' },
+  { kw: ['doble sentido', 'doble vía', 'ambos sentidos'], img: 'doble_via' },
+  { kw: ['pendiente', 'bajada', 'cuesta abajo', 'cuesta arriba', 'declive'], img: 'pendiente' },
+  { kw: ['cruce peatonal', 'paso peatonal', 'paso de cebra', 'cruce de peatones'], img: 'cruce_peatonal' },
+  { kw: ['peatón', 'peatones', 'peatonal'], img: 'peatones' },
+  { kw: ['zona escolar', 'escuela', 'niños cruzando', 'zona de niños'], img: 'ninos' },
+  { kw: ['semáforo', 'semaforo', 'señal luminosa', 'luz de tránsito'], img: 'semaforo' },
+  { kw: ['luz roja', 'roja del semáforo'], img: 'semaforo_color' },
+  { kw: ['luz verde', 'verde del semáforo'], img: 'semaforo_color' },
+  { kw: ['luz amarilla', 'amarilla del semáforo', 'ámbar'], img: 'semaforo_color' },
+  { kw: ['cruce ferroviario', 'paso a nivel', 'ferrocarril', 'vías del tren', 'tren'], img: 'cruce_ferro' },
+  { kw: ['badén', 'baden', 'lomada', 'resalto', 'reductor de velocidad', 'lomo de toro'], img: 'badenes' },
+  { kw: ['estacionamiento prohibido', 'no estacionar', 'prohibido estacionar'], img: 'no_estacionar' },
+  { kw: ['estacionar', 'estacionamiento'], img: 'estacionamiento' },
+  { kw: ['autopista', 'autoexpreso', 'vía rápida', 'carretera'], img: 'autopista' },
+  { kw: ['animales', 'ganado', 'animal en la vía'], img: 'animales' },
+  { kw: ['obras', 'trabajo vial', 'trabajadores', 'zona de trabajo', 'construcción'], img: 'obras' },
+  { kw: ['hospital', 'centro de salud', 'clínica'], img: 'hospital' },
+  { kw: ['gasolinera', 'estación de servicio', 'bencinera', 'combustible', 'gasolina', 'bencina'], img: 'gasolinera' },
+  { kw: ['bicicleta', 'ciclista', 'ciclovía', 'bicicletero'], img: 'bicicleta' },
+  { kw: ['calle sin salida', 'sin salida'], img: 'sin_salida' },
+  { kw: ['virar en u', 'giro en u', 'vuelta en u'], img: 'no_virar_u' },
+
+  { kw: ['cinturón', 'cinturon', 'cinturón de seguridad', 'abrocharse', 'abrochar'], img: 'cinturon' },
+  { kw: ['casco', 'casco protector', 'casco de seguridad'], img: 'casco' },
+  { kw: ['espejo', 'espejos', 'retrovisor', 'retrovisores', 'espejo lateral'], img: 'espejo' },
+  { kw: ['volante', 'dirección del vehículo', 'manos al volante'], img: 'volante' },
+  { kw: ['luces', 'focos', 'faros', 'luces altas', 'luces bajas', 'luces de cruce', 'luces largas', 'luces cortas', 'encender luces', 'iluminación'], img: 'luces' },
+  { kw: ['neumático', 'neumatico', 'neumáticos', 'llanta', 'llantas', 'rueda', 'ruedas', 'presión de los neumáticos', 'banda de rodadura'], img: 'neumatico' },
+  { kw: ['freno', 'frenos', 'frenado', 'frenar', 'freno de mano', 'distancia de frenado', 'freno abs', 'abs', 'sistema de frenos', 'líquido de frenos', 'pastillas'], img: 'frenos' },
+  { kw: ['motor', 'encender el motor', 'apagar el motor', 'revoluciones', 'arranque', 'arrancador'], img: 'motor' },
+  { kw: ['aceite', 'lubricante', 'lubricación', 'nivel de aceite', 'cambio de aceite'], img: 'aceite' },
+  { kw: ['batería', 'bateria', 'carga de batería', 'alternador'], img: 'bateria' },
+  { kw: ['temperatura', 'sobrecalentamiento', 'recalentamiento', 'refrigerante', 'termómetro'], img: 'temperatura' },
+  { kw: ['radiador', 'sistema de refrigeración', 'enfriamiento'], img: 'radiador' },
+  { kw: ['embrague', 'clutch', 'pedal de embrague'], img: 'embrague' },
+  { kw: ['transmisión', 'caja de cambios', 'cambio de marcha', 'engranaje', 'marcha'], img: 'transmision' },
+  { kw: ['suspensión', 'amortiguador', 'amortiguadores'], img: 'suspension' },
+
+  { kw: ['alcohol', 'alcoholemia', 'ebriedad', 'estado de ebriedad', 'ley emilia', 'tolerancia cero', 'beber', 'conducir ebrio', 'trago', 'alcotest', 'alcoholímetro'], img: 'alcohol' },
+  { kw: ['licencia', 'licencia de conducir', 'permiso de conducir', 'renovar licencia', 'obtener licencia'], img: 'licencia' },
+  { kw: ['multa', 'infracción', 'sanción', 'parte', 'amonestación', 'penalización'], img: 'multa' },
+  { kw: ['accidente', 'colisión', 'choque', 'siniestro', 'volcamiento', 'atropello'], img: 'accidente' },
+  { kw: ['adelantar', 'adelantamiento', 'sobrepasar', 'rebasar'], img: 'adelantamiento' },
+  { kw: ['distancia de seguimiento', 'distancia prudente', 'distancia segura', 'metros de distancia', 'distancia entre vehículos', '2 segundos', 'tres segundos', 'dos segundos'], img: 'distancia' },
+  { kw: ['intersección', 'cruce de calles', 'cruce', 'preferencia de paso'], img: 'interseccion' },
+  { kw: ['lluvia', 'piso mojado', 'superficie mojada', 'mojado', 'agua en la pista', 'aquaplaning', 'hidroplaneo'], img: 'lluvia' },
+  { kw: ['niebla', 'neblina', 'visibilidad reducida', 'poca visibilidad'], img: 'niebla' },
+  { kw: ['carga', 'camión', 'transporte de carga', 'peso máximo', 'sobrecarga', 'cargamento'], img: 'carga' },
+
+  { kw: ['primeros auxilios', 'primer auxilio', 'socorrer', 'socorro', 'auxilio'], img: 'primeros_aux' },
+  { kw: ['rcp', 'reanimación', 'respiración artificial', 'resucitación', 'masaje cardíaco', 'paro cardíaco'], img: 'rcp' },
+  { kw: ['hemorragia', 'sangrado', 'sangre', 'torniquete', 'hemostasia'], img: 'hemorragia' },
+  { kw: ['fractura', 'hueso roto', 'inmovilizar', 'férula', 'esguince', 'luxación'], img: 'fractura' },
+  { kw: ['quemadura', 'quemado', 'quemaduras'], img: 'quemadura' },
+  { kw: ['extintor', 'extinguidor', 'incendio', 'fuego'], img: 'extintor' },
+  { kw: ['triángulo', 'triangulo', 'señalización de emergencia', 'baliza'], img: 'triangulo_emerg' },
+  { kw: ['ambulancia', 'emergencia médica', 'servicio de emergencia', 'bomberos', 'policía', 'carabineros', 'samu'], img: 'ambulancia' },
+  { kw: ['herido', 'víctima', 'lesionado', 'inconsciente', 'conmoción', 'shock', 'desmayo'], img: 'primeros_aux' },
+  { kw: ['posición lateral', 'posición de seguridad', 'posición de recuperación'], img: 'primeros_aux' },
+
+  { kw: ['contaminación', 'emisiones', 'gases', 'monóxido', 'co2', 'escape', 'tubo de escape', 'polución'], img: 'contaminacion' },
+  { kw: ['catalizador', 'catalítico', 'convertidor catalítico'], img: 'catalogo' },
+  { kw: ['reciclaje', 'reciclar', 'desechos', 'residuos'], img: 'reciclaje' },
+  { kw: ['medio ambiente', 'ambiental', 'ecológico', 'eco-conducción', 'ahorro de combustible', 'eficiencia energética', 'ruido', 'contaminación acústica', 'sonora'], img: 'contaminacion' },
+
+  { kw: ['velocidad', 'exceso de velocidad', 'velocidad máxima', 'límite de velocidad'], img: 'vel_60' },
 ];
 
-const VISUAL_CATEGORIES = [
-  'Señalización',
-  'Señales Reglamentarias',
-  'Señales Preventivas',
-  'Señales Informativas',
-];
+const CATEGORY_FALLBACKS: Record<string, string> = {
+  'Señalización': 'semaforo',
+  'Señales Reglamentarias': 'pare',
+  'Señales Preventivas': 'preventiva_gen',
+  'Señales Informativas': 'sin_salida',
+  'Ley de Tránsito': 'licencia',
+  'Conducción Segura': 'cinturon',
+  'Conducción Defensiva': 'distancia',
+  'Mecánica Básica': 'motor',
+  'Medio Ambiente': 'contaminacion',
+  'Primeros Auxilios': 'primeros_aux',
+};
 
 export function getQuestionImage(question: { pregunta: string; categoria: string; id: number }): string | null {
-  if (!VISUAL_CATEGORIES.includes(question.categoria)) {
-    return null;
-  }
-
   const text = question.pregunta.toLowerCase();
 
-  for (const { keywords, imageKey } of KEYWORD_MAP) {
-    for (const kw of keywords) {
-      if (text.includes(kw.toLowerCase())) {
-        return SIGN_IMAGES[imageKey] || null;
+  for (const { kw, img } of KEYWORDS) {
+    for (const k of kw) {
+      if (text.includes(k.toLowerCase())) {
+        return IMAGES[img] || null;
       }
     }
   }
 
-  if (question.categoria === 'Señales Reglamentarias') {
-    return SIGN_IMAGES['pare'];
-  }
-  if (question.categoria === 'Señales Preventivas') {
-    return SIGN_IMAGES['amarilla'];
-  }
-  if (question.categoria === 'Señales Informativas') {
-    return SIGN_IMAGES['calle_sin_salida'];
-  }
-  if (question.categoria === 'Señalización') {
-    return SIGN_IMAGES['semaforo'];
+  const fallback = CATEGORY_FALLBACKS[question.categoria];
+  if (fallback) {
+    return IMAGES[fallback] || null;
   }
 
-  return null;
+  return IMAGES['cinturon'];
 }
