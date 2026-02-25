@@ -1,4 +1,3 @@
-import { fetch } from "expo/fetch";
 import { QueryClient, QueryFunction } from "@tanstack/react-query";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -7,16 +6,22 @@ const TOKEN_KEY = "@practiquemos_token";
 let authToken: string | null = null;
 
 export async function loadToken() {
-  authToken = await AsyncStorage.getItem(TOKEN_KEY);
+  try {
+    authToken = await AsyncStorage.getItem(TOKEN_KEY);
+  } catch {
+    authToken = null;
+  }
 }
 
 export async function setToken(token: string | null) {
   authToken = token;
-  if (token) {
-    await AsyncStorage.setItem(TOKEN_KEY, token);
-  } else {
-    await AsyncStorage.removeItem(TOKEN_KEY);
-  }
+  try {
+    if (token) {
+      await AsyncStorage.setItem(TOKEN_KEY, token);
+    } else {
+      await AsyncStorage.removeItem(TOKEN_KEY);
+    }
+  } catch {}
 }
 
 export function getToken(): string | null {
@@ -24,17 +29,21 @@ export function getToken(): string | null {
 }
 
 export function getApiUrl(): string {
-  let host = process.env.EXPO_PUBLIC_DOMAIN;
+  const host = process.env.EXPO_PUBLIC_DOMAIN;
   if (!host) {
-    throw new Error("EXPO_PUBLIC_DOMAIN is not set");
+    return '/';
   }
-  let url = new URL(`https://${host}`);
-  return url.href;
+  return `https://${host}/`;
 }
 
 async function throwIfResNotOk(res: Response) {
   if (!res.ok) {
-    const text = (await res.text()) || res.statusText;
+    let text = '';
+    try {
+      text = (await res.text()) || res.statusText;
+    } catch {
+      text = res.statusText;
+    }
     throw new Error(`${res.status}: ${text}`);
   }
 }
@@ -45,13 +54,13 @@ export async function apiRequest(
   data?: unknown | undefined,
 ): Promise<Response> {
   const baseUrl = getApiUrl();
-  const url = new URL(route, baseUrl);
+  const url = baseUrl + route.replace(/^\//, '');
 
   const headers: Record<string, string> = {};
   if (data) headers["Content-Type"] = "application/json";
   if (authToken) headers["Authorization"] = `Bearer ${authToken}`;
 
-  const res = await fetch(url.toString(), {
+  const res = await globalThis.fetch(url, {
     method,
     headers,
     body: data ? JSON.stringify(data) : undefined,
@@ -68,12 +77,12 @@ export const getQueryFn: <T>(options: {
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
     const baseUrl = getApiUrl();
-    const url = new URL(queryKey.join("/") as string, baseUrl);
+    const url = baseUrl + (queryKey.join("/") as string).replace(/^\//, '');
 
     const headers: Record<string, string> = {};
     if (authToken) headers["Authorization"] = `Bearer ${authToken}`;
 
-    const res = await fetch(url.toString(), { headers });
+    const res = await globalThis.fetch(url, { headers });
 
     if (unauthorizedBehavior === "returnNull" && res.status === 401) {
       return null;
