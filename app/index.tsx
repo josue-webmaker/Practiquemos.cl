@@ -54,6 +54,14 @@ export default function HomeScreen() {
   const currentLicense = licenseTypes.find(l => l.id === licenseType) || licenseTypes[0];
   const webTopInset = Platform.OS === 'web' ? 67 : 0;
 
+  const LICENSE_COLORS: Record<string, { bg: string; text: string; accent: string; icon: string }> = {
+    clase_b: { bg: '#1d4ed8', text: '#fff', accent: '#3b82f6', icon: 'car-sport' },
+    clase_c: { bg: '#059669', text: '#fff', accent: '#34d399', icon: 'car' },
+    clase_d: { bg: '#d97706', text: '#fff', accent: '#fbbf24', icon: 'bus' },
+    clase_e: { bg: '#dc2626', text: '#fff', accent: '#f87171', icon: 'medical' },
+  };
+  const licColors = LICENSE_COLORS[licenseType] || LICENSE_COLORS.clase_b;
+
   const startExam = (mode: string) => {
     router.push({ pathname: '/exam', params: { mode, licenseType } });
   };
@@ -61,46 +69,56 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <View style={[styles.header, { paddingTop: (insets.top || webTopInset) + 8 }]}>
-        <View style={styles.headerActions}>
+        <View style={styles.headerTop}>
           <Pressable onPress={() => setShowDrawer(true)} hitSlop={12} style={styles.headerBtn}>
             <Ionicons name="menu" size={24} color={Colors.text} />
           </Pressable>
+          <View style={styles.logoRow}>
+            <Image
+              source={require('../assets/images/mascota-cabeza.png')}
+              style={styles.logoAvatar}
+              resizeMode="contain"
+            />
+            <Image
+              source={require('../assets/images/logo-texto.png')}
+              style={styles.logoText}
+              resizeMode="contain"
+            />
+          </View>
           <Pressable onPress={() => router.push(isLoggedIn ? '/perfil' : '/login')} hitSlop={12} style={styles.headerBtn}>
             <Ionicons name="person-circle-outline" size={26} color={Colors.primary} />
           </Pressable>
         </View>
 
-        <View style={styles.logoSection}>
-          <Image
-            source={require('../assets/images/logo-texto.png')}
-            style={styles.logoImg}
-            resizeMode="contain"
-          />
-        </View>
+        {isLoggedIn && (
+          <Text style={styles.welcomeTitle}>
+            ¡Hola, {user?.fullName?.split(' ')[0] || user?.username}! 👋
+          </Text>
+        )}
 
-        <View style={styles.welcomeSection}>
-          {isLoggedIn && (
-            <Text style={styles.welcomeTitle}>
-              ¡Hola, {user?.fullName?.split(' ')[0] || user?.username}! 👋
-            </Text>
-          )}
-          <Pressable onPress={() => setShowLicensePicker(true)} style={styles.licenseSelector}>
-            <Ionicons name="car-outline" size={15} color={Colors.primary} />
-            <Text style={styles.licenseName}>{currentLicense.name} — {currentLicense.description}</Text>
-            <Ionicons name="chevron-down" size={15} color={Colors.primary} />
-          </Pressable>
-          {!isLoggedIn && (
-            <View style={styles.authLinks}>
-              <Pressable onPress={() => router.push('/login')}>
-                <Text style={styles.authLink}>Inicia Sesión</Text>
-              </Pressable>
-              <Text style={styles.authSeparator}> · </Text>
-              <Pressable onPress={() => router.push('/register')}>
-                <Text style={styles.authLink}>Regístrate Gratis</Text>
-              </Pressable>
-            </View>
-          )}
-        </View>
+        <Pressable onPress={() => setShowLicensePicker(true)} style={[styles.licenseBanner, { backgroundColor: licColors.bg }]}>
+          <Ionicons name={licColors.icon as any} size={22} color={licColors.text} />
+          <View style={styles.licenseBannerText}>
+            <Text style={[styles.licenseBannerClass, { color: licColors.text }]}>{currentLicense.name}</Text>
+            <Text style={[styles.licenseBannerDesc, { color: licColors.accent }]}>{currentLicense.description}</Text>
+          </View>
+          <View style={[styles.licenseBannerChange, { backgroundColor: licColors.accent + '40' }]}>
+            <Text style={[styles.licenseBannerChangeText, { color: licColors.text }]}>Cambiar</Text>
+            <Ionicons name="chevron-down" size={14} color={licColors.text} />
+          </View>
+        </Pressable>
+
+        {!isLoggedIn && (
+          <View style={styles.authLinks}>
+            <Pressable onPress={() => router.push('/login')}>
+              <Text style={styles.authLink}>Inicia Sesión</Text>
+            </Pressable>
+            <Text style={styles.authSeparator}> · </Text>
+            <Pressable onPress={() => router.push('/register')}>
+              <Text style={styles.authLink}>Regístrate Gratis</Text>
+            </Pressable>
+          </View>
+        )}
       </View>
 
       <ScrollView style={styles.menuList} contentContainerStyle={[styles.menuListContent, { paddingBottom: (Platform.OS === 'web' ? 34 : insets.bottom) + 20 }]}>
@@ -200,16 +218,24 @@ export default function HomeScreen() {
         <Pressable style={styles.modalOverlay} onPress={() => setShowLicensePicker(false)}>
           <View style={styles.licenseModal}>
             <Text style={styles.licenseModalTitle}>SELECCIONA TU LICENCIA</Text>
-            {licenseTypes.map(lt => (
+            {licenseTypes.map(lt => {
+              const lc = LICENSE_COLORS[lt.id] || LICENSE_COLORS.clase_b;
+              const isActive = licenseType === lt.id;
+              return (
               <Pressable
                 key={lt.id}
                 onPress={() => { setLicenseType(lt.id); setShowLicensePicker(false); }}
-                style={[styles.licenseOption, licenseType === lt.id && styles.licenseOptionActive]}
+                style={[styles.licenseOption, isActive && { backgroundColor: lc.bg }]}
               >
-                <Text style={[styles.licenseOptionText, licenseType === lt.id && styles.licenseOptionTextActive]}>{lt.name}</Text>
-                <Text style={styles.licenseOptionDesc}>{lt.description}</Text>
+                <Ionicons name={lc.icon as any} size={22} color={isActive ? '#fff' : lc.bg} style={{ marginRight: 10 }} />
+                <View style={{ flex: 1 }}>
+                  <Text style={[styles.licenseOptionText, isActive && styles.licenseOptionTextActive]}>{lt.name}</Text>
+                  <Text style={[styles.licenseOptionDesc, isActive && { color: 'rgba(255,255,255,0.8)' }]}>{lt.description}</Text>
+                </View>
+                {isActive && <Ionicons name="checkmark-circle" size={22} color="#fff" />}
               </Pressable>
-            ))}
+              );
+            })}
           </View>
         </Pressable>
       </Modal>
@@ -268,16 +294,20 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
-  header: { backgroundColor: '#fff', paddingBottom: 16, paddingHorizontal: 16, borderBottomWidth: 1, borderBottomColor: Colors.border, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.06, shadowRadius: 6, elevation: 3 },
-  headerActions: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 },
+  header: { backgroundColor: '#fff', paddingBottom: 12, paddingHorizontal: 16, borderBottomWidth: 1, borderBottomColor: Colors.border, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.06, shadowRadius: 6, elevation: 3 },
+  headerTop: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 },
   headerBtn: { padding: 4 },
-  logoSection: { alignItems: 'center', paddingVertical: 8 },
-  logoImg: { height: 110, width: '100%', maxWidth: 380 },
-  licenseSelector: { flexDirection: 'row', alignItems: 'center', gap: 5, backgroundColor: Colors.primaryLight + '30', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 20, marginTop: 6, borderWidth: 1, borderColor: Colors.primary + '30' },
-  licenseName: { color: Colors.primary, fontSize: 13, fontFamily: 'Nunito_600SemiBold', flexShrink: 1 },
-  welcomeSection: { alignItems: 'center' },
-  welcomeTitle: { color: Colors.text, fontSize: 20, fontFamily: 'Nunito_800ExtraBold', textAlign: 'center', marginBottom: 2 },
-  authLinks: { flexDirection: 'row', alignItems: 'center', marginTop: 6 },
+  logoRow: { flexDirection: 'row', alignItems: 'center', gap: 6, flex: 1, justifyContent: 'center' },
+  logoAvatar: { width: 44, height: 44 },
+  logoText: { height: 36, width: 160 },
+  welcomeTitle: { color: Colors.text, fontSize: 16, fontFamily: 'Nunito_700Bold', textAlign: 'center', marginBottom: 6 },
+  licenseBanner: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 14, paddingVertical: 12, borderRadius: 14, gap: 10 },
+  licenseBannerText: { flex: 1 },
+  licenseBannerClass: { fontSize: 18, fontFamily: 'Nunito_800ExtraBold' },
+  licenseBannerDesc: { fontSize: 12, fontFamily: 'Nunito_600SemiBold', marginTop: 1 },
+  licenseBannerChange: { flexDirection: 'row', alignItems: 'center', gap: 4, paddingHorizontal: 10, paddingVertical: 5, borderRadius: 10 },
+  licenseBannerChangeText: { fontSize: 12, fontFamily: 'Nunito_700Bold' },
+  authLinks: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 8 },
   authLink: { color: Colors.accent, fontSize: 14, fontFamily: 'Nunito_700Bold', textDecorationLine: 'underline' },
   authSeparator: { color: Colors.textMuted, fontSize: 14, fontFamily: 'Nunito_400Regular' },
   menuList: { flex: 1 },
@@ -294,7 +324,7 @@ const styles = StyleSheet.create({
   modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', alignItems: 'center' },
   licenseModal: { backgroundColor: '#1e293b', borderRadius: 20, padding: 20, width: '85%', maxWidth: 340 },
   licenseModalTitle: { color: '#fff', fontSize: 14, fontFamily: 'Nunito_700Bold', marginBottom: 16, textAlign: 'center', letterSpacing: 1 },
-  licenseOption: { paddingVertical: 14, paddingHorizontal: 16, borderRadius: 12, marginBottom: 4 },
+  licenseOption: { flexDirection: 'row', alignItems: 'center', paddingVertical: 14, paddingHorizontal: 16, borderRadius: 12, marginBottom: 6 },
   licenseOptionActive: { backgroundColor: Colors.primary },
   licenseOptionText: { color: '#fff', fontSize: 17, fontFamily: 'Nunito_700Bold' },
   licenseOptionTextActive: { color: '#fff' },
