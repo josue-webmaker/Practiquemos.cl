@@ -9,6 +9,11 @@ import { questionsPart4 } from './questions-part4';
 import { questionsPart5 } from './questions-part5';
 import { questionsPart6 } from './questions-part6';
 import { questionsPart7 } from './questions-part7';
+import { questionsA2 } from './questions-a2';
+import { questionsA4 } from './questions-a4';
+import { questionsClaseC } from './questions-c';
+import { questionsClaseD } from './questions-d';
+import { questionsClaseE } from './questions-e';
 import type { Question } from './questionsData';
 
 const allQuestions: Question[] = [
@@ -19,6 +24,11 @@ const allQuestions: Question[] = [
   ...questionsPart5,
   ...questionsPart6,
   ...questionsPart7,
+  ...questionsA2,
+  ...questionsA4,
+  ...questionsClaseC,
+  ...questionsClaseD,
+  ...questionsClaseE,
 ];
 
 export const mockQuestions = allQuestions;

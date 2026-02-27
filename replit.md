@@ -95,8 +95,13 @@ Questions are stored client-side across multiple files and combined in `lib/mock
 - `lib/questions-part5.ts` — 120 questions: Advanced scenarios + specific signals (IDs 686-805)
 - `lib/questions-part6.ts` — 100 questions: Real exam mechanics, distances, safety (IDs 806-905)
 - `lib/questions-part7.ts` — 100 questions: Signals detail, speeds, pedestrians, alcohol, accidents (IDs 906-1005)
+- `lib/questions-a2.ts` — 60 exclusive Clase A2 questions: passenger transport, minibus safety (IDs 1100-1159)
+- `lib/questions-a4.ts` — 60 exclusive Clase A4 questions: cargo securing, weight limits, hazmat (IDs 1200-1259)
+- `lib/questions-c.ts` — 60 exclusive Clase C questions: motorcycle safety, helmets, two-wheeled dynamics (IDs 1300-1359)
+- `lib/questions-d.ts` — 50 exclusive Clase D questions: heavy machinery, construction safety, tractor ops (IDs 1400-1449)
+- `lib/questions-e.ts` — 50 exclusive Clase E questions: animal-drawn vehicles, motorized cycles (IDs 1500-1549)
 
-Total: 1005 questions across 10 categories, covering all Chilean driving exam topics.
+Total: 1,285 questions across 10 categories. Per license type: Clase B (995), A2 (1,049), A4 (1,049), C (1,052), D (1,049), E (1,046). Each non-B license has 50-60 exclusive specialized questions.
 Study materials in `lib/temarioData.ts` with 6 chapters, 83 sections. The exam engine (`app/exam.tsx`) pulls from this local data and supports multiple exam modes: daily, easy, hard, category-specific, and smart (randomized).
 
 ### Build & Deployment
