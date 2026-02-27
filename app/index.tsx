@@ -127,7 +127,7 @@ export default function HomeScreen() {
         <MascotaCopiloto state="idle" message="Preparemos juntos tu examen de conducir" compact />
 
         <MenuItem
-          icon={<Image source={require('../assets/images/icon-mi-curso.png')} style={styles.menuIconImage} resizeMode="cover" />}
+          icon={<Image source={require('../assets/images/icon-mi-curso.png')} style={styles.menuIconImage} resizeMode="contain" />}
           title="Ingresemos al curso"
           description="Almacena todos tus avances para que sepas cuando estás preparad@ para el examen teórico."
           onPress={() => isLoggedIn ? router.push('/mi-curso') : router.push('/login')}
