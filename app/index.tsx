@@ -127,14 +127,14 @@ export default function HomeScreen() {
         <MascotaCopiloto state="idle" message="Preparemos juntos tu examen de conducir" compact />
 
         <MenuItem
-          icon={<Image source={require('../assets/images/icon-mi-curso.png')} style={styles.menuIconImage} resizeMode="contain" />}
+          icon={<View style={[styles.mascotIconWrap, { backgroundColor: '#dbeafe' }]}><Image source={require('../assets/images/icon-mi-curso.png')} style={styles.menuIconImage} resizeMode="contain" /></View>}
           title="Ingresemos al curso"
           description="Almacena todos tus avances para que sepas cuando estás preparad@ para el examen teórico."
           onPress={() => isLoggedIn ? router.push('/mi-curso') : router.push('/login')}
           locked={!isLoggedIn}
         />
         <MenuItem
-          icon={<View style={[styles.customIcon, { backgroundColor: '#e0f2fe' }]}><Text style={styles.customIconEmoji}>🎯</Text></View>}
+          icon={<View style={[styles.mascotIconWrap, { backgroundColor: '#e0f2fe' }]}><Image source={require('../assets/images/icon-mi-curso.png')} style={styles.menuIconImage} resizeMode="contain" /></View>}
           title="Practiquemos tu test diario"
           description="Test de conducir generado de forma aleatoria con preguntas del examen oficial y sus explicaciones."
           onPress={() => startExam('daily')}
@@ -142,71 +142,71 @@ export default function HomeScreen() {
           badgeColor={Colors.success}
         />
         <MenuItem
-          icon={<View style={[styles.customIcon, { backgroundColor: '#fef3c7' }]}><Text style={styles.customIconEmoji}>📖</Text></View>}
+          icon={<View style={[styles.mascotIconWrap, { backgroundColor: '#fef3c7' }]}><Image source={require('../assets/images/icon-mi-curso.png')} style={styles.menuIconImage} resizeMode="contain" /></View>}
           title="Aprendamos contenidos del curso"
           description="Resumen y manual del Libro de la Conducción en Chile. Todo el contenido para aprobar el examen."
           onPress={() => router.push('/temario')}
         />
         <MenuItem
-          icon={<View style={[styles.customIcon, { backgroundColor: '#fce7f3' }]}><Text style={styles.customIconEmoji}>🧠</Text></View>}
+          icon={<View style={[styles.mascotIconWrap, { backgroundColor: '#fce7f3' }]}><Image source={require('../assets/images/icon-mi-curso.png')} style={styles.menuIconImage} resizeMode="contain" /></View>}
           title="Practiquemos un test Intermedio"
           description="Mediante un algoritmo, te mostrará las preguntas más convenientes para agilizar tu aprendizaje."
           onPress={() => isPremium ? startExam('smart') : router.push('/plans')}
           locked={!isPremium}
         />
         <MenuItem
-          icon={<View style={[styles.customIcon, { backgroundColor: '#d1fae5' }]}><Text style={styles.customIconEmoji}>🌱</Text></View>}
+          icon={<View style={[styles.mascotIconWrap, { backgroundColor: '#d1fae5' }]}><Image source={require('../assets/images/icon-mi-curso.png')} style={styles.menuIconImage} resizeMode="contain" /></View>}
           title="Practiquemos un test básico"
           description="El test con las preguntas más fáciles del examen."
           onPress={() => startExam('easy')}
         />
         <MenuItem
-          icon={<View style={[styles.customIcon, { backgroundColor: '#fee2e2' }]}><Text style={styles.customIconEmoji}>🔥</Text></View>}
+          icon={<View style={[styles.mascotIconWrap, { backgroundColor: '#fee2e2' }]}><Image source={require('../assets/images/icon-mi-curso.png')} style={styles.menuIconImage} resizeMode="contain" /></View>}
           title="Practiquemos un test avanzado"
           description="El test con las preguntas más difíciles del examen."
           onPress={() => startExam('hard')}
         />
         <MenuItem
-          icon={<View style={[styles.customIcon, { backgroundColor: '#e0e7ff' }]}><Text style={styles.customIconEmoji}>📋</Text></View>}
+          icon={<View style={[styles.mascotIconWrap, { backgroundColor: '#e0e7ff' }]}><Image source={require('../assets/images/icon-mi-curso.png')} style={styles.menuIconImage} resizeMode="contain" /></View>}
           title="Practiquemos test por contenidos"
           description="Practica preguntas organizadas por tema: Ley de Tránsito, Señalización, Mecánica y más."
           onPress={() => startExam('category')}
         />
         <MenuItem
-          icon={<View style={[styles.customIcon, { backgroundColor: '#fef9c3' }]}><Text style={styles.customIconEmoji}>⭐</Text></View>}
+          icon={<View style={[styles.mascotIconWrap, { backgroundColor: '#fef9c3' }]}><Image source={require('../assets/images/icon-mi-curso.png')} style={styles.menuIconImage} resizeMode="contain" /></View>}
           title="Mis Favoritos"
           description="Repasa las preguntas que has marcado como favoritas para reforzar tu estudio."
           onPress={() => isLoggedIn ? router.push('/favoritos') : router.push('/login')}
           locked={!isLoggedIn}
         />
         <MenuItem
-          icon={<View style={[styles.customIcon, { backgroundColor: '#ede9fe' }]}><Text style={styles.customIconEmoji}>💎</Text></View>}
+          icon={<View style={[styles.mascotIconWrap, { backgroundColor: '#ede9fe' }]}><Image source={require('../assets/images/icon-mi-curso.png')} style={styles.menuIconImage} resizeMode="contain" /></View>}
           title="Packs Premium"
           description="Acceso ilimitado a todos los exámenes, explicaciones detalladas y estadísticas avanzadas."
           onPress={() => router.push('/plans')}
         />
         <MenuItem
-          icon={<View style={[styles.customIcon, { backgroundColor: '#dbeafe' }]}><Text style={styles.customIconEmoji}>📊</Text></View>}
+          icon={<View style={[styles.mascotIconWrap, { backgroundColor: '#dbeafe' }]}><Image source={require('../assets/images/icon-mi-curso.png')} style={styles.menuIconImage} resizeMode="contain" /></View>}
           title="Historial de avance"
           description="Revisa todos tus exámenes anteriores y tu progreso a lo largo del tiempo."
           onPress={() => isLoggedIn ? router.push('/history') : router.push('/login')}
           locked={!isLoggedIn}
         />
         <MenuItem
-          icon={<View style={[styles.customIcon, { backgroundColor: '#d1fae5' }]}><Text style={styles.customIconEmoji}>💬</Text></View>}
+          icon={<View style={[styles.mascotIconWrap, { backgroundColor: '#d1fae5' }]}><Image source={require('../assets/images/icon-mi-curso.png')} style={styles.menuIconImage} resizeMode="contain" /></View>}
           title="Contacto"
           description="Si tienes alguna duda, incidencia o quieres compartir tus preguntas del examen."
           onPress={() => router.push('/contacto')}
         />
         <MenuItem
-          icon={<View style={[styles.customIcon, { backgroundColor: '#dbeafe' }]}><Text style={styles.customIconEmoji}>🏫</Text></View>}
+          icon={<View style={[styles.mascotIconWrap, { backgroundColor: '#dbeafe' }]}><Image source={require('../assets/images/icon-mi-curso.png')} style={styles.menuIconImage} resizeMode="contain" /></View>}
           title="Quiénes Somos"
           description="Nuestra misión es ayudar a obtener la licencia de conducir a todas las personas."
           onPress={() => router.push('/nosotros')}
         />
         {isAdmin && (
           <MenuItem
-            icon={<Ionicons name="settings-outline" size={28} color="#dc2626" />}
+            icon={<View style={[styles.mascotIconWrap, { backgroundColor: '#fecaca' }]}><Image source={require('../assets/images/icon-mi-curso.png')} style={styles.menuIconImage} resizeMode="contain" /></View>}
             title="Panel Administrador"
             description="Gestionar usuarios, planes y configuracion del sistema."
             onPress={() => router.push('/admin')}
@@ -318,6 +318,7 @@ const styles = StyleSheet.create({
   menuItemPressed: { opacity: 0.7, transform: [{ scale: 0.98 }] },
   menuIcon: { width: 52, height: 52, borderRadius: 26, backgroundColor: Colors.surfaceSecondary, justifyContent: 'center', alignItems: 'center', marginRight: 12, overflow: 'hidden' as const },
   menuIconImage: { width: 52, height: 52 },
+  mascotIconWrap: { width: 52, height: 52, borderRadius: 26, justifyContent: 'center', alignItems: 'center', overflow: 'hidden' as const },
   customIcon: { width: 52, height: 52, borderRadius: 26, backgroundColor: '#eef2ff', justifyContent: 'center', alignItems: 'center' },
   customIconEmoji: { fontSize: 24 },
   menuContent: { flex: 1, marginRight: 8 },
