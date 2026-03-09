@@ -121,7 +121,7 @@ Total: ~1,591 questions across 10 categories. Official CONASET questions (306 to
 | Clase E | 10 | 7/10 (70%) | 20 min |
 
 Configs defined in `LICENSE_EXAM_CONFIGS` in `lib/mockDatabase.ts`. The exam engine (`app/exam.tsx`) uses `getExamConfig(licenseType)` for license-specific question counts, passing scores, and time limits.
-Study materials in `lib/temarioData.ts` with 6 chapters, 83 sections.
+Study materials in `lib/temarioData.ts` with 11 chapters total: 6 base chapters (83 sections, shown for all license types) + 5 license-specific chapters: Motocicletas/clase_c (8 sections), Transporte Pasajeros/clase_a2 (6 sections), Transporte Carga/clase_a4 (7 sections), Maquinaria Pesada/clase_d (6 sections), Tracción Animal/clase_e (5 sections). The `temario.tsx` screen filters chapters by the user's selected license type using the `licenseTypes` field on each chapter.
 
 ### Build & Deployment
 
