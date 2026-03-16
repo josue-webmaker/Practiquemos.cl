@@ -150,3 +150,9 @@ id = "10RLzb_MhOm8aeIJOv8SQ"
 uri = "file://attached_assets/nova-ultra-chilena.mp3"
 type = "audio"
 title = "Nova Ultra Humanizada - Estilo chileno cercano"
+
+[[outputs]]
+id = "HhrN3kGgZBmatPl8vvbk_"
+uri = "file://attached_assets/nova-profesora-neutra.mp3"
+type = "audio"
+title = "Nova - Profesora neutra chilena (sin chilenismos exagerados)"
