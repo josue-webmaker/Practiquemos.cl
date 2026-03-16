@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "xZoQU44JL52MMdBYjH-Y9"
+uri = "file://attached_assets/logo-sin-fondo-v2.png"
+type = "image"
+title = "Logo Practiquemos.cl - Sin Fondo"
