@@ -72,14 +72,14 @@ export function prefetchExamAudio(questions: Array<{ pregunta: string; opciones:
   batch.forEach((q, i) => {
     setTimeout(() => {
       const opciones = q.opciones.map((o, j) =>
-        `La ${String.fromCharCode(65 + j)}, ${o}`).join('. ');
-      const questionText = `${q.pregunta} Las opciones son: ${opciones}`;
+        `La ${String.fromCharCode(65 + j)}, ${o}`).join('.\n');
+      const questionText = `${q.pregunta}\n\nLas opciones son:\n${opciones}`;
       prefetchAudio(questionText);
 
       if (q.explicacionTexto) {
         const correctLetter = String.fromCharCode(65 + q.respuestaCorrecta);
         const correctOption = q.opciones[q.respuestaCorrecta];
-        const explText = `La respuesta correcta es la ${correctLetter}, ${correctOption}. ${q.explicacionTexto}`;
+        const explText = `La respuesta correcta es la ${correctLetter}, ${correctOption}.\n\n${q.explicacionTexto}`;
         prefetchAudio(explText);
       }
     }, i * 500);

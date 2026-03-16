@@ -176,8 +176,8 @@ export default function ExamScreen() {
     if (!currentQuestion) return;
     setIsSpeaking(true);
     const opciones = currentQuestion.opciones.map((o, i) =>
-      `La ${String.fromCharCode(65 + i)}, ${o}`).join('. ');
-    const text = `${currentQuestion.pregunta} Las opciones son: ${opciones}`;
+      `La ${String.fromCharCode(65 + i)}, ${o}`).join('.\n');
+    const text = `${currentQuestion.pregunta}\n\nLas opciones son:\n${opciones}`;
     speakNova(text);
   };
 
@@ -191,7 +191,7 @@ export default function ExamScreen() {
     setIsSpeaking(true);
     const correctLetter = String.fromCharCode(65 + currentQuestion.respuestaCorrecta);
     const correctOption = currentQuestion.opciones[currentQuestion.respuestaCorrecta];
-    const text = `La respuesta correcta es la ${correctLetter}, ${correctOption}. ${currentQuestion.explicacionTexto}`;
+    const text = `La respuesta correcta es la ${correctLetter}, ${correctOption}.\n\n${currentQuestion.explicacionTexto}`;
     speakNova(text);
   };
 

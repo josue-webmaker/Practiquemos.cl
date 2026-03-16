@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import Colors from '@/constants/colors';
 import { temarioChapters } from '@/lib/mockDatabase';
-import { speakWithNova, stopNova } from '@/lib/ttsService';
+import { speakWithNova, stopNova, prefetchAudio } from '@/lib/ttsService';
 
 const CHAPTER_IMAGES: Record<string, any> = {
   ch1: require('../assets/images/questions/licencia.png'),
@@ -69,8 +69,13 @@ export default function TemarioDetailScreen() {
   const [speakingIdx, setSpeakingIdx] = useState<number | null>(null);
 
   useEffect(() => {
+    if (chapter) {
+      chapter.sections.forEach((section, i) => {
+        setTimeout(() => prefetchAudio(section.content), i * 500);
+      });
+    }
     return () => { stopNova(); };
-  }, []);
+  }, [chapter]);
 
   const handleSpeak = (text: string, idx: number) => {
     if (speakingIdx === idx) {
