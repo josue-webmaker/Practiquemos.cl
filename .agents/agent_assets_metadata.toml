@@ -6,3 +6,33 @@ id = "xZoQU44JL52MMdBYjH-Y9"
 uri = "file://attached_assets/logo-sin-fondo-v2.png"
 type = "image"
 title = "Logo Practiquemos.cl - Sin Fondo"
+
+[[outputs]]
+id = "Z-NsQMacvMlr-qVd-yh9v"
+uri = "file://attached_assets/pregunta-ejemplo-1-nova.mp3"
+type = "audio"
+title = "Voz Nova (femenina) - Pregunta 1"
+
+[[outputs]]
+id = "l6IYLsnL9ZJBl9oX2kfPE"
+uri = "file://attached_assets/pregunta-ejemplo-1-alloy.mp3"
+type = "audio"
+title = "Voz Alloy (neutra) - Pregunta 1"
+
+[[outputs]]
+id = "mHutTgOlaL9ij6b17dlvo"
+uri = "file://attached_assets/pregunta-ejemplo-1-shimmer.mp3"
+type = "audio"
+title = "Voz Shimmer (femenina suave) - Pregunta 1"
+
+[[outputs]]
+id = "o-FW3_796-KCT4gfZWpG5"
+uri = "file://attached_assets/pregunta-ejemplo-2-nova.mp3"
+type = "audio"
+title = "Voz Nova - Pregunta 2 (paradero de buses)"
+
+[[outputs]]
+id = "A0Qd1wbgwbXRRZHMzM1sj"
+uri = "file://attached_assets/pregunta-ejemplo-3-nova.mp3"
+type = "audio"
+title = "Voz Nova - Pregunta 3 (estacionamiento)"
