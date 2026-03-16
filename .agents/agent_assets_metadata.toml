@@ -102,3 +102,21 @@ id = "H76nKnB3sgd1Rq_GdCVQJ"
 uri = "file://attached_assets/nova-excavadora.mp3"
 type = "audio"
 title = "Nova - Zona de peligro de excavadora"
+
+[[outputs]]
+id = "DdTAmkTNLTCUaOiOUsL24"
+uri = "file://attached_assets/nova-humanizada-1.mp3"
+type = "audio"
+title = "Nova Humanizada - Campo visual y velocidad"
+
+[[outputs]]
+id = "_LuLREEvZViX0lC6k7s1c"
+uri = "file://attached_assets/nova-humanizada-2.mp3"
+type = "audio"
+title = "Nova Humanizada - Luces automáticas"
+
+[[outputs]]
+id = "NEj_71AB-7HzobsHy42o1"
+uri = "file://attached_assets/nova-humanizada-3.mp3"
+type = "audio"
+title = "Nova Humanizada - Camión en carretera de montaña"
