@@ -79,13 +79,15 @@ export default function ExamScreen() {
   }, []);
 
   const [loadingQuestions, setLoadingQuestions] = useState(true);
+  const questionsLoaded = useRef(false);
 
   useEffect(() => {
+    if (questionsLoaded.current) return;
     let cancelled = false;
     setLoadingQuestions(true);
 
     fetchQuestionsByLicense(lt).then(allQ => {
-      if (cancelled) return;
+      if (cancelled || questionsLoaded.current) return;
       const numQ = examConfig.questionsPerExam;
       let qs: Question[] = [];
       if (mode === 'easy') qs = selectEasyExam(allQ, numQ);
@@ -107,6 +109,7 @@ export default function ExamScreen() {
         };
       });
       if (shuffled.length > 0) {
+        questionsLoaded.current = true;
         setQuestions(shuffled);
         prefetchExamAudio(shuffled);
       }
