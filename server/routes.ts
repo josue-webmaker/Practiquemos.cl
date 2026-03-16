@@ -426,6 +426,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({ message: "ok" });
   });
 
+  const ttsCache = new Map<string, Buffer>();
+  const TTS_CACHE_MAX = 200;
+
   app.post("/api/tts", async (req: Request, res: Response) => {
     const { text } = req.body;
     if (!text || typeof text !== "string") {
@@ -433,6 +436,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
     if (text.length > 4000) {
       return res.status(400).json({ message: "Texto demasiado largo (máx 4000 caracteres)" });
+    }
+
+    const cacheKey = crypto.createHash("md5").update(text).digest("hex");
+    const cached = ttsCache.get(cacheKey);
+    if (cached) {
+      res.setHeader("Content-Type", "audio/mpeg");
+      res.setHeader("Cache-Control", "public, max-age=86400");
+      return res.send(cached);
     }
 
     const apiKey = process.env.OPENAI_API_KEY;
@@ -452,7 +463,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
           input: text,
           voice: "nova",
           response_format: "mp3",
-          speed: 0.85,
         }),
       });
 
@@ -462,10 +472,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(502).json({ message: "Error generando audio" });
       }
 
+      const arrayBuffer = await response.arrayBuffer();
+      const audioBuffer = Buffer.from(arrayBuffer);
+
+      if (ttsCache.size >= TTS_CACHE_MAX) {
+        const firstKey = ttsCache.keys().next().value;
+        if (firstKey) ttsCache.delete(firstKey);
+      }
+      ttsCache.set(cacheKey, audioBuffer);
+
       res.setHeader("Content-Type", "audio/mpeg");
       res.setHeader("Cache-Control", "public, max-age=86400");
-      const arrayBuffer = await response.arrayBuffer();
-      res.send(Buffer.from(arrayBuffer));
+      res.send(audioBuffer);
     } catch (err) {
       console.error("TTS error:", err);
       res.status(500).json({ message: "Error interno de TTS" });
