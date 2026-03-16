@@ -144,3 +144,9 @@ id = "MUn9nczhkBOzs58HOa2Ac"
 uri = "file://attached_assets/variante-2-fable-chilena.mp3"
 type = "audio"
 title = "Variante 2 - Fable estilo chileno (cálida, cercana)"
+
+[[outputs]]
+id = "10RLzb_MhOm8aeIJOv8SQ"
+uri = "file://attached_assets/nova-ultra-chilena.mp3"
+type = "audio"
+title = "Nova Ultra Humanizada - Estilo chileno cercano"
