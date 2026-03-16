@@ -452,6 +452,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           input: text,
           voice: "nova",
           response_format: "mp3",
+          speed: 0.85,
         }),
       });
 
