@@ -5,7 +5,7 @@ const Colors = {
   accent: '#f59e0b',
   accentLight: '#fbbf24',
   accentSoft: '#fef3c7',
-  background: '#f8fafc',
+  background: '#ffffff',
   surface: '#ffffff',
   surfaceSecondary: '#f1f5f9',
   text: '#0f172a',

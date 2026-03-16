@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
   backBtn: { padding: 4 },
   headerTitle: { color: '#fff', fontSize: 20, fontFamily: 'Nunito_700Bold' },
   content: { padding: 24, alignItems: 'center' },
-  mascotRow: { marginBottom: 20, alignItems: 'center', backgroundColor: '#fff', borderRadius: 16, padding: 16 },
+  mascotRow: { marginBottom: 20, alignItems: 'center' },
   logoLogin: { width: 240, height: 65 },
   errorText: { color: '#dc2626', fontSize: 14, fontFamily: 'Nunito_600SemiBold', marginBottom: 12, textAlign: 'center' },
   inputGroup: { width: '100%', marginBottom: 16 },
