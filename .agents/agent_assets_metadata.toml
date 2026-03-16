@@ -107,7 +107,7 @@ title = "Nova - Zona de peligro de excavadora"
 id = "DdTAmkTNLTCUaOiOUsL24"
 uri = "file://attached_assets/nova-humanizada-1.mp3"
 type = "audio"
-title = "Nova Humanizada - Campo visual y velocidad"
+title = "Voz 1: NOVA - Clara y enérgica (la que les gustó)"
 
 [[outputs]]
 id = "_LuLREEvZViX0lC6k7s1c"
@@ -120,3 +120,15 @@ id = "NEj_71AB-7HzobsHy42o1"
 uri = "file://attached_assets/nova-humanizada-3.mp3"
 type = "audio"
 title = "Nova Humanizada - Camión en carretera de montaña"
+
+[[outputs]]
+id = "G3KtkeyI9IgJtEB2Vfsy2"
+uri = "file://attached_assets/humanizada-shimmer.mp3"
+type = "audio"
+title = "Voz 2: SHIMMER - Suave y cálida"
+
+[[outputs]]
+id = "7VL95ztL5u1QArzZMkv7K"
+uri = "file://attached_assets/humanizada-alloy.mp3"
+type = "audio"
+title = "Voz 3: ALLOY - Neutra y versátil"
