@@ -409,9 +409,8 @@ const ss = StyleSheet.create({
 export default function RootLayout() {
   const splashHidden = useRef(false);
   const [showSplash, setShowSplash] = useState(true);
-  const [assetsReady, setAssetsReady] = useState(false);
 
-  const [fontsLoaded] = useFonts({
+  const [fontsLoaded, fontError] = useFonts({
     Nunito_400Regular,
     Nunito_600SemiBold,
     Nunito_700Bold,
@@ -419,7 +418,7 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    Asset.loadAsync(preloadAssets).then(() => setAssetsReady(true)).catch(() => setAssetsReady(true));
+    Asset.loadAsync(preloadAssets).catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -433,13 +432,13 @@ export default function RootLayout() {
   }, []);
 
   useEffect(() => {
-    if (fontsLoaded && assetsReady && !splashHidden.current) {
+    if ((fontsLoaded || fontError) && !splashHidden.current) {
       splashHidden.current = true;
       SplashScreen.hideAsync().catch(() => {});
     }
-  }, [fontsLoaded, assetsReady]);
+  }, [fontsLoaded, fontError]);
 
-  if (!fontsLoaded || !assetsReady) return null;
+  if (!fontsLoaded && !fontError) return null;
 
   if (showSplash) {
     return <SplashPreload onFinish={() => setShowSplash(false)} />;
