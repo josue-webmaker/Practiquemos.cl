@@ -3,6 +3,7 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import React, { useEffect, useRef, useState } from "react";
 import { View, Text, StyleSheet, Image, Platform } from "react-native";
+import { Asset } from "expo-asset";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -50,6 +51,8 @@ function RootLayoutNav() {
     </Stack>
   );
 }
+
+const splashLogo = require('../assets/images/logo-splash.png');
 
 function SplashPreload({ onFinish }: { onFinish: () => void }) {
   const logoScale = useSharedValue(0.3);
@@ -102,9 +105,10 @@ function SplashPreload({ onFinish }: { onFinish: () => void }) {
       <View style={splashStyles.content}>
         <Animated.View style={[splashStyles.logoContainer, logoStyle]}>
           <Image
-            source={require('../assets/images/logo-splash.png')}
+            source={splashLogo}
             style={splashStyles.logo}
             resizeMode="contain"
+            fadeDuration={0}
           />
         </Animated.View>
 
@@ -203,6 +207,7 @@ const splashStyles = StyleSheet.create({
 export default function RootLayout() {
   const splashHidden = useRef(false);
   const [showSplash, setShowSplash] = useState(true);
+  const [assetsReady, setAssetsReady] = useState(false);
 
   const [fontsLoaded] = useFonts({
     Nunito_400Regular,
@@ -210,6 +215,10 @@ export default function RootLayout() {
     Nunito_700Bold,
     Nunito_800ExtraBold,
   });
+
+  useEffect(() => {
+    Asset.loadAsync([splashLogo]).then(() => setAssetsReady(true)).catch(() => setAssetsReady(true));
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -222,13 +231,13 @@ export default function RootLayout() {
   }, []);
 
   useEffect(() => {
-    if (fontsLoaded && !splashHidden.current) {
+    if (fontsLoaded && assetsReady && !splashHidden.current) {
       splashHidden.current = true;
       SplashScreen.hideAsync().catch(() => {});
     }
-  }, [fontsLoaded]);
+  }, [fontsLoaded, assetsReady]);
 
-  if (!fontsLoaded) return null;
+  if (!fontsLoaded || !assetsReady) return null;
 
   if (showSplash) {
     return <SplashPreload onFinish={() => setShowSplash(false)} />;
