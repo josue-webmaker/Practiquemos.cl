@@ -59,6 +59,20 @@ function RootLayoutNav() {
 
 const splashLogo = require('../assets/images/logo-splash.png');
 
+const preloadAssets = [
+  require('../assets/images/logo-splash.png'),
+  require('../assets/images/logo-completo-header.png'),
+  require('../assets/images/mascota-cuerpo.png'),
+  require('../assets/images/mascota-hablando.png'),
+  require('../assets/images/mascota-pensando.png'),
+  require('../assets/images/mascota-cabeza.png'),
+  require('../assets/images/icon-test-basico.png'),
+  require('../assets/images/icon-test-intermedio.png'),
+  require('../assets/images/icon-test-avanzado.png'),
+  require('../assets/images/icon-test-diario.png'),
+  require('../assets/images/icon-temario.png'),
+];
+
 function FloatingOrb({ delay, x, y, size, color }: { delay: number; x: number; y: number; size: number; color: string }) {
   const progress = useSharedValue(0);
   const floatY = useSharedValue(0);
@@ -405,7 +419,7 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    Asset.loadAsync([splashLogo]).then(() => setAssetsReady(true)).catch(() => setAssetsReady(true));
+    Asset.loadAsync(preloadAssets).then(() => setAssetsReady(true)).catch(() => setAssetsReady(true));
   }, []);
 
   useEffect(() => {
