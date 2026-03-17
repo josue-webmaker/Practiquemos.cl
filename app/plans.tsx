@@ -54,7 +54,7 @@ export default function PlansScreen() {
       }
 
       const data = await response.json();
-      const paymentUrl = data.sandboxInitPoint || data.initPoint;
+      const paymentUrl = data.initPoint;
 
       if (Platform.OS === 'web') {
         window.open(paymentUrl, '_blank');
