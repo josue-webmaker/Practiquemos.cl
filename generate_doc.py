@@ -32,7 +32,7 @@ BLUE = RGBColor(0x1D, 0x4E, 0xD8)
 RED = RGBColor(0xDC, 0x26, 0x26)
 WHITE = RGBColor(0xFF, 0xFF, 0xFF)
 
-logo_path = 'attached_assets/Logo_sin_fondo_1773872982719.png'
+logo_path = 'attached_assets/logo_optimized.png'
 
 def add_heading_styled(text, level=1, color=GREEN):
     heading = doc.add_heading(text, level=level)
