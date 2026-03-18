@@ -143,6 +143,13 @@ export default function PlansScreen() {
 
   const handleRestorePurchases = async () => {
     if (!Purchases) return;
+    if (!user) {
+      Alert.alert('Inicia sesión', 'Necesitas una cuenta para restaurar compras.', [
+        { text: 'Cancelar', style: 'cancel' },
+        { text: 'Iniciar sesión', onPress: () => router.push('/login') },
+      ]);
+      return;
+    }
     setRestoring(true);
     try {
       const customerInfo = await Purchases.restorePurchases();
