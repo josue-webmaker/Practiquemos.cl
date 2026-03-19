@@ -36,11 +36,11 @@ export default function ContactoScreen() {
           </View>
         </Pressable>
 
-        <Pressable style={styles.contactCard} onPress={() => Linking.openURL('https://wa.me/56912345678')}>
+        <Pressable style={styles.contactCard} onPress={() => Linking.openURL('https://wa.me/56989200476')}>
           <Ionicons name="logo-whatsapp" size={24} color="#25D366" />
           <View style={styles.contactInfo}>
             <Text style={styles.contactLabel}>WhatsApp</Text>
-            <Text style={styles.contactValue}>+56 9 1234 5678</Text>
+            <Text style={styles.contactValue}>+56 9 8920 0476</Text>
           </View>
         </Pressable>
 
