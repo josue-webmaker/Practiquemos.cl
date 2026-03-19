@@ -54,6 +54,7 @@ export default function PlansScreen() {
     { icon: 'bulb-outline' as const, text: 'Test Inteligente con IA' },
     { icon: 'analytics-outline' as const, text: 'Estadísticas avanzadas de progreso' },
     { icon: 'star-outline' as const, text: 'Favoritos ilimitados' },
+    { icon: 'book-outline' as const, text: 'Manual de estudio completo' },
   ];
 
   const handleiOSPurchase = async (plan: string) => {
@@ -281,6 +282,10 @@ export default function PlansScreen() {
             <View style={styles.freeFeatureRow}>
               <Ionicons name="close-circle" size={16} color="#dc2626" />
               <Text style={styles.freeFeatureText}>Sin test inteligente</Text>
+            </View>
+            <View style={styles.freeFeatureRow}>
+              <Ionicons name="close-circle" size={16} color="#dc2626" />
+              <Text style={styles.freeFeatureText}>Manual limitado a 2 capítulos</Text>
             </View>
           </View>
         </View>

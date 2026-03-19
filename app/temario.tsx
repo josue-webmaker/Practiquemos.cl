@@ -21,7 +21,8 @@ export default function TemarioScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const webTopInset = Platform.OS === 'web' ? 67 : 0;
-  const { licenseType } = useUser();
+  const { licenseType, isPremium } = useUser();
+  const FREE_CHAPTERS_LIMIT = 2;
 
   const filteredChapters = useMemo(() => {
     return temarioChapters.filter(ch =>
@@ -47,23 +48,55 @@ export default function TemarioScreen() {
           <Text style={styles.licenseBadgeText}>{LICENSE_LABELS[licenseType] || licenseType}</Text>
         </View>
 
-        {filteredChapters.map((chapter, idx) => (
-          <Pressable
-            key={chapter.id}
-            onPress={() => router.push({ pathname: '/temario-detail', params: { chapterId: chapter.id } })}
-            style={({ pressed }) => [styles.chapterCard, pressed && { opacity: 0.7 }]}
-          >
-            <View style={styles.chapterIcon}>
-              <Ionicons name={chapter.icon as any} size={28} color={Colors.primary} />
-            </View>
-            <View style={styles.chapterContent}>
-              <Text style={styles.chapterNumber}>Capitulo {idx + 1}</Text>
-              <Text style={styles.chapterTitle}>{chapter.title}</Text>
-              <Text style={styles.chapterSections}>{chapter.sections.length} secciones</Text>
-            </View>
-            <Ionicons name="chevron-forward" size={20} color={Colors.textMuted} />
+        {!isPremium && (
+          <View style={styles.freeNotice}>
+            <Ionicons name="alert-circle" size={16} color="#7c3aed" />
+            <Text style={styles.freeNoticeText}>
+              Acceso gratuito a los primeros {FREE_CHAPTERS_LIMIT} capítulos. Desbloquea todo el manual con Premium.
+            </Text>
+          </View>
+        )}
+
+        {filteredChapters.map((chapter, idx) => {
+          const isLocked = !isPremium && idx >= FREE_CHAPTERS_LIMIT;
+          return (
+            <Pressable
+              key={chapter.id}
+              onPress={() => isLocked ? router.push('/plans') : router.push({ pathname: '/temario-detail', params: { chapterId: chapter.id } })}
+              style={({ pressed }) => [styles.chapterCard, pressed && { opacity: 0.7 }, isLocked && styles.chapterCardLocked]}
+            >
+              <View style={[styles.chapterIcon, isLocked && { backgroundColor: '#f1f5f9' }]}>
+                <Ionicons name={isLocked ? 'lock-closed' : chapter.icon as any} size={isLocked ? 22 : 28} color={isLocked ? '#94a3b8' : Colors.primary} />
+              </View>
+              <View style={styles.chapterContent}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                  <Text style={[styles.chapterNumber, isLocked && { color: '#94a3b8' }]}>Capitulo {idx + 1}</Text>
+                  {isLocked && (
+                    <View style={styles.premiumBadge}>
+                      <Text style={styles.premiumBadgeText}>Premium</Text>
+                    </View>
+                  )}
+                </View>
+                <Text style={[styles.chapterTitle, isLocked && { color: '#94a3b8' }]}>{chapter.title}</Text>
+                <Text style={[styles.chapterSections, isLocked && { color: '#cbd5e1' }]}>{chapter.sections.length} secciones</Text>
+              </View>
+              <Ionicons name={isLocked ? 'lock-closed' : 'chevron-forward'} size={20} color={isLocked ? '#94a3b8' : Colors.textMuted} />
+            </Pressable>
+          );
+        })}
+
+        {!isPremium && (
+          <Pressable onPress={() => router.push('/plans')} style={styles.unlockBanner}>
+            <LinearGradient colors={['#7c3aed', '#5b21b6']} style={styles.unlockBannerGradient}>
+              <Ionicons name="diamond" size={24} color="#fbbf24" />
+              <Text style={styles.unlockBannerTitle}>Desbloquea todo el manual</Text>
+              <Text style={styles.unlockBannerDesc}>Accede a todos los capítulos y prepárate al 100% para tu examen.</Text>
+              <View style={styles.unlockBannerBtn}>
+                <Text style={styles.unlockBannerBtnText}>Ver Planes Premium</Text>
+              </View>
+            </LinearGradient>
           </Pressable>
-        ))}
+        )}
       </ScrollView>
     </View>
   );
@@ -84,4 +117,15 @@ const styles = StyleSheet.create({
   chapterNumber: { fontSize: 11, fontFamily: 'Nunito_700Bold', color: Colors.primary, textTransform: 'uppercase' as const, letterSpacing: 1 },
   chapterTitle: { fontSize: 16, fontFamily: 'Nunito_700Bold', color: Colors.text },
   chapterSections: { fontSize: 13, fontFamily: 'Nunito_400Regular', color: Colors.textSecondary },
+  chapterCardLocked: { opacity: 0.75 },
+  freeNotice: { flexDirection: 'row' as const, alignItems: 'center' as const, gap: 8, backgroundColor: '#f3f0ff', borderRadius: 12, padding: 12, marginBottom: 16, borderWidth: 1, borderColor: '#e0d4ff' },
+  freeNoticeText: { flex: 1, fontSize: 13, fontFamily: 'Nunito_600SemiBold', color: '#5b21b6' },
+  premiumBadge: { backgroundColor: '#7c3aed', paddingHorizontal: 8, paddingVertical: 2, borderRadius: 8 },
+  premiumBadgeText: { color: '#fff', fontSize: 10, fontFamily: 'Nunito_700Bold' },
+  unlockBanner: { marginTop: 8, borderRadius: 16, overflow: 'hidden' as const },
+  unlockBannerGradient: { padding: 20, alignItems: 'center' as const },
+  unlockBannerTitle: { fontSize: 18, fontFamily: 'Nunito_800ExtraBold', color: '#fff', marginTop: 8, marginBottom: 4 },
+  unlockBannerDesc: { fontSize: 14, fontFamily: 'Nunito_400Regular', color: 'rgba(255,255,255,0.9)', textAlign: 'center' as const, marginBottom: 14 },
+  unlockBannerBtn: { backgroundColor: '#fff', paddingVertical: 10, paddingHorizontal: 24, borderRadius: 12 },
+  unlockBannerBtnText: { color: '#7c3aed', fontSize: 14, fontFamily: 'Nunito_700Bold' },
 });
