@@ -1,0 +1,31 @@
+Nombre
+Por último, indica si los nombres se utilizarán con fines de seguimiento.
+
+
+¿Utilizáis tú o tus colaboradores externos los nombres con fines de seguimiento?
+
+
+Sí, utilizamos los nombres con fines de seguimiento
+
+No, no utilizamos los nombres con fines de seguimiento
+
+Definiciones y ejemplos
+
+Seguimiento
+Seguimiento es vincular datos recopilados en tu app sobre un dispositivo o un usuario final determinado, como ID de usuario, ID del dispositivo o perfil, con datos de terceros, con fines de publicidad selectiva o para medir el efecto de la publicidad. También se refiere a compartir datos recopilados en tu app sobre un dispositivo o usuario final determinado con un broker de datos.
+
+No se habla de seguimiento en estos casos:
+
+Si los datos están vinculados exclusivamente con el dispositivo del usuario final y no se envían fuera del dispositivo de una forma que permita identificar el dispositivo o al usuario final
+Si el broker de datos utiliza los datos compartidos con él exclusivamente para la detección o prevención de fraude o fines de seguridad
+Si el broker de datos es una agencia de información sobre consumidores y los datos se comparten para (1) informar sobre la solvencia del consumidor o (2) para obtener información sobre la solvencia del consumidor a fin de determinar su capacidad crediticia
+Datos de terceros
+Son datos de terceros todos los datos sobre un dispositivo o usuario final determinados recopilados en las apps, propiedades offline o sitios web que no sean de tu propiedad, es decir, del desarrollador.
+
+Ejemplos
+Para poner el seguimiento en contexto, estos son algunos ejemplos:
+
+Mostrar publicidad selectiva en tu app a partir de los datos del usuario recopilados de apps y sitios web propiedad de otras empresas.
+Compartir datos de ubicación del dispositivo o listas de correos electrónicos con un broker de datos.
+Compartir una lista de correos electrónicos, ID de publicidad u otros identificadores con una red de publicidad de terceros que use esa información para dirigir publicidad a esos usuarios en apps de otros desarrolladores, o para buscar usuarios similares.
+Colocar un SDK de terceros en tu app que combine los datos del usuario obtenidos en tu app, con datos del usuario obtenidos en apps de otros desarrolladores, para dirigir la publicidad o medir su eficiencia, aunque tú no uses el SDK con estos fines. Por ejemplo, usar un SDK de inicio de sesión que reutiliza los datos que recopila en tu app para poder utilizar publicidad selectiva en apps de otros desarrolladores.
