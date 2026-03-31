@@ -106,6 +106,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
       plan: "premium_30",
     });
     console.log("Reviewer account created");
+
+    const reviewerUser = await storage.getUserByUsername("reviewer");
+    if (reviewerUser) {
+      const existingResults = await storage.getExamResults(reviewerUser.id);
+      if (existingResults.length === 0) {
+        const examData = [
+          { examMode: "daily", licenseType: "clase_b", score: 91, correctAnswers: 32, totalQuestions: 35, passed: true, timeSpent: 1845, categoryBreakdown: {"Ley de Tránsito":{correct:8,total:9},"Señalización":{correct:7,total:7},"Mecánica Básica":{correct:5,total:6},"Primeros Auxilios":{correct:4,total:4},"Conducción Segura":{correct:5,total:5},"Medio Ambiente":{correct:3,total:4}} },
+          { examMode: "basic", licenseType: "clase_b", score: 100, correctAnswers: 35, totalQuestions: 35, passed: true, timeSpent: 1200, categoryBreakdown: {"Ley de Tránsito":{correct:9,total:9},"Señalización":{correct:7,total:7},"Mecánica Básica":{correct:6,total:6},"Primeros Auxilios":{correct:4,total:4},"Conducción Segura":{correct:5,total:5},"Medio Ambiente":{correct:4,total:4}} },
+          { examMode: "advanced", licenseType: "clase_b", score: 86, correctAnswers: 30, totalQuestions: 35, passed: false, timeSpent: 2100, categoryBreakdown: {"Ley de Tránsito":{correct:7,total:9},"Señalización":{correct:6,total:7},"Mecánica Básica":{correct:5,total:6},"Primeros Auxilios":{correct:3,total:4},"Conducción Segura":{correct:5,total:5},"Medio Ambiente":{correct:4,total:4}} },
+          { examMode: "daily", licenseType: "clase_b", score: 94, correctAnswers: 33, totalQuestions: 35, passed: true, timeSpent: 1560, categoryBreakdown: {"Ley de Tránsito":{correct:9,total:9},"Señalización":{correct:6,total:7},"Mecánica Básica":{correct:6,total:6},"Primeros Auxilios":{correct:4,total:4},"Conducción Segura":{correct:5,total:5},"Medio Ambiente":{correct:3,total:4}} },
+          { examMode: "category", licenseType: "clase_b", score: 97, correctAnswers: 34, totalQuestions: 35, passed: true, timeSpent: 1300, categoryBreakdown: {"Ley de Tránsito":{correct:9,total:9},"Señalización":{correct:7,total:7},"Mecánica Básica":{correct:6,total:6},"Primeros Auxilios":{correct:4,total:4},"Conducción Segura":{correct:5,total:5},"Medio Ambiente":{correct:3,total:4}} },
+        ];
+        for (const exam of examData) {
+          await storage.createExamResult({ userId: reviewerUser.id, ...exam });
+        }
+
+        const favQuestionIds = [5, 12, 28, 45, 67, 89, 102, 150, 200, 15];
+        for (const qid of favQuestionIds) {
+          try { await storage.addFavorite(reviewerUser.id, qid, "clase_b"); } catch(e) {}
+        }
+        console.log("Reviewer data seeded (5 exams, 10 favorites)");
+      }
+    }
   } else if (reviewerAccount.plan !== "premium_30") {
     await storage.updateUser(reviewerAccount.id, { plan: "premium_30" });
   }
