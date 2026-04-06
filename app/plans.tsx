@@ -15,6 +15,7 @@ if (Platform.OS === 'ios') {
   } catch {}
 }
 
+const isIOS = Platform.OS === 'ios';
 const RC_IOS_API_KEY = process.env.EXPO_PUBLIC_RC_IOS_API_KEY || '';
 const RC_PRODUCT_IDS = {
   premium_10: 'premium_10_days',
@@ -29,7 +30,8 @@ export default function PlansScreen() {
   const [loading, setLoading] = useState<string | null>(null);
   const [restoring, setRestoring] = useState(false);
   const [rcPackages, setRcPackages] = useState<any[]>([]);
-  const useRevenueCat = Platform.OS === 'ios' && !!Purchases;
+  const useRevenueCat = isIOS && !!Purchases;
+  const [rcReady, setRcReady] = useState(false);
 
   useEffect(() => {
     if (useRevenueCat && RC_IOS_API_KEY && user) {
@@ -40,7 +42,10 @@ export default function PlansScreen() {
           if (offerings.current?.availablePackages) {
             setRcPackages(offerings.current.availablePackages);
           }
-        } catch {}
+          setRcReady(true);
+        } catch {
+          setRcReady(false);
+        }
       };
       initRC();
     }
@@ -66,8 +71,12 @@ export default function PlansScreen() {
       return;
     }
 
-    if (!RC_IOS_API_KEY) {
-      Alert.alert('Error', 'El sistema de pagos no está configurado. Contacta soporte.');
+    if (!RC_IOS_API_KEY || !Purchases) {
+      Alert.alert(
+        'Compras no disponibles',
+        'Las compras dentro de la app no están disponibles en este momento. Por favor, intenta nuevamente más tarde o contacta soporte.',
+        [{ text: 'OK' }]
+      );
       return;
     }
 
@@ -175,7 +184,7 @@ export default function PlansScreen() {
   };
 
   const handlePurchase = (plan: string) => {
-    if (useRevenueCat) {
+    if (isIOS) {
       handleiOSPurchase(plan);
     } else {
       handleMercadoPagoPurchase(plan);
@@ -227,7 +236,7 @@ export default function PlansScreen() {
               <Text style={styles.planBtnText}>Obtener Premium</Text>
             )}
           </Pressable>
-          {!useRevenueCat && (
+          {!isIOS && (
             <View style={styles.mpBadge}>
               <Ionicons name="shield-checkmark" size={14} color="#009ee3" />
               <Text style={styles.mpBadgeText}>Pago seguro con Mercado Pago</Text>
@@ -250,7 +259,7 @@ export default function PlansScreen() {
               <Text style={styles.planBtnAltText}>Obtener Premium</Text>
             )}
           </Pressable>
-          {!useRevenueCat && (
+          {!isIOS && (
             <View style={styles.mpBadge}>
               <Ionicons name="shield-checkmark" size={14} color="#009ee3" />
               <Text style={styles.mpBadgeText}>Pago seguro con Mercado Pago</Text>
@@ -286,11 +295,11 @@ export default function PlansScreen() {
           </View>
         </View>
 
-        {useRevenueCat && (
+        {isIOS && (
           <View style={styles.iosSection}>
             <Pressable
               onPress={handleRestorePurchases}
-              disabled={restoring}
+              disabled={restoring || !Purchases}
               style={({ pressed }) => [styles.restoreBtn, (pressed || restoring) && { opacity: 0.6 }]}
             >
               {restoring ? (
