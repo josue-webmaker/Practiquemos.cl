@@ -1,5 +1,10 @@
 uploads = []
-generated = []
+
+[[generated]]
+id = "csUkT09p0P-bPSC1aVS2o"
+uri = "file://attached_assets/portada_practiquemos.png"
+type = "image"
+title = "Practiquemos app presentation cover"
 
 [[outputs]]
 id = "xZoQU44JL52MMdBYjH-Y9"
@@ -246,3 +251,9 @@ id = "xc7mUgFPyXDGt5-7L_6HD"
 uri = "file://practiquemos_screenshots_appstore.zip"
 type = "unspecified"
 title = "Screenshots App Store - Practiquemos.cl (10 capturas 1284x2778px)"
+
+[[outputs]]
+id = "-jfAz2T1EGQL4mhHfhoqj"
+uri = "file://attached_assets/portada_practiquemos.png"
+type = "image"
+title = "Portada Practiquemos.cl - Presentación 1920x1080"
