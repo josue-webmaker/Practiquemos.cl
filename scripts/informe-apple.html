@@ -2,155 +2,138 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  @page { size: A4; margin: 0; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; font-size: 14px; color: #1e293b; background: #fff; }
+  body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; color: #1e293b; background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 
   /* PORTADA */
   .cover {
     background: linear-gradient(145deg, #0f172a 0%, #1d4ed8 45%, #7c3aed 100%);
     color: white;
-    padding: 80px 70px 70px;
-    min-height: 320px;
+    padding: 60px 60px 50px;
+    page-break-after: always;
+    min-height: 1050px;
     position: relative;
     overflow: hidden;
   }
-  .cover::before {
-    content: '';
-    position: absolute;
-    top: -60px; right: -60px;
-    width: 300px; height: 300px;
-    background: rgba(255,255,255,0.04);
-    border-radius: 50%;
-  }
-  .cover::after {
-    content: '';
-    position: absolute;
-    bottom: -80px; left: 40%;
-    width: 400px; height: 400px;
-    background: rgba(255,255,255,0.03);
-    border-radius: 50%;
-  }
-  .cover-logo { font-size: 13px; font-weight: 600; opacity: 0.6; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 40px; }
-  .cover h1 { font-size: 42px; font-weight: 900; line-height: 1.1; margin-bottom: 16px; letter-spacing: -1px; }
+  .cover::before { content: ''; position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; background: rgba(255,255,255,0.04); border-radius: 50%; }
+  .cover::after { content: ''; position: absolute; bottom: -150px; left: 30%; width: 500px; height: 500px; background: rgba(255,255,255,0.03); border-radius: 50%; }
+  .cover-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 60px; position: relative; z-index: 2; }
+  .cover-logo-wrap { display: flex; align-items: center; gap: 14px; }
+  .cover-logo-wrap img { height: 56px; width: auto; filter: brightness(0) invert(1); }
+  .cover-brand { font-size: 11px; opacity: 0.6; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+  .cover-document-label { font-size: 11px; opacity: 0.6; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+  .cover-title-block { margin-top: 80px; position: relative; z-index: 2; }
+  .cover h1 { font-size: 46px; font-weight: 900; line-height: 1.05; margin-bottom: 16px; letter-spacing: -1.5px; }
   .cover h1 span { color: #93c5fd; }
-  .cover .tagline { font-size: 18px; font-weight: 400; opacity: 0.8; margin-bottom: 40px; line-height: 1.5; max-width: 600px; }
-  .cover-meta { display: flex; gap: 40px; }
-  .cover-meta-item { }
-  .cover-meta-item .label { font-size: 11px; opacity: 0.5; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-  .cover-meta-item .value { font-size: 14px; font-weight: 600; }
-  .cover-stats { display: flex; gap: 0; margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 30px; }
-  .cover-stat { flex: 1; padding-right: 30px; border-right: 1px solid rgba(255,255,255,0.1); margin-right: 30px; }
-  .cover-stat:last-child { border: none; margin: 0; }
-  .cover-stat .num { font-size: 36px; font-weight: 900; color: #93c5fd; }
-  .cover-stat .desc { font-size: 12px; opacity: 0.7; margin-top: 4px; line-height: 1.4; }
+  .cover .tagline { font-size: 17px; font-weight: 400; opacity: 0.85; margin-bottom: 50px; line-height: 1.6; max-width: 580px; }
+  .cover-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 40px; margin-bottom: 50px; position: relative; z-index: 2; }
+  .cover-meta-item .label { font-size: 10px; opacity: 0.5; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 5px; }
+  .cover-meta-item .value { font-size: 15px; font-weight: 600; }
+  .cover-stats { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 0; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.15); position: relative; z-index: 2; }
+  .cover-stat { padding: 0 16px; border-right: 1px solid rgba(255,255,255,0.1); }
+  .cover-stat:first-child { padding-left: 0; }
+  .cover-stat:last-child { border: none; padding-right: 0; }
+  .cover-stat .num { font-size: 32px; font-weight: 900; color: #93c5fd; line-height: 1; }
+  .cover-stat .desc { font-size: 11px; opacity: 0.7; margin-top: 6px; line-height: 1.4; }
 
-  /* CONTENIDO */
-  .page { padding: 60px 70px; }
-  .page-break { page-break-before: always; padding-top: 60px; }
+  /* PÁGINAS */
+  .page { padding: 50px 60px; page-break-after: always; }
+  .page:last-of-type { page-break-after: avoid; }
+
+  /* CABECERA DE PÁGINA */
+  .page-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; border-bottom: 1px solid #f1f5f9; margin-bottom: 36px; }
+  .page-header-brand { display: flex; align-items: center; gap: 10px; }
+  .page-header-brand img { height: 26px; }
+  .page-header-brand-text { font-size: 10px; color: #94a3b8; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; }
+  .page-header-section { font-size: 10px; color: #94a3b8; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; }
 
   /* SECCIONES */
   .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #1d4ed8; margin-bottom: 10px; }
-  h2 { font-size: 28px; font-weight: 800; color: #0f172a; margin-bottom: 8px; letter-spacing: -0.5px; }
-  h2.with-line { padding-bottom: 16px; border-bottom: 2px solid #e2e8f0; margin-bottom: 24px; }
-  .section-intro { font-size: 15px; line-height: 1.8; color: #475569; margin-bottom: 30px; max-width: 700px; }
-  h3 { font-size: 17px; font-weight: 700; color: #1e293b; margin: 28px 0 10px; }
-  p { line-height: 1.8; color: #475569; margin-bottom: 12px; font-size: 14px; }
+  h2 { font-size: 26px; font-weight: 800; color: #0f172a; margin-bottom: 8px; letter-spacing: -0.5px; }
+  h2.with-line { padding-bottom: 14px; border-bottom: 2px solid #e2e8f0; margin-bottom: 22px; }
+  .section-intro { font-size: 14px; line-height: 1.75; color: #475569; margin-bottom: 24px; max-width: 720px; }
+  h3 { font-size: 16px; font-weight: 700; color: #1e293b; margin: 24px 0 10px; }
+  p { line-height: 1.75; color: #475569; margin-bottom: 10px; font-size: 13px; }
+
+  /* CAJA NO ROMPIBLE */
+  .nobreak { page-break-inside: avoid; break-inside: avoid; }
 
   /* STATUS GRID */
-  .status-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 24px 0; }
-  .status-card { border-radius: 14px; padding: 20px; border: 1px solid; }
+  .status-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 18px 0; }
+  .status-card { border-radius: 12px; padding: 16px; border: 1px solid; page-break-inside: avoid; }
   .status-card.green { background: #f0fdf4; border-color: #86efac; }
   .status-card.yellow { background: #fefce8; border-color: #fde047; }
   .status-card.blue { background: #eff6ff; border-color: #93c5fd; }
   .status-card.purple { background: #faf5ff; border-color: #c4b5fd; }
-  .status-card.red { background: #fff1f2; border-color: #fda4af; }
-  .status-card.slate { background: #f8fafc; border-color: #cbd5e1; }
-  .status-card .icon { font-size: 24px; margin-bottom: 10px; }
-  .status-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 6px; color: #1e293b; }
-  .status-card p { font-size: 13px; margin: 0; line-height: 1.6; color: #475569; }
+  .status-card .icon { font-size: 22px; margin-bottom: 8px; }
+  .status-card h4 { font-size: 12.5px; font-weight: 700; margin-bottom: 5px; color: #1e293b; }
+  .status-card p { font-size: 12px; margin: 0; line-height: 1.55; color: #475569; }
 
   /* RECHAZO / SOLUCIÓN */
-  .rejection-block { margin: 24px 0; }
-  .rejection-header { display: flex; align-items: center; gap: 14px; margin-bottom: 0; }
-  .rejection-num { width: 36px; height: 36px; background: #dc2626; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; flex-shrink: 0; }
-  .rejection-title { font-size: 17px; font-weight: 700; color: #991b1b; }
-  .rejection-sub { font-size: 12px; color: #b91c1c; font-weight: 500; margin-top: 2px; }
-  .rejection-body { background: #fff1f2; border: 1px solid #fecdd3; border-radius: 12px; padding: 20px 20px 20px 66px; margin-top: 12px; }
-  .rejection-body p { font-size: 13.5px; color: #7f1d1d; margin: 0; line-height: 1.8; }
-  .solution-header { display: flex; align-items: center; gap: 14px; margin: 14px 0 0; }
-  .solution-icon { width: 36px; height: 36px; background: #16a34a; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-  .solution-title { font-size: 14px; font-weight: 700; color: #15803d; }
-  .solution-body { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 20px 20px 20px 66px; margin-top: 12px; }
-  .solution-body p { font-size: 13.5px; color: #14532d; margin: 0; line-height: 1.8; }
-  .solution-body ul { margin: 8px 0 0 18px; }
-  .solution-body ul li { font-size: 13.5px; color: #14532d; line-height: 1.8; }
+  .rejection-block { margin: 22px 0; page-break-inside: avoid; break-inside: avoid; }
+  .rejection-header { display: flex; align-items: center; gap: 12px; margin-bottom: 0; }
+  .rejection-num { width: 34px; height: 34px; background: #dc2626; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px; flex-shrink: 0; }
+  .rejection-title { font-size: 15px; font-weight: 700; color: #991b1b; line-height: 1.3; }
+  .rejection-sub { font-size: 11px; color: #b91c1c; font-weight: 500; margin-top: 2px; }
+  .rejection-body { background: #fff1f2; border: 1px solid #fecdd3; border-radius: 10px; padding: 16px 18px 16px 60px; margin-top: 10px; }
+  .rejection-body p { font-size: 12.5px; color: #7f1d1d; margin: 0 0 8px 0; line-height: 1.7; }
+  .rejection-body p:last-child { margin-bottom: 0; }
+  .solution-header { display: flex; align-items: center; gap: 12px; margin: 12px 0 0; }
+  .solution-icon { width: 34px; height: 34px; background: #16a34a; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; font-weight: 700; }
+  .solution-title { font-size: 13px; font-weight: 700; color: #15803d; line-height: 1.3; }
+  .solution-body { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 16px 18px 16px 60px; margin-top: 10px; }
+  .solution-body p { font-size: 12.5px; color: #14532d; margin: 0 0 8px 0; line-height: 1.7; }
+  .solution-body p:last-child { margin-bottom: 0; }
+  .solution-body ul { margin: 6px 0 0 16px; }
+  .solution-body ul li { font-size: 12.5px; color: #14532d; line-height: 1.7; margin-bottom: 4px; }
 
   /* TECH GRID */
-  .tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
-  .tech-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 22px; }
-  .tech-card .tech-icon { font-size: 28px; margin-bottom: 12px; }
-  .tech-card h4 { font-size: 15px; font-weight: 700; color: #1e293b; margin-bottom: 8px; }
-  .tech-card p { font-size: 13px; color: #64748b; margin: 0; line-height: 1.7; }
+  .tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 20px 0; }
+  .tech-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px; page-break-inside: avoid; }
+  .tech-card .tech-icon { font-size: 26px; margin-bottom: 10px; }
+  .tech-card h4 { font-size: 14px; font-weight: 700; color: #1e293b; margin-bottom: 6px; }
+  .tech-card p { font-size: 12px; color: #64748b; margin: 0; line-height: 1.65; }
 
   /* TABLE */
-  table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 13.5px; }
-  thead th { background: #1d4ed8; color: white; font-weight: 700; padding: 14px 16px; text-align: left; font-size: 12px; letter-spacing: 0.5px; }
-  tbody td { padding: 13px 16px; border-bottom: 1px solid #f1f5f9; color: #374151; vertical-align: middle; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 12.5px; page-break-inside: avoid; }
+  thead th { background: #1d4ed8; color: white; font-weight: 700; padding: 11px 14px; text-align: left; font-size: 11px; letter-spacing: 0.5px; text-transform: uppercase; }
+  tbody td { padding: 10px 14px; border-bottom: 1px solid #f1f5f9; color: #374151; vertical-align: middle; }
   tbody tr:nth-child(even) td { background: #f8fafc; }
-  .badge { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; border-radius: 20px; padding: 3px 10px; }
+  .badge { display: inline-block; font-size: 10px; font-weight: 700; border-radius: 20px; padding: 3px 9px; }
   .badge.green { background: #dcfce7; color: #15803d; }
   .badge.yellow { background: #fef9c3; color: #854d0e; }
-  .badge.red { background: #fee2e2; color: #b91c1c; }
-  .badge.blue { background: #dbeafe; color: #1d4ed8; }
 
-  /* TIMELINE */
-  .timeline { margin: 24px 0; }
-  .tl-item { display: flex; gap: 20px; margin-bottom: 28px; position: relative; }
-  .tl-left { display: flex; flex-direction: column; align-items: center; }
-  .tl-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
-  .tl-dot.done { background: #16a34a; }
-  .tl-dot.issue { background: #dc2626; }
-  .tl-dot.pending { background: #f59e0b; }
-  .tl-line { width: 2px; background: #e2e8f0; flex: 1; min-height: 20px; margin-top: 4px; }
-  .tl-content { flex: 1; padding-bottom: 8px; }
-  .tl-content strong { display: block; font-size: 15px; font-weight: 700; color: #1e293b; margin-bottom: 4px; }
-  .tl-content p { font-size: 13px; color: #64748b; margin: 0; line-height: 1.7; }
-
-  /* NEXT STEPS */
-  .steps-container { margin: 24px 0; }
-  .step-item { display: flex; gap: 20px; margin-bottom: 20px; align-items: flex-start; }
-  .step-num { width: 40px; height: 40px; background: linear-gradient(135deg, #1d4ed8, #7c3aed); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; flex-shrink: 0; }
-  .step-content h4 { font-size: 15px; font-weight: 700; color: #1e293b; margin-bottom: 5px; }
-  .step-content p { font-size: 13.5px; color: #475569; margin: 0; line-height: 1.7; }
+  /* STEPS */
+  .step-item { display: flex; gap: 18px; margin-bottom: 18px; align-items: flex-start; page-break-inside: avoid; }
+  .step-num { width: 38px; height: 38px; background: linear-gradient(135deg, #1d4ed8, #7c3aed); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px; flex-shrink: 0; }
+  .step-content h4 { font-size: 14px; font-weight: 700; color: #1e293b; margin-bottom: 4px; }
+  .step-content p { font-size: 12.5px; color: #475569; margin: 0; line-height: 1.65; }
 
   /* ALERT */
-  .alert { border-radius: 14px; padding: 22px; margin: 20px 0; }
+  .alert { border-radius: 12px; padding: 18px; margin: 18px 0; page-break-inside: avoid; }
   .alert.orange { background: #fff7ed; border: 1px solid #fed7aa; }
-  .alert.orange h4 { color: #c2410c; font-size: 15px; font-weight: 700; margin-bottom: 8px; }
-  .alert.orange p { color: #9a3412; font-size: 13.5px; margin: 0; line-height: 1.7; }
-  .alert.blue { background: #eff6ff; border: 1px solid #bfdbfe; }
-  .alert.blue h4 { color: #1d4ed8; font-size: 15px; font-weight: 700; margin-bottom: 8px; }
-  .alert.blue p { color: #1e40af; font-size: 13.5px; margin: 0; line-height: 1.7; }
+  .alert.orange h4 { color: #c2410c; font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .alert.orange p { color: #9a3412; font-size: 12.5px; margin: 0; line-height: 1.65; }
 
   /* HIGHLIGHT BOX */
-  .highlight-box { background: linear-gradient(135deg, #0f172a, #1d4ed8); color: white; border-radius: 16px; padding: 30px; margin: 24px 0; }
-  .highlight-box h3 { color: #93c5fd; font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; }
-  .highlight-box p { color: rgba(255,255,255,0.85); font-size: 15px; line-height: 1.8; margin: 0; }
+  .highlight-box { background: linear-gradient(135deg, #0f172a, #1d4ed8); color: white; border-radius: 14px; padding: 26px; margin: 20px 0; page-break-inside: avoid; }
+  .highlight-box h3 { color: #93c5fd; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin: 0 0 10px 0; }
+  .highlight-box p { color: rgba(255,255,255,0.88); font-size: 14px; line-height: 1.75; margin: 0; }
 
   /* FOOTER */
-  .doc-footer { background: #0f172a; color: rgba(255,255,255,0.6); padding: 30px 70px; margin-top: 40px; }
-  .footer-inner { display: flex; justify-content: space-between; align-items: center; }
-  .footer-inner .left { font-size: 13px; }
-  .footer-inner .left strong { color: white; display: block; font-size: 15px; margin-bottom: 4px; }
-  .footer-inner .right { text-align: right; font-size: 12px; }
+  .doc-footer { background: #0f172a; color: rgba(255,255,255,0.7); padding: 36px 60px; }
+  .footer-inner { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; }
+  .footer-left { display: flex; align-items: center; gap: 16px; flex: 1; }
+  .footer-left img { height: 50px; filter: brightness(0) invert(1); }
+  .footer-left-text strong { color: white; display: block; font-size: 14px; margin-bottom: 4px; font-weight: 700; }
+  .footer-left-text span { font-size: 12px; opacity: 0.7; line-height: 1.6; }
+  .footer-right { text-align: right; font-size: 11.5px; line-height: 1.7; opacity: 0.7; }
 
-  .divider { height: 1px; background: #e2e8f0; margin: 40px 0; }
-
-  ul.styled { margin: 12px 0 16px 20px; }
-  ul.styled li { font-size: 14px; color: #475569; line-height: 1.9; }
+  .divider { height: 1px; background: #e2e8f0; margin: 28px 0; }
+  ul.styled { margin: 10px 0 14px 18px; }
+  ul.styled li { font-size: 13px; color: #475569; line-height: 1.8; }
   ul.styled li strong { color: #1e293b; }
 </style>
 </head>
@@ -158,59 +141,81 @@
 
 <!-- ===== PORTADA ===== -->
 <div class="cover">
-  <div class="cover-logo">Diseño Web OlivaresArancibia Limitada</div>
-  <h1>Practiquemos<span>.cl</span><br>Informe de Avance</h1>
-  <div class="tagline">Proceso completo de desarrollo, publicación en App Store de Apple y estado actual del proyecto al día de hoy.</div>
-  <div class="cover-meta">
+  <div class="cover-header">
+    <div class="cover-logo-wrap">
+      <img src="assets/webmaker-fox.png" alt="WebMaker">
+      <div class="cover-brand">WebMaker<br>Diseño Web OlivaresArancibia</div>
+    </div>
+    <div class="cover-document-label">Informe Confidencial</div>
+  </div>
+
+  <div class="cover-title-block">
+    <h1>Practiquemos<span>.cl</span><br>Informe de Avance</h1>
+    <div class="tagline">Estado del proyecto, características desarrolladas, ajustes para publicación en Apple App Store y próximos pasos.</div>
+  </div>
+
+  <div class="cover-meta-grid">
     <div class="cover-meta-item">
       <div class="label">Preparado por</div>
       <div class="value">Lucas Olivares Ramírez</div>
     </div>
     <div class="cover-meta-item">
       <div class="label">Presentado a</div>
-      <div class="value">Marines — Reunión de seguimiento</div>
+      <div class="value">Marines</div>
     </div>
     <div class="cover-meta-item">
-      <div class="label">Empresa</div>
+      <div class="label">Empresa desarrolladora</div>
       <div class="value">Diseño Web OlivaresArancibia Ltda.</div>
     </div>
+    <div class="cover-meta-item">
+      <div class="label">Marca comercial</div>
+      <div class="value">WebMaker</div>
+    </div>
   </div>
+
   <div class="cover-stats">
     <div class="cover-stat">
       <div class="num">1.591</div>
-      <div class="desc">Preguntas en base de datos con cobertura completa</div>
+      <div class="desc">Preguntas en base de datos</div>
     </div>
     <div class="cover-stat">
       <div class="num">6</div>
-      <div class="desc">Tipos de licencia soportados (B, A2, A4, C, D, E)</div>
+      <div class="desc">Tipos de licencia soportados</div>
     </div>
     <div class="cover-stat">
       <div class="num">3</div>
-      <div class="desc">Rondas de revisión con Apple con correcciones aplicadas</div>
+      <div class="desc">Plataformas: iOS, Android y Web</div>
     </div>
     <div class="cover-stat">
-      <div class="num">Meses</div>
-      <div class="desc">De trabajo continuo para cumplir los estándares de Apple</div>
+      <div class="num">100%</div>
+      <div class="desc">Producto terminado y funcional</div>
     </div>
   </div>
 </div>
 
 <!-- ===== SECCIÓN 1: SOBRE EL PROYECTO ===== -->
 <div class="page">
-  <div class="section-label">Sección 1</div>
+  <div class="page-header">
+    <div class="page-header-brand">
+      <img src="assets/webmaker-logo.png" alt="WebMaker">
+    </div>
+    <div class="page-header-section">Sección 1 · Sobre el Proyecto</div>
+  </div>
+
+  <div class="section-label">El producto</div>
   <h2 class="with-line">¿Qué es Practiquemos.cl?</h2>
-  <p class="section-intro">Practiquemos.cl es una aplicación móvil completa para preparar el examen teórico de licencia de conducir en Chile. Fue diseñada y desarrollada desde cero como un producto profesional de nivel comercial.</p>
+  <p class="section-intro">Practiquemos.cl es una aplicación móvil completa para preparar el examen teórico de licencia de conducir en Chile. Fue diseñada y desarrollada desde cero como un producto profesional de nivel comercial, con funcionalidades pensadas para competir con las mejores apps del rubro a nivel internacional.</p>
 
   <div class="tech-grid">
     <div class="tech-card">
       <div class="tech-icon">📱</div>
       <h4>App Multiplataforma</h4>
-      <p>Funciona en iOS, Android y Web desde una sola base de código. El usuario la descarga en su teléfono o la usa desde el navegador sin diferencias.</p>
+      <p>Funciona en iOS, Android y Web desde una sola base de código. El usuario la descarga en su teléfono o la usa desde el navegador sin diferencias de experiencia.</p>
     </div>
     <div class="tech-card">
       <div class="tech-icon">🧠</div>
       <h4>1.591 Preguntas Reales</h4>
-      <p>Base de datos con más de 1.591 preguntas distribuidas en 10 categorías. Incluye 306 preguntas oficiales del CONASET (organismo vial del gobierno de Chile).</p>
+      <p>Base de datos con más de 1.591 preguntas distribuidas en 10 categorías temáticas. Incluye 306 preguntas oficiales del CONASET (organismo vial del gobierno de Chile).</p>
     </div>
     <div class="tech-card">
       <div class="tech-icon">🏎️</div>
@@ -236,177 +241,73 @@
 
   <div class="highlight-box">
     <h3>Por qué este proyecto es complejo</h3>
-    <p>A diferencia de una app simple, Practiquemos.cl tiene tres capas de complejidad: (1) el desarrollo técnico de la app en sí — motor de exámenes, voz IA, animaciones, múltiples tipos de licencia; (2) la infraestructura de servidor con base de datos PostgreSQL, API REST, sistema de usuarios y pagos; y (3) el proceso de certificación de Apple, que exige cumplir estándares muy específicos antes de permitir la publicación.</p>
+    <p>A diferencia de una app simple, Practiquemos.cl tiene tres capas de complejidad técnica: (1) el desarrollo de la app en sí — motor de exámenes, voz IA, animaciones, sistemas para múltiples tipos de licencia; (2) la infraestructura completa de servidor con base de datos PostgreSQL, API REST, sistema de usuarios, autenticación y pagos; y (3) el proceso de certificación de Apple, que exige cumplir estándares muy específicos antes de permitir la publicación en la App Store.</p>
   </div>
 </div>
 
-<!-- ===== SECCIÓN 2: TODO LO QUE APPLE HA PEDIDO ===== -->
-<div class="page page-break">
-  <div class="section-label">Sección 2</div>
-  <h2 class="with-line">El Proceso con Apple — Todo lo que ha pedido y cómo respondimos</h2>
-  <p class="section-intro">Apple aplica un proceso de revisión manual muy riguroso antes de permitir que cualquier app aparezca en la App Store. En el caso de Practiquemos.cl, el proceso ha tenido tres rondas de rechazo, cada una con requerimientos específicos. A continuación se detalla cada una:</p>
-
-  <!-- RECHAZO 1 -->
-  <div class="rejection-block">
-    <div class="rejection-header">
-      <div class="rejection-num">1</div>
-      <div>
-        <div class="rejection-title">Primer Rechazo — Sistema de pagos no funcionaba en iOS</div>
-        <div class="rejection-sub">Guideline 2.1(b) — Performance: App Completeness</div>
-      </div>
+<!-- ===== SECCIÓN 2: CARACTERÍSTICAS DESARROLLADAS ===== -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-brand">
+      <img src="assets/webmaker-logo.png" alt="WebMaker">
     </div>
-    <div class="rejection-body">
-      <p>Apple probó la compra del plan Premium en un iPhone y obtuvo un error al presionar el botón "Obtener Premium". La app intentaba procesar el pago a través de Mercado Pago (que solo funciona en Chile para web/Android), lo cual es una violación a las reglas de Apple: cualquier pago en iOS debe pasar obligatoriamente por el sistema de Apple (App Store In-App Purchase).</p>
-    </div>
-    <div class="solution-header">
-      <div class="solution-icon">✓</div>
-      <div class="solution-title">Solución aplicada: Separación completa de sistemas de pago por plataforma</div>
-    </div>
-    <div class="solution-body">
-      <p>Se reescribió toda la arquitectura de pagos de la aplicación:</p>
-      <ul>
-        <li><strong>iOS:</strong> Se integró RevenueCat, el sistema oficial de gestión de compras dentro de la app compatible con Apple. Conectado directamente con los productos del App Store.</li>
-        <li><strong>Android y Web:</strong> Se mantuvo Mercado Pago Checkout Pro para los planes $2.990 CLP (10 días) y $4.990 CLP (30 días).</li>
-        <li>El código detecta automáticamente la plataforma y nunca muestra Mercado Pago en iOS ni vice versa.</li>
-        <li>Se agregó el botón obligatorio "Restaurar Compras" para iOS, que permite a usuarios que reinstalan la app recuperar su plan sin pagar de nuevo (esto es un requisito de Apple).</li>
-      </ul>
-    </div>
+    <div class="page-header-section">Sección 2 · Características Desarrolladas</div>
   </div>
 
-  <div class="divider"></div>
-
-  <!-- RECHAZO 2 -->
-  <div class="rejection-block">
-    <div class="rejection-header">
-      <div class="rejection-num">2</div>
-      <div>
-        <div class="rejection-title">Segundo Rechazo — Productos de compra no enviados a revisión</div>
-        <div class="rejection-sub">Guideline 2.1(b) — In-App Purchases not submitted for review</div>
-      </div>
-    </div>
-    <div class="rejection-body">
-      <p>Apple notificó que, aunque los productos de compra existían en App Store Connect (habían sido creados), no habían sido formalmente vinculados a la versión de la app y enviados a revisión. Apple necesita revisar y aprobar los productos de compra junto con el binario de la app, no por separado.</p>
-    </div>
-    <div class="solution-header">
-      <div class="solution-icon">✓</div>
-      <div class="solution-title">Solución aplicada: Vinculación de productos + nueva compilación</div>
-    </div>
-    <div class="solution-body">
-      <ul>
-        <li>Se accedió a App Store Connect y se vincularon ambos productos ("Premium 10 Días" ID: premium_10_days y "Premium 30 Días" ID: premium_30_days) directamente a la versión 1.0 de la app, en la sección "Compras dentro de la app y suscripciones".</li>
-        <li>Se subió una nueva compilación (Build 2) generada desde el sistema Replit.</li>
-        <li>Se seleccionó la compilación más reciente para asegurar que se revisara el código más actualizado.</li>
-        <li>Se verificó que cada producto tenía captura de pantalla de revisión, descripción y precio correctamente configurados.</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<!-- ===== RECHAZO 3 ===== -->
-<div class="page page-break">
-  <div class="rejection-block">
-    <div class="rejection-header">
-      <div class="rejection-num">3</div>
-      <div>
-        <div class="rejection-title">Tercer Rechazo — Error al comprar en ambiente de pruebas + contrato sin aceptar</div>
-        <div class="rejection-sub">Guideline 2.1(b) — In-App Purchase products exhibited bugs + Paid Apps Agreement pending</div>
-      </div>
-    </div>
-    <div class="rejection-body">
-      <p>Apple probó la compra en ambiente sandbox (pruebas) usando un iPhone 17 Pro Max con iOS 26 y obtuvo un error al presionar el botón de "Premium 10 Días". El revisor indicó dos problemas distintos:</p>
-      <p><strong>Problema A — Técnico:</strong> La app mostraba un mensaje de error al intentar iniciar la compra. El código usaba un método de RevenueCat que ya no existe en la versión actual del SDK (versión 9 de react-native-purchases).</p>
-      <p><strong>Problema B — Administrativo:</strong> El titular de la cuenta de desarrollador debe aceptar el "Paid Apps Agreement" (Contrato de Apps de Pago) y completar los formularios fiscales obligatorios del IRS de Estados Unidos, incluyendo el tratado tributario Chile-EE.UU. Sin este paso, Apple no puede procesar ningún pago y las compras sandbox fallan.</p>
-    </div>
-    <div class="solution-header">
-      <div class="solution-icon">✓</div>
-      <div class="solution-title">Solución A — Corrección técnica del código de compra (RevenueCat v9)</div>
-    </div>
-    <div class="solution-body">
-      <p>Se identificó que el código usaba el método obsoleto <strong>purchaseProduct(id)</strong> que ya no acepta un simple identificador de texto en la versión 9 de RevenueCat. Se reemplazó por la secuencia correcta:</p>
-      <ul>
-        <li>Primero se obtiene el producto con <strong>getProducts([id])</strong></li>
-        <li>Luego se inicia la compra con <strong>purchaseStoreProduct(product)</strong></li>
-        <li>Se mejoró el manejo de errores para distinguir entre cancelación del usuario y errores reales</li>
-      </ul>
-    </div>
-    <div class="solution-header">
-      <div class="solution-icon">✓</div>
-      <div class="solution-title">Solución B — Formularios fiscales y contrato completados</div>
-    </div>
-    <div class="solution-body">
-      <p>Se completaron todos los documentos legales y fiscales requeridos por Apple para poder recibir pagos:</p>
-      <ul>
-        <li><strong>U.S. Certificate of Foreign Status of Beneficial Owner</strong> — Declara que Diseño Web OlivaresArancibia Limitada es una empresa chilena sin presencia en EE.UU.</li>
-        <li><strong>U.S. Substitute Form W-8BEN-E</strong> — Formulario fiscal que aplica el tratado tributario entre Chile y Estados Unidos, indicando el RUT de la empresa (78.042.968-2) y el tipo de entidad (Corporation).</li>
-        <li><strong>Paid Apps Agreement</strong> — Contrato de distribución de apps de pago aceptado. Cubre todos los países y regiones donde estará disponible la app.</li>
-        <li>Ambos formularios quedaron con estado <strong>"Activo"</strong> en App Store Connect el mismo día de la reunión.</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="alert orange" style="margin-top: 30px;">
-    <h4>⚠️ Pendiente para esta reunión: Cuenta Bancaria</h4>
-    <p>El Paid Apps Agreement muestra estado "Información del usuario pendiente" porque falta agregar la cuenta bancaria donde Apple depositará los ingresos por ventas. Esto se hace en <strong>App Store Connect → Negocio → Cuentas bancarias → Añadir cuenta bancaria</strong>. Se recomienda completarlo hoy en la reunión presencial con Marines para que la app pueda recibir pagos desde el primer día de aprobación.</p>
-  </div>
-</div>
-
-<!-- ===== SECCIÓN 3: CAMBIOS TÉCNICOS ===== -->
-<div class="page page-break">
-  <div class="section-label">Sección 3</div>
-  <h2 class="with-line">Cambios Técnicos Realizados Durante el Proceso</h2>
-  <p class="section-intro">Más allá de las correcciones exigidas por Apple, durante los meses de trabajo se incorporaron mejoras sustanciales al producto que aumentan su valor y funcionalidad:</p>
+  <div class="section-label">Funcionalidades del producto</div>
+  <h2 class="with-line">Todo lo que la app incluye</h2>
+  <p class="section-intro">Estas son las funcionalidades técnicas y de producto que forman parte de Practiquemos.cl. Cada una representa horas de diseño, desarrollo y pruebas:</p>
 
   <div class="tech-grid">
     <div class="tech-card">
       <div class="tech-icon">🔐</div>
       <h4>Arquitectura de Pagos Dual</h4>
-      <p>Sistema de detección automática de plataforma. iOS usa exclusivamente RevenueCat + App Store. Android y Web usan Mercado Pago. El código decide automáticamente cuál usar según el dispositivo del usuario. Ningún sistema interfiere con el otro.</p>
+      <p>Sistema de detección automática de plataforma. iOS usa RevenueCat + App Store. Android y Web usan Mercado Pago. El código decide automáticamente cuál usar según el dispositivo del usuario.</p>
     </div>
     <div class="tech-card">
       <div class="tech-icon">🗄️</div>
       <h4>Base de Datos Profesional</h4>
-      <p>PostgreSQL con Drizzle ORM. Tablas: usuarios, resultados de exámenes, favoritos, progreso por categoría y preguntas. Las preguntas se sirven en tiempo real desde la base de datos. El administrador puede agregar, editar o desactivar preguntas y los usuarios las ven en 5 segundos.</p>
+      <p>PostgreSQL con Drizzle ORM. Tablas para usuarios, resultados de exámenes, favoritos, progreso por categoría y preguntas. Las preguntas se sirven en tiempo real con caché de 5 segundos.</p>
     </div>
     <div class="tech-card">
       <div class="tech-icon">🖼️</div>
       <h4>Sistema de Imágenes Inteligente</h4>
-      <p>68 imágenes ilustradas para preguntas con contenido visual (señales, maniobras, situaciones viales). Un sistema de palabras clave detecta automáticamente qué imagen corresponde a cada pregunta. Cobertura del 100% de las preguntas relevantes.</p>
+      <p>68 imágenes ilustradas para preguntas con contenido visual (señales, maniobras, situaciones viales). Un sistema de palabras clave detecta automáticamente qué imagen corresponde a cada pregunta.</p>
     </div>
     <div class="tech-card">
       <div class="tech-icon">🎵</div>
       <h4>Efectos de Sonido</h4>
-      <p>Sonidos de correcto e incorrecto en cada respuesta. 3 variaciones distintas para cada tipo, seleccionadas aleatoriamente. Evita la monotonía y hace la experiencia más dinámica. Usando expo-av con archivos WAV optimizados.</p>
+      <p>Sonidos de correcto e incorrecto en cada respuesta. 3 variaciones distintas para cada tipo, seleccionadas aleatoriamente. Evita la monotonía y hace la experiencia más dinámica.</p>
     </div>
     <div class="tech-card">
       <div class="tech-icon">👑</div>
       <h4>Sistema de Roles y Seguridad</h4>
-      <p>Tres roles: usuario normal, administrador y superadmin (invisible). Contraseñas con bcrypt (estándar bancario). Los usuarios con contraseñas antiguas se migran automáticamente al sistema seguro al hacer login. Sin interrupciones de servicio.</p>
+      <p>Tres roles: usuario normal, administrador y superadmin (invisible). Contraseñas con bcrypt (estándar bancario). Migración automática de contraseñas antiguas al sistema seguro.</p>
     </div>
     <div class="tech-card">
       <div class="tech-icon">🛠️</div>
-      <h4>Panel de Administración Completo</h4>
-      <p>Gestión de preguntas: crear, editar, buscar, filtrar por categoría/dificultad/tipo de licencia, y desactivar. Gestión de usuarios: ver, promover a admin, cambiar plan premium, eliminar. Todo sin tocar el servidor, desde la app misma.</p>
+      <h4>Panel de Administración</h4>
+      <p>Gestión completa de preguntas: crear, editar, buscar, filtrar por categoría/dificultad/licencia, desactivar. Gestión de usuarios: ver, promover a admin, cambiar plan premium.</p>
     </div>
     <div class="tech-card">
       <div class="tech-icon">🔀</div>
       <h4>Respuestas Mezcladas</h4>
-      <p>Las opciones de respuesta se mezclan aleatoriamente al inicio de cada examen. Los datos originales tenían un 83% de sesgo hacia la opción B como respuesta correcta. Ahora la respuesta correcta aparece distribuida equitativamente entre A, B, C y D.</p>
+      <p>Las opciones se mezclan aleatoriamente al inicio de cada examen. Los datos originales tenían 83% de sesgo hacia la opción B. Ahora la respuesta correcta se distribuye equitativamente.</p>
     </div>
     <div class="tech-card">
       <div class="tech-icon">📊</div>
       <h4>Estadísticas Detalladas</h4>
-      <p>Historial completo de exámenes. Desglose por categoría en cada resultado (qué temas dominan, cuáles fallan). Progreso visual por tema en la sección "Mi Curso". Favoritos para guardar preguntas difíciles y repasarlas.</p>
+      <p>Historial completo de exámenes. Desglose por categoría en cada resultado. Progreso visual por tema en "Mi Curso". Favoritos para guardar preguntas difíciles y repasarlas.</p>
     </div>
   </div>
 
-  <h3>Comparativa: Antes vs. Ahora</h3>
+  <h3>Comparativa: cómo evolucionó el producto</h3>
   <table>
     <thead>
       <tr>
-        <th>Característica</th>
-        <th>Versión Inicial</th>
-        <th>Estado Actual</th>
-        <th>Estado</th>
+        <th style="width: 40%;">Característica</th>
+        <th style="width: 28%;">Versión Inicial</th>
+        <th style="width: 32%;">Estado Actual</th>
       </tr>
     </thead>
     <tbody>
@@ -414,156 +315,263 @@
         <td>Preguntas en base de datos</td>
         <td>235 preguntas básicas</td>
         <td>1.591 preguntas (incluye CONASET)</td>
-        <td><span class="badge green">✓ Listo</span></td>
       </tr>
       <tr>
-        <td>Tipos de licencia</td>
+        <td>Tipos de licencia soportados</td>
         <td>Solo Clase B</td>
         <td>6 tipos: B, A2, A4, C, D, E</td>
-        <td><span class="badge green">✓ Listo</span></td>
       </tr>
       <tr>
         <td>Pagos iOS (App Store)</td>
         <td>No disponible</td>
-        <td>RevenueCat — Premium 10 y 30 días</td>
-        <td><span class="badge green">✓ Listo</span></td>
+        <td>RevenueCat + App Store</td>
       </tr>
       <tr>
         <td>Pagos Android/Web</td>
         <td>No disponible</td>
         <td>Mercado Pago Checkout Pro</td>
-        <td><span class="badge green">✓ Listo</span></td>
       </tr>
       <tr>
         <td>Lectura de preguntas en voz</td>
         <td>No</td>
-        <td>Sí — IA OpenAI Nova HD (natural)</td>
-        <td><span class="badge green">✓ Listo</span></td>
+        <td>Sí — IA OpenAI Nova HD</td>
       </tr>
       <tr>
         <td>Imágenes en preguntas</td>
         <td>No</td>
         <td>68 imágenes con asignación inteligente</td>
-        <td><span class="badge green">✓ Listo</span></td>
       </tr>
       <tr>
         <td>Panel de administración</td>
         <td>No</td>
         <td>CRUD completo de preguntas y usuarios</td>
-        <td><span class="badge green">✓ Listo</span></td>
       </tr>
       <tr>
-        <td>Mascota animada con IA</td>
+        <td>Mascota animada</td>
         <td>No</td>
-        <td>Copiloto con 5 estados visuales animados</td>
-        <td><span class="badge green">✓ Listo</span></td>
-      </tr>
-      <tr>
-        <td>Formularios fiscales Apple</td>
-        <td>No</td>
-        <td>W-8BEN-E y Certificate — Estado Activo</td>
-        <td><span class="badge green">✓ Listo</span></td>
-      </tr>
-      <tr>
-        <td>Cuenta bancaria App Store</td>
-        <td>No</td>
-        <td>Pendiente de agregar en esta reunión</td>
-        <td><span class="badge yellow">⏳ Pendiente</span></td>
+        <td>Copiloto con 5 estados visuales</td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<!-- ===== SECCIÓN 4: ESTADO ACTUAL ===== -->
-<div class="page page-break">
-  <div class="section-label">Sección 4</div>
-  <h2 class="with-line">Estado Actual al Día de Hoy</h2>
-  <p class="section-intro">Este es el estado preciso de cada componente del proyecto en este momento:</p>
+<!-- ===== SECCIÓN 3: AJUSTES PARA APPLE ===== -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-brand">
+      <img src="assets/webmaker-logo.png" alt="WebMaker">
+    </div>
+    <div class="page-header-section">Sección 3 · Ajustes para Apple</div>
+  </div>
 
-  <div class="status-grid">
+  <div class="section-label">Proceso de revisión</div>
+  <h2 class="with-line">Ajustes específicos exigidos por Apple</h2>
+  <p class="section-intro">Apple aplica un proceso de revisión manual muy riguroso antes de permitir que cualquier app aparezca en la App Store. Cada vez que Apple rechaza la app, indica qué hay que ajustar. Estos son los ajustes específicos que tuvimos que hacer para cumplir con sus exigencias:</p>
+
+  <!-- RECHAZO 1 -->
+  <div class="rejection-block">
+    <div class="rejection-header">
+      <div class="rejection-num">1</div>
+      <div>
+        <div class="rejection-title">Ajuste 1 — Sistema de pagos exclusivo de Apple en iOS</div>
+        <div class="rejection-sub">Guideline 2.1(b) — Performance: App Completeness</div>
+      </div>
+    </div>
+    <div class="rejection-body">
+      <p><strong>Lo que pidió Apple:</strong> Apple probó la compra del plan Premium y obtuvo error al presionar "Obtener Premium". La app intentaba procesar el pago a través de Mercado Pago. Apple no permite pagos externos en iOS — todo debe pasar por su sistema de Apple In-App Purchase.</p>
+    </div>
+    <div class="solution-header">
+      <div class="solution-icon">✓</div>
+      <div class="solution-title">Ajuste aplicado: Separación de pagos por plataforma</div>
+    </div>
+    <div class="solution-body">
+      <p>Se reescribió la arquitectura de pagos para cumplir con la regla de Apple:</p>
+      <ul>
+        <li><strong>iOS:</strong> Se integró RevenueCat con productos del App Store. Mercado Pago nunca se muestra en iOS.</li>
+        <li><strong>Android y Web:</strong> Se mantuvo Mercado Pago Checkout Pro.</li>
+        <li>Se agregó el botón obligatorio "Restaurar Compras" para iOS (requisito de Apple).</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- RECHAZO 2 -->
+  <div class="rejection-block">
+    <div class="rejection-header">
+      <div class="rejection-num">2</div>
+      <div>
+        <div class="rejection-title">Ajuste 2 — Vinculación de productos de compra a la versión</div>
+        <div class="rejection-sub">Guideline 2.1(b) — In-App Purchases not submitted for review</div>
+      </div>
+    </div>
+    <div class="rejection-body">
+      <p><strong>Lo que pidió Apple:</strong> Aunque los productos existían en App Store Connect, no estaban vinculados formalmente a la versión de la app. Apple necesita revisar los productos junto con el binario, no por separado.</p>
+    </div>
+    <div class="solution-header">
+      <div class="solution-icon">✓</div>
+      <div class="solution-title">Ajuste aplicado: Vinculación + nueva compilación</div>
+    </div>
+    <div class="solution-body">
+      <ul>
+        <li>Se vincularon Premium 10 Días (premium_10_days) y Premium 30 Días (premium_30_days) directamente a la versión 1.0 de la app.</li>
+        <li>Se subió nueva compilación (Build 2) desde el sistema de desarrollo.</li>
+        <li>Se verificó que cada producto tuviera captura de pantalla de revisión, descripción y precio configurados correctamente.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===== RECHAZO 3 ===== -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-brand">
+      <img src="assets/webmaker-logo.png" alt="WebMaker">
+    </div>
+    <div class="page-header-section">Sección 3 · Ajustes para Apple (continuación)</div>
+  </div>
+
+  <div class="rejection-block">
+    <div class="rejection-header">
+      <div class="rejection-num">3</div>
+      <div>
+        <div class="rejection-title">Ajuste 3 — Corrección de SDK + Contratos fiscales</div>
+        <div class="rejection-sub">Guideline 2.1(b) — IAP error in sandbox + Paid Apps Agreement pending</div>
+      </div>
+    </div>
+    <div class="rejection-body">
+      <p><strong>Lo que pidió Apple:</strong> Apple probó la compra en ambiente sandbox usando iPhone 17 Pro Max y obtuvo error al presionar "Premium 10 Días". Indicó dos problemas:</p>
+      <p><strong>Problema técnico:</strong> La app mostraba error al iniciar la compra. El código usaba un método obsoleto del SDK de RevenueCat versión 9.</p>
+      <p><strong>Problema administrativo:</strong> El titular de la cuenta debe aceptar el "Paid Apps Agreement" y completar formularios fiscales del IRS de EE.UU. Sin esto, ninguna compra funciona ni siquiera en sandbox.</p>
+    </div>
+
+    <div class="solution-header">
+      <div class="solution-icon">✓</div>
+      <div class="solution-title">Ajuste técnico: Corrección de código RevenueCat v9</div>
+    </div>
+    <div class="solution-body">
+      <p>Se reemplazó el método obsoleto <strong>purchaseProduct(id)</strong> por la secuencia correcta para la versión actual del SDK:</p>
+      <ul>
+        <li>Obtención del producto con <strong>getProducts([id])</strong></li>
+        <li>Compra con <strong>purchaseStoreProduct(product)</strong></li>
+        <li>Manejo mejorado de errores para distinguir cancelación del usuario de errores reales</li>
+      </ul>
+    </div>
+
+    <div class="solution-header">
+      <div class="solution-icon">✓</div>
+      <div class="solution-title">Ajuste fiscal: Formularios y contratos completados</div>
+    </div>
+    <div class="solution-body">
+      <p>Se completaron todos los documentos legales que Apple exige para recibir pagos:</p>
+      <ul>
+        <li><strong>U.S. Certificate of Foreign Status of Beneficial Owner</strong> — Declara a Diseño Web OlivaresArancibia Limitada como empresa chilena sin presencia en EE.UU.</li>
+        <li><strong>U.S. Substitute Form W-8BEN-E</strong> — Formulario fiscal con tratado tributario Chile-EE.UU. aplicado. RUT 78.042.968-2, entidad tipo Corporation.</li>
+        <li><strong>Paid Apps Agreement</strong> — Aceptado. Cubre 175 países y regiones del mundo.</li>
+        <li>Ambos formularios fiscales con estado <strong>"Activo"</strong> en App Store Connect.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="alert orange">
+    <h4>⚠️ Pendiente para esta reunión: Cuenta Bancaria</h4>
+    <p>El Paid Apps Agreement muestra estado "Información del usuario pendiente" porque falta agregar la cuenta bancaria donde Apple depositará los ingresos por ventas. Esto se hace en <strong>App Store Connect → Negocio → Cuentas bancarias → Añadir cuenta bancaria</strong>. Se recomienda completarlo hoy en la reunión para habilitar la recepción de pagos desde el primer día.</p>
+  </div>
+</div>
+
+<!-- ===== SECCIÓN 4: ESTADO ACTUAL ===== -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-brand">
+      <img src="assets/webmaker-logo.png" alt="WebMaker">
+    </div>
+    <div class="page-header-section">Sección 4 · Estado Actual</div>
+  </div>
+
+  <div class="section-label">Hoy</div>
+  <h2 class="with-line">Estado actual del proyecto</h2>
+  <p class="section-intro">Estado preciso de cada componente al día de hoy:</p>
+
+  <div class="status-grid-3">
     <div class="status-card green">
       <div class="icon">✅</div>
       <h4>App enviada a revisión</h4>
-      <p>Build 2 (compilación más reciente) enviado a App Store Review. Los dos productos premium están vinculados y en la cola de revisión de Apple.</p>
+      <p>Build 2 enviado a App Store Review. Productos premium vinculados y en cola de revisión.</p>
     </div>
     <div class="status-card green">
       <div class="icon">✅</div>
-      <h4>Productos Premium configurados</h4>
-      <p>Premium 10 Días (premium_10_days) y Premium 30 Días (premium_30_days) con screenshot de revisión, precios y descripciones completas.</p>
+      <h4>Productos Premium</h4>
+      <p>Premium 10 y 30 Días con screenshot, precios y descripciones completas.</p>
     </div>
     <div class="status-card green">
       <div class="icon">✅</div>
-      <h4>Formularios fiscales activos</h4>
-      <p>W-8BEN-E y Certificate of Foreign Status enviados y con estado "Activo" en App Store Connect desde hoy.</p>
+      <h4>Formularios fiscales</h4>
+      <p>W-8BEN-E y Certificate of Foreign Status con estado "Activo".</p>
     </div>
     <div class="status-card green">
       <div class="icon">✅</div>
-      <h4>Contrato de Apps de Pago</h4>
-      <p>Paid Apps Agreement aceptado. Cubre 175 países y regiones del mundo, incluyendo Chile.</p>
+      <h4>Contrato Apps de Pago</h4>
+      <p>Paid Apps Agreement aceptado. Cobertura en 175 países.</p>
     </div>
     <div class="status-card green">
       <div class="icon">✅</div>
-      <h4>Código de compras corregido</h4>
-      <p>Método de compra actualizado a la API correcta de RevenueCat v9. El error de sandbox que Apple encontró está resuelto.</p>
+      <h4>Código corregido</h4>
+      <p>Método de compra actualizado a RevenueCat v9. Error de sandbox resuelto.</p>
     </div>
     <div class="status-card green">
       <div class="icon">✅</div>
-      <h4>RevenueCat en producción</h4>
-      <p>API key de producción configurada. Productos premium_10_days y premium_30_days en entitlement "premium" y offering "default".</p>
+      <h4>RevenueCat producción</h4>
+      <p>API key de producción configurada. Entitlement y offering activos.</p>
     </div>
     <div class="status-card green">
       <div class="icon">✅</div>
       <h4>Servidor y base de datos</h4>
-      <p>PostgreSQL en producción con 1.591 preguntas. API REST funcionando. Usuarios, resultados, favoritos y progreso persistentes.</p>
+      <p>PostgreSQL en producción con 1.591 preguntas. API REST funcionando.</p>
     </div>
     <div class="status-card green">
       <div class="icon">✅</div>
-      <h4>App disponible en Android/Web</h4>
-      <p>La app ya funciona en Android y Web en modo producción con Mercado Pago. Usuarios pueden pagar y acceder al plan Premium.</p>
+      <h4>Android y Web operativos</h4>
+      <p>La app funciona en producción con Mercado Pago. Usuarios pueden pagar y acceder.</p>
     </div>
     <div class="status-card yellow">
       <div class="icon">⏳</div>
       <h4>Cuenta bancaria pendiente</h4>
-      <p>Falta agregar la cuenta bancaria en App Store Connect para que Apple pueda depositar los ingresos por ventas iOS.</p>
+      <p>Falta agregar cuenta bancaria para que Apple deposite los ingresos por ventas iOS.</p>
     </div>
   </div>
 
   <h3>Próximos pasos para cerrar el proceso</h3>
-  <div class="steps-container">
-    <div class="step-item">
-      <div class="step-num">1</div>
-      <div class="step-content">
-        <h4>Agregar cuenta bancaria (hoy en esta reunión)</h4>
-        <p>En App Store Connect → Negocio → Cuentas bancarias → Añadir cuenta bancaria. Ingresar los datos de la cuenta donde se recibirán los pagos de Apple. Este es el único paso pendiente que bloquea el inicio de cobros.</p>
-      </div>
+  <div class="step-item">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <h4>Agregar cuenta bancaria (hoy en esta reunión)</h4>
+      <p>En App Store Connect → Negocio → Cuentas bancarias → Añadir cuenta bancaria. Es el único paso administrativo pendiente que bloquea el cobro de ventas iOS.</p>
     </div>
-    <div class="step-item">
-      <div class="step-num">2</div>
-      <div class="step-content">
-        <h4>Esperar aprobación de Apple (24–48 horas)</h4>
-        <p>La app está en cola de revisión. Apple normalmente tarda entre 24 y 48 horas hábiles. Si todo está correcto, la app quedará publicada automáticamente en la App Store chilena y global.</p>
-      </div>
+  </div>
+  <div class="step-item">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <h4>Esperar aprobación de Apple (24–48 horas)</h4>
+      <p>La app está en cola de revisión. Si todo está correcto, queda publicada automáticamente en la App Store chilena y global.</p>
     </div>
-    <div class="step-item">
-      <div class="step-num">3</div>
-      <div class="step-content">
-        <h4>Verificar compra real en producción</h4>
-        <p>Una vez aprobada, realizar una compra de prueba real en un iPhone para confirmar que RevenueCat activa el plan correctamente, el servidor lo registra y el usuario accede al contenido premium.</p>
-      </div>
+  </div>
+  <div class="step-item">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <h4>Verificar compra real en producción</h4>
+      <p>Una vez aprobada, realizar compra de prueba real en iPhone para confirmar que RevenueCat activa el plan correctamente.</p>
     </div>
-    <div class="step-item">
-      <div class="step-num">4</div>
-      <div class="step-content">
-        <h4>Lanzamiento oficial y difusión</h4>
-        <p>Con la app aprobada en iOS y funcionando en Android/Web, se puede iniciar la difusión: redes sociales, Google Ads, autoescuelas, CONAF, municipios. La app ya tiene URL pública en practiquemos-cl.replit.app.</p>
-      </div>
+  </div>
+  <div class="step-item">
+    <div class="step-num">4</div>
+    <div class="step-content">
+      <h4>Lanzamiento oficial y difusión</h4>
+      <p>Con la app aprobada en iOS y funcionando en Android/Web, iniciar difusión: redes sociales, Google Ads, autoescuelas, municipios.</p>
     </div>
-    <div class="step-item">
-      <div class="step-num">5</div>
-      <div class="step-content">
-        <h4>Publicación en Google Play Store (siguiente fase)</h4>
-        <p>La app ya funciona en Android. El siguiente paso es publicarla oficialmente en Google Play Store para mayor visibilidad y distribución en dispositivos Android.</p>
-      </div>
+  </div>
+  <div class="step-item">
+    <div class="step-num">5</div>
+    <div class="step-content">
+      <h4>Publicación en Google Play Store (siguiente fase)</h4>
+      <p>La app ya funciona en Android. El siguiente paso es publicarla oficialmente en Google Play Store para mayor distribución.</p>
     </div>
   </div>
 </div>
@@ -571,11 +579,14 @@
 <!-- ===== FOOTER ===== -->
 <div class="doc-footer">
   <div class="footer-inner">
-    <div class="left">
-      <strong>Practiquemos.cl — Informe de Avance del Proyecto</strong>
-      Diseño Web OlivaresArancibia Limitada · RUT 78.042.968-2
+    <div class="footer-left">
+      <img src="assets/webmaker-fox.png" alt="WebMaker">
+      <div class="footer-left-text">
+        <strong>WebMaker · Practiquemos.cl</strong>
+        <span>Diseño Web OlivaresArancibia Limitada<br>RUT 78.042.968-2</span>
+      </div>
     </div>
-    <div class="right">
+    <div class="footer-right">
       practiquemos.cl@gmail.com<br>
       WhatsApp +56 9 8920 0476<br>
       J.T. de La Fuente Los Acacios 832, Los Andes
