@@ -1,0 +1,111 @@
+
+Apps
+Tendencias
+Informes
+Negocio
+Usuarios y acceso
+Lucas Olivares Ramírez
+Diseno Web OlivaresArancibia Limitada
+Negocio
+Acuerdos
+Diseno Web OlivaresArancibia Limitada
+
+Después de hacer clic en Enviar ya no podrás hacer cambios en este formulario
+
+U.S. Substitute Form W-8BEN-E
+Enviar
+Certificate of Status of Beneficial Owner for United States Tax Withholding and Reporting (Entities) (Rev. October 2021)
+
+We recommend that you review the Substitute Form W-8BEN-E Tips sheet and Form W-8BEN-E Instructions before completing the Substitute Form W-8BEN-E.
+
+If you have previously submitted a Substitute Form W-SBEN-E, the Substitute Form W-BBEN-E you will now complete will replace and supersede the Substitute Form W-BEN-E you previously submitted.
+
+If you are a partnership and wish to claim treaty benefits related to your income from the Apple Developer Program, please see the FAQs about submitting updated tax information.
+
+
+Descargar:
+
+Form W-8BEN-E InstructionsSubstitute Form W-8BEN-E Tips Sheet
+Nombre alternativo del formulario fiscal
+Añadir
+
+Tipos de acuerdos asociados
+Apps de pago
+
+Part I: Identification of Beneficial Owner
+1. Name of organization that is the beneficial owner
+Diseno Web OlivaresArancibia Limitada
+2. Country or region of incorporation or organization
+Chile
+3. Chapter 3 Status (entity type)
+6. Permanent Residence Address
+J T De La Fuente Los Acacios 832
+
+LOS ANDES 2100000
+
+Chile
+
+7. Mailing Address
+Editar
+J T De La Fuente Los Acacios 832
+
+LOS ANDES 2100000
+
+Chile
+
+8. U.S. taxpayer identification number (TIN), if required
+Optional
+
+EIN
+
+SSN
+Don't have a U.S. Tax ID?
+
+Download Form SS-4
+
+9b. Foreign TIN
+Optional
+10. Reference Number(s)
+Optional
+Part III: Claim of Tax Treaty Benefits (If Applicable). (For chapter 3 purposes only)
+14. I certify that (check all that apply)
+ The beneficial owner is a resident of Chile within the meaning of the income tax treaty between United States and that country or region.
+ The beneficial owner derives the item (or items) of income for which the treaty benefits are claimed, and, if applicable, meets the requirements of the treaty provision dealing with limitation on benefits. The following are types of limitation on benefits provisions that may be included in an applicable tax treaty (check only one; see instructions):
+Type of limitation on benefits provisions
+ The beneficial owner is claiming treaty benefits for dividends received from a foreign corporation or interest from a U.S. trade or business of a foreign corporation and meets qualified resident status (see instructions).
+15. Special rate and Conditions
+The beneficial owner is claiming the provisions of Article and paragraph 
+Optional
+ of the treaty identified on line 14a above to claim a 
+Optional
+ % rate of withholding on (specify type of income):
+ Income from the sale of applications
+ Other (please specify)
+Optional
+Explain the additional conditions in the Article the beneficial owner meets to be eligible for the rate of withholding
+Optional
+Part XXX: Certification
+Certification
+Under penalties of perjury, I declare that I have examined the information on this form and to the best of my knowledge and belief it is true, correct, and complete. I further certify under penalties of perjury that:
+The entity identified on line 1 of this form is the beneficial owner of all the income or proceeds to which this form relates, is using this form to certify its status for chapter 4 purposes, or is submitting this form for purposes of section 6050W or 6050Y,
+The entity identified on line 1 of this form is not a U.S. person,
+This form relates to: (a) income not effectively connected with the conduct of a trade or business in the United States, (b) income effectively connected with the conduct of a trade or business in the United States but is not subject to tax under an income tax treaty, (c) the partner's share of a partnership's effectively connected taxable income, or (d) the partner's amount realized from the transfer of a partnership interest subject to withholding under section 1446(f); and
+For broker transactions or barter exchanges, the beneficial owner is an exempt foreign person as defined in the instructions.
+Furthermore, I authorize this form to be provided to any withholding agent that has control, receipt, or custody of the income of which the entity on line 1 is the beneficial owner or any withholding agent that can disburse or make payments of the income of which the entity on line 1 is the beneficial owner.
+
+I agree that I will submit a new form within 30 days if any certification on this form becomes incorrect.
+
+The Internal Revenue Service does not require your consent to any provisions of this document other than the certifications required to establish your status as a non-U.S. person, establish your chapter 4 status (if required), and, if applicable, obtain a reduced rate of withholding.
+
+Beneficial Owner (or individual authorized to sign for the beneficial owner)
+
+Lucas Olivares Ramírez¿No eres tú?
+
+¿Quién tiene autorización para firmar este certificado?
+
+I certify that I have the capacity to sign for the entity identified on line 1 of this form.
+App Store Connect
+Copyright © 2026 Apple Inc. Todos los derechos reservados.
+Términos y condiciones
+Política de privacidad
+Contacta con nosotros
