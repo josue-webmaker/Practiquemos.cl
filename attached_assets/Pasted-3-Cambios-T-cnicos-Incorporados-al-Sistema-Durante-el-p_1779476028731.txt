@@ -1,0 +1,50 @@
+3. Cambios Técnicos Incorporados al Sistema
+Durante el proceso de revisión de Apple, se aprovechó de incorporar mejoras importantes al
+sistema:
+🔐 Sistema de Pagos Dual
+iOS usa RevenueCat (In-App Purchase de Apple).
+Android/Web usa Mercado Pago Checkout Pro.
+Lógica separada por plataforma con detección
+automática.
+🎙️ Voz con IA (TTS Nova)
+Preguntas y explicaciones se leen en voz alta
+usando la voz "Nova" de OpenAI. Calidad HD,
+pauses naturales, voz femenina de profesora.
+Configurable por el usuario.
+🖼️ Imágenes en Preguntas
+68 imágenes ilustradas para las preguntas con
+mayor contenido visual. Sistema inteligente de
+palabras clave que asigna imagen correcta a
+cada pregunta automáticamente.
+🎮 Gamificación
+Mascota "Copiloto" animada que reacciona a
+respuestas correctas e incorrectas. Badges de
+racha, efectos de sonido (3 variaciones),
+celebración visual al aprobar.
+👨‍💼 Panel Admin Completo
+Gestión de usuarios y preguntas desde la app.
+Crear, editar, buscar, filtrar y desactivar
+preguntas. Administración de planes premium de
+usuarios.
+🔄 Migración Automática de Contraseñas
+Usuarios con contraseñas SHA-256 (formato
+antiguo) se migran automáticamente a bcrypt
+(seguro) al hacer login, sin interrumpir el
+servicio.
+📊 Seguimiento de Progreso
+Historial de exámenes con desglose por
+categoría. Porcentaje de avance por tema.
+Estadísticas visuales de rendimiento del usuario.
+🔁 Restaurar Compras (iOS)
+Botón "Restaurar Compras" visible en iOS para
+que usuarios que reinstalan la app recuperen su
+plan Premium sin pagar de nuevo, cumpliendo
+las reglas de Apple.
+Característica Antes Ahora
+Preguntas en base de datos 235 1.591 (+ oficiales CONASET)
+Tipos de licencia soportados Solo Clase B 6 tipos: B, A2, A4, C, D, E
+Pagos iOS No disponible RevenueCat + App Store
+Pagos Android/Web No disponible Mercado Pago Checkout Pro
+Lectura de preguntas en voz No Sí — IA OpenAI Nova HD
+Imágenes ilustradas No 68 imágenes con detección automática
+Panel de administración No Sí — CRUD completo de preguntas y usuarios
