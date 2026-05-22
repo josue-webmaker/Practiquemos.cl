@@ -90,7 +90,12 @@ export default function PlansScreen() {
       if (targetPackage) {
         await Purchases.purchasePackage(targetPackage);
       } else {
-        const { customerInfo } = await Purchases.purchaseProduct(productId);
+        const products = await Purchases.getProducts([productId]);
+        if (products && products.length > 0) {
+          await Purchases.purchaseStoreProduct(products[0]);
+        } else {
+          throw new Error('Producto no disponible');
+        }
       }
 
       try {
