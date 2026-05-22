@@ -263,3 +263,9 @@ id = "RzsTF9nQ48pkh87BJq5sL"
 uri = "file://attached_assets/presupuesto_plataforma_autoescuelas.md"
 type = "text"
 title = "Propuesta Comercial - Plataforma de Gestión para Autoescuelas"
+
+[[outputs]]
+id = "wRrlJnqqOtIo1oq-ORR8P"
+uri = "file://scripts/informe-apple.pdf"
+type = "pdf"
+title = "Informe de Avance — Practiquemos.cl (App Store)"

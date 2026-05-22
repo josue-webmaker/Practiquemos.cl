@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 13px; color: #1a1a2e; background: #fff; }
+  .cover { background: linear-gradient(135deg, #1d4ed8, #7c3aed); color: white; padding: 60px 50px; min-height: 220px; }
+  .cover h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px; }
+  .cover .subtitle { font-size: 16px; opacity: 0.85; margin-bottom: 20px; }
+  .cover .meta { font-size: 12px; opacity: 0.7; }
+  .page { padding: 40px 50px; }
+  h2 { font-size: 18px; font-weight: 700; color: #1d4ed8; border-bottom: 2px solid #1d4ed8; padding-bottom: 6px; margin: 30px 0 16px 0; }
+  h3 { font-size: 14px; font-weight: 700; color: #374151; margin: 20px 0 8px 0; }
+  p { line-height: 1.7; margin-bottom: 10px; color: #374151; }
+  .status-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+  .status-card { border-radius: 10px; padding: 16px; border-left: 4px solid; }
+  .status-card.green { background: #f0fdf4; border-color: #16a34a; }
+  .status-card.yellow { background: #fefce8; border-color: #ca8a04; }
+  .status-card.blue { background: #eff6ff; border-color: #1d4ed8; }
+  .status-card.purple { background: #faf5ff; border-color: #7c3aed; }
+  .status-card h4 { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+  .status-card.green h4 { color: #16a34a; }
+  .status-card.yellow h4 { color: #92400e; }
+  .status-card.blue h4 { color: #1d4ed8; }
+  .status-card.purple h4 { color: #7c3aed; }
+  .status-card p { font-size: 12px; margin: 0; color: #4b5563; line-height: 1.5; }
+  .timeline { margin: 16px 0; }
+  .timeline-item { display: flex; gap: 16px; margin-bottom: 18px; }
+  .timeline-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+  .timeline-dot.done { background: #16a34a; }
+  .timeline-dot.issue { background: #dc2626; }
+  .timeline-dot.pending { background: #f59e0b; }
+  .timeline-line { width: 2px; background: #e5e7eb; margin-left: 5px; }
+  .timeline-content { flex: 1; }
+  .timeline-content strong { display: block; font-size: 13px; color: #111827; margin-bottom: 3px; }
+  .timeline-content span { font-size: 12px; color: #6b7280; line-height: 1.5; }
+  .rejection-box { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 10px; padding: 16px; margin: 12px 0; }
+  .rejection-box .tag { display: inline-block; background: #ea580c; color: white; font-size: 10px; font-weight: 700; border-radius: 4px; padding: 2px 7px; margin-bottom: 8px; }
+  .rejection-box h4 { font-size: 13px; color: #9a3412; margin-bottom: 6px; }
+  .rejection-box p { font-size: 12px; color: #7c2d12; margin: 0; line-height: 1.6; }
+  .fix-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 16px; margin: 12px 0; }
+  .fix-box .tag { display: inline-block; background: #16a34a; color: white; font-size: 10px; font-weight: 700; border-radius: 4px; padding: 2px 7px; margin-bottom: 8px; }
+  .fix-box h4 { font-size: 13px; color: #14532d; margin-bottom: 6px; }
+  .fix-box p { font-size: 12px; color: #166534; margin: 0; line-height: 1.6; }
+  .tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+  .tech-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; }
+  .tech-item h4 { font-size: 12px; font-weight: 700; color: #1d4ed8; margin-bottom: 6px; }
+  .tech-item p { font-size: 11.5px; color: #475569; margin: 0; line-height: 1.6; }
+  .next-steps { background: linear-gradient(135deg, #eff6ff, #faf5ff); border: 1px solid #c7d2fe; border-radius: 12px; padding: 20px; margin: 16px 0; }
+  .next-steps h3 { color: #3730a3; margin-top: 0; }
+  .step-row { display: flex; align-items: flex-start; gap: 10px; margin: 10px 0; }
+  .step-num { width: 22px; height: 22px; background: #1d4ed8; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+  .step-row p { font-size: 12px; color: #3730a3; margin: 0; line-height: 1.6; }
+  .alert-box { background: #fef2f2; border: 1px solid #fecaca; border-radius: 10px; padding: 16px; margin: 16px 0; }
+  .alert-box h4 { color: #991b1b; font-size: 13px; margin-bottom: 6px; }
+  .alert-box p { font-size: 12px; color: #7f1d1d; margin: 0; line-height: 1.6; }
+  .footer { background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 20px 50px; margin-top: 20px; }
+  .footer p { font-size: 11px; color: #94a3b8; text-align: center; }
+  ul { margin: 6px 0 10px 20px; }
+  ul li { font-size: 12px; color: #374151; line-height: 1.7; }
+  .badge { display: inline-block; font-size: 10px; font-weight: 700; border-radius: 4px; padding: 2px 8px; }
+  .badge.green { background: #dcfce7; color: #166534; }
+  .badge.yellow { background: #fef9c3; color: #854d0e; }
+  .badge.red { background: #fee2e2; color: #991b1b; }
+  .badge.blue { background: #dbeafe; color: #1e40af; }
+  .separator { border: none; border-top: 1px solid #f1f5f9; margin: 20px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12px; }
+  th { background: #f1f5f9; color: #374151; font-weight: 700; padding: 9px 12px; text-align: left; border: 1px solid #e2e8f0; }
+  td { padding: 9px 12px; border: 1px solid #e2e8f0; color: #4b5563; vertical-align: top; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  @media print {
+    .page-break { page-break-before: always; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PORTADA -->
+<div class="cover">
+  <h1>Practiquemos.cl — Informe de Avance</h1>
+  <div class="subtitle">Proceso de publicación en App Store (iOS) · Estado actual y cambios técnicos realizados</div>
+  <div class="meta">Elaborado por: Lucas Olivares Ramírez · Diseño Web OlivaresArancibia Limitada<br>Para: Marines · Reunión de seguimiento del proyecto</div>
+</div>
+
+<div class="page">
+
+  <!-- RESUMEN EJECUTIVO -->
+  <h2>1. Resumen del Proyecto</h2>
+  <p>
+    <strong>Practiquemos.cl</strong> es una aplicación móvil para preparar el examen teórico de licencia de conducir en Chile. Funciona en iOS, Android y web desde una sola base de código. Incluye más de 1.591 preguntas para 6 tipos de licencia (B, A2, A4, C, D, E), modo examen, manual de estudio, voz con inteligencia artificial, gamificación con mascota animada, y sistema premium con pagos.
+  </p>
+
+  <div class="status-grid">
+    <div class="status-card blue">
+      <h4>📱 Plataforma</h4>
+      <p>iOS, Android y Web. Una sola app desarrollada en React Native con Expo.</p>
+    </div>
+    <div class="status-card purple">
+      <h4>🧠 Preguntas</h4>
+      <p>1.591 preguntas en base de datos. 306 preguntas oficiales CONASET incluidas.</p>
+    </div>
+    <div class="status-card green">
+      <h4>💳 Pagos iOS</h4>
+      <p>RevenueCat configurado con productos premium de 10 y 30 días en App Store.</p>
+    </div>
+    <div class="status-card yellow">
+      <h4>📋 Estado App Store</h4>
+      <p>App enviada a revisión. En proceso de aprobación final por parte de Apple.</p>
+    </div>
+  </div>
+
+  <!-- PROCESO CON APPLE -->
+  <h2>2. Proceso de Revisión con Apple — Todo lo que ha pedido</h2>
+  <p>El proceso de aprobación en la App Store ha sido largo y ha requerido múltiples ajustes. A continuación se detalla cada rechazo y la solución aplicada:</p>
+
+  <div class="rejection-box">
+    <span class="tag">RECHAZO 1</span>
+    <h4>Guideline 2.1(b) — Compras dentro de la app no funcionaban</h4>
+    <p>Apple informó que los botones de pago Premium fallaban al intentar comprar. La app mostraba error al presionar "Obtener Premium" en iOS.</p>
+  </div>
+  <div class="fix-box">
+    <span class="tag">SOLUCIÓN APLICADA</span>
+    <h4>Separación completa de sistemas de pago según plataforma</h4>
+    <p>Se reescribió toda la lógica de pagos. En iOS se usa exclusivamente RevenueCat (sistema de compras de Apple). En Android/Web se usa Mercado Pago. Ambos sistemas quedan 100% separados y ninguno interfiere con el otro.</p>
+  </div>
+
+  <div class="rejection-box">
+    <span class="tag">RECHAZO 2</span>
+    <h4>Guideline 2.1(b) — Productos no enviados a revisión</h4>
+    <p>Apple indicó que aunque la app existía, los productos de compra (Premium 10 días y Premium 30 días) no habían sido enviados formalmente a revisión junto con la versión de la app.</p>
+  </div>
+  <div class="fix-box">
+    <span class="tag">SOLUCIÓN APLICADA</span>
+    <h4>Vinculación de productos a la versión y nuevo envío</h4>
+    <p>Se accedió a App Store Connect, se vincularon ambos productos (premium_10_days y premium_30_days) a la versión 1.0 de la app, y se subió un nuevo build. Se seleccionó la compilación más reciente y se envió todo a revisión correctamente.</p>
+  </div>
+
+  <div class="rejection-box">
+    <span class="tag">RECHAZO 3</span>
+    <h4>Guideline 2.1(b) — Error al comprar en sandbox + Contrato pendiente</h4>
+    <p>Apple probó la compra en ambiente sandbox con iPhone 17 Pro Max y obtuvo un error al presionar el botón de "Premium 10 Días". Adicionalmente, Apple indicó que el titular de la cuenta debe aceptar el "Paid Apps Agreement" (contrato de apps de pago).</p>
+  </div>
+  <div class="fix-box">
+    <span class="tag">SOLUCIÓN APLICADA</span>
+    <h4>Corrección técnica en RevenueCat + Formularios fiscales completados</h4>
+    <p>
+      <strong>Técnico:</strong> Se identificó que el código usaba un método obsoleto de RevenueCat v9 (purchaseProduct con string). Se actualizó para usar getProducts() + purchaseStoreProduct(), que es la forma correcta en la versión actual.<br><br>
+      <strong>Legal/Fiscal:</strong> Se completaron los formularios fiscales requeridos por Apple: U.S. Certificate of Foreign Status y Substitute Form W-8BEN-E, declarando a Diseño Web OlivaresArancibia Limitada como empresa chilena (Corporation, RUT 78.042.968-2), con el tratado tributario Chile-EE.UU. aplicado correctamente.
+    </p>
+  </div>
+
+  <hr class="separator">
+
+  <!-- CAMBIOS TÉCNICOS -->
+  <h2 class="page-break">3. Cambios Técnicos Incorporados al Sistema</h2>
+  <p>Durante el proceso de revisión de Apple, se aprovechó de incorporar mejoras importantes al sistema:</p>
+
+  <div class="tech-grid">
+    <div class="tech-item">
+      <h4>🔐 Sistema de Pagos Dual</h4>
+      <p>iOS usa RevenueCat (In-App Purchase de Apple). Android/Web usa Mercado Pago Checkout Pro. Lógica separada por plataforma con detección automática.</p>
+    </div>
+    <div class="tech-item">
+      <h4>🎙️ Voz con IA (TTS Nova)</h4>
+      <p>Preguntas y explicaciones se leen en voz alta usando la voz "Nova" de OpenAI. Calidad HD, pauses naturales, voz femenina de profesora. Configurable por el usuario.</p>
+    </div>
+    <div class="tech-item">
+      <h4>🖼️ Imágenes en Preguntas</h4>
+      <p>68 imágenes ilustradas para las preguntas con mayor contenido visual. Sistema inteligente de palabras clave que asigna imagen correcta a cada pregunta automáticamente.</p>
+    </div>
+    <div class="tech-item">
+      <h4>🎮 Gamificación</h4>
+      <p>Mascota "Copiloto" animada que reacciona a respuestas correctas e incorrectas. Badges de racha, efectos de sonido (3 variaciones), celebración visual al aprobar.</p>
+    </div>
+    <div class="tech-item">
+      <h4>👨‍💼 Panel Admin Completo</h4>
+      <p>Gestión de usuarios y preguntas desde la app. Crear, editar, buscar, filtrar y desactivar preguntas. Administración de planes premium de usuarios.</p>
+    </div>
+    <div class="tech-item">
+      <h4>🔄 Migración Automática de Contraseñas</h4>
+      <p>Usuarios con contraseñas SHA-256 (formato antiguo) se migran automáticamente a bcrypt (seguro) al hacer login, sin interrumpir el servicio.</p>
+    </div>
+    <div class="tech-item">
+      <h4>📊 Seguimiento de Progreso</h4>
+      <p>Historial de exámenes con desglose por categoría. Porcentaje de avance por tema. Estadísticas visuales de rendimiento del usuario.</p>
+    </div>
+    <div class="tech-item">
+      <h4>🔁 Restaurar Compras (iOS)</h4>
+      <p>Botón "Restaurar Compras" visible en iOS para que usuarios que reinstalan la app recuperen su plan Premium sin pagar de nuevo, cumpliendo las reglas de Apple.</p>
+    </div>
+  </div>
+
+  <table>
+    <tr>
+      <th>Característica</th>
+      <th>Antes</th>
+      <th>Ahora</th>
+    </tr>
+    <tr>
+      <td>Preguntas en base de datos</td>
+      <td>235</td>
+      <td>1.591 (+ oficiales CONASET)</td>
+    </tr>
+    <tr>
+      <td>Tipos de licencia soportados</td>
+      <td>Solo Clase B</td>
+      <td>6 tipos: B, A2, A4, C, D, E</td>
+    </tr>
+    <tr>
+      <td>Pagos iOS</td>
+      <td>No disponible</td>
+      <td>RevenueCat + App Store</td>
+    </tr>
+    <tr>
+      <td>Pagos Android/Web</td>
+      <td>No disponible</td>
+      <td>Mercado Pago Checkout Pro</td>
+    </tr>
+    <tr>
+      <td>Lectura de preguntas en voz</td>
+      <td>No</td>
+      <td>Sí — IA OpenAI Nova HD</td>
+    </tr>
+    <tr>
+      <td>Imágenes ilustradas</td>
+      <td>No</td>
+      <td>68 imágenes con detección automática</td>
+    </tr>
+    <tr>
+      <td>Panel de administración</td>
+      <td>No</td>
+      <td>Sí — CRUD completo de preguntas y usuarios</td>
+    </tr>
+  </table>
+
+  <!-- ESTADO ACTUAL -->
+  <h2 class="page-break">4. Estado Actual al Día de Hoy</h2>
+
+  <div class="status-grid">
+    <div class="status-card green">
+      <h4>✅ App Store Connect</h4>
+      <p>App enviada a revisión. Build 2 (compilación más reciente) vinculado con ambos productos premium.</p>
+    </div>
+    <div class="status-card green">
+      <h4>✅ Productos IAP Configurados</h4>
+      <p>Premium 10 Días (premium_10_days) y Premium 30 Días (premium_30_days) listos, con screenshots de revisión.</p>
+    </div>
+    <div class="status-card green">
+      <h4>✅ Formularios Fiscales Apple</h4>
+      <p>W-8BEN-E y Certificate of Foreign Status enviados y con estado "Activo" en App Store Connect.</p>
+    </div>
+    <div class="status-card green">
+      <h4>✅ Acuerdo Apps de Pago</h4>
+      <p>Paid Apps Agreement aceptado. RevenueCat configurado con API key de producción.</p>
+    </div>
+    <div class="status-card green">
+      <h4>✅ Código Corregido</h4>
+      <p>Método de compra actualizado a RevenueCat v9 (purchaseStoreProduct). Error de sandbox resuelto.</p>
+    </div>
+    <div class="status-card yellow">
+      <h4>⏳ Cuenta Bancaria Pendiente</h4>
+      <p>Falta agregar cuenta bancaria en App Store Connect → Negocio → Cuentas bancarias para recibir pagos de Apple.</p>
+    </div>
+  </div>
+
+  <div class="alert-box">
+    <h4>⚠️ Importante: Cuenta Bancaria</h4>
+    <p>El Acuerdo de Apps de Pago aparece con estado "Información del usuario pendiente" porque aún no se ha ingresado la cuenta bancaria donde Apple depositará los ingresos. Esto se debe hacer en <strong>App Store Connect → Negocio → Cuentas bancarias → Añadir cuenta bancaria</strong>. Se recomienda hacerlo en la próxima reunión presencial.</p>
+  </div>
+
+  <!-- PRÓXIMOS PASOS -->
+  <h2>5. Próximos Pasos</h2>
+
+  <div class="next-steps">
+    <h3>Acciones pendientes para finalizar la publicación</h3>
+    <div class="step-row">
+      <div class="step-num">1</div>
+      <p><strong>Agregar cuenta bancaria</strong> — En reunión con Marines: ingresar los datos bancarios en App Store Connect para habilitar la recepción de pagos de Apple. Ir a Negocio → Cuentas bancarias → Añadir cuenta bancaria.</p>
+    </div>
+    <div class="step-row">
+      <div class="step-num">2</div>
+      <p><strong>Esperar aprobación de Apple</strong> — La app está en cola de revisión. El tiempo típico es 24 a 48 horas hábiles. Si Apple aprueba, la app queda publicada automáticamente en la App Store.</p>
+    </div>
+    <div class="step-row">
+      <div class="step-num">3</div>
+      <p><strong>Publicar nuevo build si Apple pide cambios</strong> — Si hay un cuarto rechazo, se sube el Build 3 desde Replit (con el fix de RevenueCat ya incluido), se vincula y se reenvía a revisión.</p>
+    </div>
+    <div class="step-row">
+      <div class="step-num">4</div>
+      <p><strong>Verificar pagos en producción</strong> — Una vez aprobada, realizar una compra de prueba real en el dispositivo para confirmar que RevenueCat activa el plan correctamente.</p>
+    </div>
+    <div class="step-row">
+      <div class="step-num">5</div>
+      <p><strong>Lanzamiento en Android</strong> — La app ya funciona en Android con Mercado Pago. Se puede publicar en Google Play Store como siguiente fase.</p>
+    </div>
+  </div>
+
+  <!-- INVERSIÓN Y TRABAJO REALIZADO -->
+  <h2>6. Trabajo Realizado — Resumen para la Reunión</h2>
+  <p>Este proyecto ha requerido un trabajo técnico sostenido a lo largo de meses, no solo de desarrollo inicial sino de constante adaptación a los requisitos de Apple:</p>
+  <ul>
+    <li>Desarrollo completo de la app móvil (iOS + Android + Web) desde cero</li>
+    <li>Integración de dos sistemas de pago diferentes (RevenueCat para iOS, Mercado Pago para Android/Web)</li>
+    <li>Tres ciclos completos de rechazo y corrección en App Store Review, cada uno con cambios técnicos específicos</li>
+    <li>Configuración completa de App Store Connect: formularios fiscales, contratos, productos IAP, screenshots de revisión, builds</li>
+    <li>Incorporación de funcionalidades adicionales durante el proceso: voz IA, imágenes, gamificación, admin, 6 tipos de licencia</li>
+    <li>Mantenimiento continuo del servidor, base de datos y actualizaciones de código en producción</li>
+  </ul>
+
+</div>
+
+<div class="footer">
+  <p>Practiquemos.cl · Diseño Web OlivaresArancibia Limitada · Lucas Olivares Ramírez · practiquemos.cl@gmail.com · WhatsApp +56 9 8920 0476</p>
+</div>
+
+</body>
+</html>
