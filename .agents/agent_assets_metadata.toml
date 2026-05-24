@@ -269,3 +269,9 @@ id = "wRrlJnqqOtIo1oq-ORR8P"
 uri = "file://scripts/informe-apple.pdf"
 type = "pdf"
 title = "Informe de Avance — Practiquemos.cl"
+
+[[outputs]]
+id = "cgmg052GbiKZAIhy_lpK_"
+uri = "file://scripts/anuncio-lanzamiento.pdf"
+type = "pdf"
+title = "¡Practiquemos.cl ya está en la App Store!"
