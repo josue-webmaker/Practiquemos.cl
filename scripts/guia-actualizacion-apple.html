@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+  @page { size: A4; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #0f172a; font-size: 13px; line-height: 1.65; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  .top-bar { background: #0f172a; color: white; padding: 18px 50px; display: flex; justify-content: space-between; align-items: center; }
+  .top-bar .brand { font-size: 12px; letter-spacing: 2px; font-weight: 700; text-transform: uppercase; }
+  .top-bar .doc-type { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.6; font-weight: 600; }
+
+  .page { padding: 40px 50px 30px; page-break-after: always; }
+  .page:last-of-type { page-break-after: avoid; }
+
+  h1 { font-size: 30px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.15; margin-bottom: 10px; }
+  h1 .accent { color: #1d4ed8; }
+  .lead { font-size: 14.5px; color: #475569; margin-bottom: 28px; max-width: 580px; }
+
+  .section-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #1d4ed8; font-weight: 800; margin-bottom: 10px; }
+  h2 { font-size: 22px; font-weight: 800; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px solid #e2e8f0; }
+  h3 { font-size: 15px; font-weight: 700; color: #0f172a; margin: 18px 0 6px; }
+  p { color: #475569; margin-bottom: 8px; }
+
+  .step { display: flex; gap: 16px; margin-bottom: 18px; align-items: flex-start; page-break-inside: avoid; }
+  .step-num { width: 34px; height: 34px; background: linear-gradient(135deg, #1d4ed8, #2563eb); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; flex-shrink: 0; box-shadow: 0 3px 8px rgba(29,78,216,0.25); }
+  .step-content { flex: 1; }
+  .step-content h4 { font-size: 14.5px; font-weight: 700; color: #0f172a; margin-bottom: 4px; }
+  .step-content p { font-size: 13px; color: #475569; margin: 0 0 6px; line-height: 1.65; }
+  .step-content .hint { background: #f8fafc; border-left: 3px solid #1d4ed8; padding: 8px 12px; border-radius: 4px; font-size: 12px; color: #334155; margin-top: 6px; }
+
+  .info-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 10px; padding: 14px 18px; margin: 16px 0; page-break-inside: avoid; }
+  .info-box strong { color: #1e40af; }
+  .info-box p { color: #1e3a8a; font-size: 12.5px; margin: 0; }
+
+  .warn-box { background: #fff7ed; border: 1px solid #fed7aa; border-left: 4px solid #f97316; border-radius: 8px; padding: 12px 16px; margin: 14px 0; page-break-inside: avoid; }
+  .warn-box strong { color: #9a3412; }
+  .warn-box p { color: #7c2d12; font-size: 12.5px; margin: 0; }
+
+  .changes { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px 22px; margin: 16px 0; page-break-inside: avoid; }
+  .changes h3 { margin-top: 0; color: #1e293b; font-size: 14px; }
+  .changes ul { margin-left: 18px; }
+  .changes li { color: #475569; font-size: 13px; margin-bottom: 5px; line-height: 1.6; }
+  .changes li strong { color: #0f172a; }
+
+  .release-notes { background: #0f172a; color: white; border-radius: 12px; padding: 24px; margin: 20px 0; page-break-inside: avoid; }
+  .release-notes h3 { color: #93c5fd; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; font-weight: 800; }
+  .release-notes .quoted { background: rgba(255,255,255,0.06); border-left: 3px solid #93c5fd; padding: 14px 16px; border-radius: 6px; font-size: 13px; line-height: 1.75; color: rgba(255,255,255,0.95); white-space: pre-line; font-family: 'Helvetica Neue', sans-serif; }
+
+  .footer { background: #f8fafc; padding: 18px 50px; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; font-size: 11px; color: #64748b; }
+  .footer strong { color: #0f172a; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="brand">WebMaker · Practiquemos.cl</div>
+  <div class="doc-type">Guía de Actualización Apple</div>
+</div>
+
+<div class="page">
+  <div class="section-label">Versión 1.0.1</div>
+  <h1>Cómo publicar la actualización<br>en la <span class="accent">App Store</span></h1>
+  <p class="lead">Pasos exactos para subir la nueva versión de Practiquemos.cl con las mejoras hechas hoy. El proceso completo toma 5 minutos por tu parte + 24-48 horas de revisión de Apple.</p>
+
+  <h2>📋 Cambios incluidos en esta actualización</h2>
+
+  <div class="changes">
+    <h3>🐛 Corrección crítica de pagos</h3>
+    <ul>
+      <li><strong>Activación automática del plan Premium tras la compra.</strong> Antes, en algunos casos la compra se cobraba pero el plan no se activaba y había que activarlo manualmente desde el panel de administrador.</li>
+      <li><strong>Mejora en la asociación de compras al usuario correcto.</strong> Ahora la app vincula el ID del usuario con RevenueCat antes de cualquier compra, evitando que la transacción quede "huérfana".</li>
+      <li><strong>Reintento automático al abrir la pantalla de Planes.</strong> Si una compra anterior no se activó, ahora se detecta y activa sola sin intervención manual.</li>
+    </ul>
+  </div>
+
+  <div class="changes">
+    <h3>🎨 Mejoras de diseño</h3>
+    <ul>
+      <li><strong>Más espacio entre las tarjetas del menú principal.</strong></li>
+      <li><strong>Badges "Premium" y "3 gratis" ahora se ven completos</strong> sin cortarse en el borde derecho.</li>
+      <li><strong>Mejor distribución del texto</strong> en pantallas pequeñas.</li>
+    </ul>
+  </div>
+
+  <div class="info-box">
+    <strong>💡 Por qué esta actualización es importante:</strong>
+    <p>Sin este fix, cada compra requería intervención manual del administrador. Con la corrección, el sistema funciona 100% automático y escalable para cientos de usuarios sin tu intervención.</p>
+  </div>
+</div>
+
+<div class="page">
+  <div class="section-label">Paso a paso</div>
+  <h2>🚀 Cómo subir la actualización a la App Store</h2>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <h4>Subir el cambio desde Replit</h4>
+      <p>En Replit, presiona el botón <strong>Publish</strong> (arriba a la derecha en el editor). Esto activa <strong>Expo Launch</strong>, que compila la app y la envía al App Store automáticamente.</p>
+      <div class="hint">El sistema te pedirá confirmar la versión: deja que suba como <strong>1.0.1</strong> (build 3). Expo Launch se encarga del resto.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <h4>Esperar a que la build esté lista en App Store Connect</h4>
+      <p>El build tarda 10-20 minutos en compilarse y aparecer en App Store Connect. Recibes un correo cuando esté lista para usar.</p>
+      <div class="hint">Mientras tanto, puedes ir entrando a App Store Connect → Practiquemos.cl → TestFlight para ver el progreso.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <h4>Crear la nueva versión 1.0.1 en App Store Connect</h4>
+      <p>Entra a <strong>App Store Connect → Apps → Practiquemos.cl → Distribución → App para iOS</strong>. Presiona el botón <strong>+ Versión o plataforma</strong> y crea la versión <strong>1.0.1</strong>.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-content">
+      <h4>Asociar el nuevo build</h4>
+      <p>En la sección <strong>Build</strong>, presiona <strong>+</strong> y selecciona el Build 3 (el que acabas de subir). Las capturas y descripción de la app se mantienen de la versión 1.0.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">5</div>
+    <div class="step-content">
+      <h4>Escribir las novedades de esta versión</h4>
+      <p>En el campo <strong>"Novedades de esta versión"</strong>, copia y pega el texto que aparece en la siguiente página (sección "Texto para Apple").</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">6</div>
+    <div class="step-content">
+      <h4>Enviar a revisión</h4>
+      <p>Presiona <strong>Guardar</strong> arriba a la derecha y luego <strong>Añadir a revisión</strong> → <strong>Enviar a revisión</strong>.</p>
+      <div class="hint">Como las compras (IAP) ya están aprobadas, no necesitas volver a marcarlas. Solo se revisa el binario.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">7</div>
+    <div class="step-content">
+      <h4>Esperar la aprobación</h4>
+      <p>Apple normalmente aprueba actualizaciones en <strong>24-48 horas</strong>. Como es una corrección de bug (no nuevas funcionalidades), suele ser más rápido. Recibes un correo cuando se apruebe y se publica automáticamente.</p>
+    </div>
+  </div>
+
+  <div class="warn-box">
+    <strong>⚠️ Importante:</strong>
+    <p>No subas otra build mientras esta esté en revisión. Si necesitas cambiar algo, espera a que termine el proceso o cancela la revisión antes.</p>
+  </div>
+</div>
+
+<div class="page">
+  <div class="section-label">Para copiar y pegar</div>
+  <h2>📝 Texto para Apple — "Novedades de esta versión"</h2>
+  <p class="lead">Copia exactamente este texto en el campo "Novedades de esta versión" de App Store Connect. Está escrito siguiendo las recomendaciones de Apple (breve, claro y orientado al usuario).</p>
+
+  <div class="release-notes">
+    <h3>Versión 1.0.1 — Texto sugerido</h3>
+    <div class="quoted">Mejoras y correcciones de esta versión:
+
+• Activación automática inmediata del plan Premium después de comprar.
+• Mejoras de estabilidad en el sistema de suscripciones.
+• Diseño más limpio del menú principal con mejor uso del espacio.
+• Correcciones menores en la presentación de etiquetas y badges.
+
+¡Gracias por usar Practiquemos.cl! Sigue practicando para aprobar tu examen de conducir a la primera.</div>
+  </div>
+
+  <h2>📦 Datos de referencia</h2>
+  <div class="changes">
+    <h3>Información de la app</h3>
+    <ul>
+      <li><strong>App ID:</strong> 6761405357</li>
+      <li><strong>Versión actual publicada:</strong> 1.0 (Build 2)</li>
+      <li><strong>Próxima versión:</strong> 1.0.1 (Build 3)</li>
+      <li><strong>URL pública:</strong> https://apps.apple.com/app/practiquemos-cl/id6761405357</li>
+      <li><strong>Tipo de cambio:</strong> Bug fix (corrección de errores)</li>
+    </ul>
+  </div>
+
+  <div class="info-box">
+    <strong>📞 ¿Algo falla en el proceso?</strong>
+    <p>Si Expo Launch da un error, o si App Store Connect no muestra el build, avísame y reviso los logs de compilación. La mayoría de errores son de configuración y se resuelven en minutos.</p>
+  </div>
+</div>
+
+<div class="footer">
+  <div>
+    <strong>WebMaker · Practiquemos.cl</strong><br>
+    Diseño Web OlivaresArancibia Ltda. · RUT 78.042.968-2
+  </div>
+  <div style="text-align: right;">
+    practiquemos.cl@gmail.com<br>
+    WhatsApp +56 9 8920 0476
+  </div>
+</div>
+
+</body>
+</html>

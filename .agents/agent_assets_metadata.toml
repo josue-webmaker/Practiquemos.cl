@@ -275,3 +275,9 @@ id = "cgmg052GbiKZAIhy_lpK_"
 uri = "file://scripts/anuncio-lanzamiento.pdf"
 type = "pdf"
 title = "Practiquemos.cl — Anuncio de Lanzamiento (iOS)"
+
+[[outputs]]
+id = "F_kO9cTG5kZh4VdcOxDKN"
+uri = "file://scripts/guia-actualizacion-apple.pdf"
+type = "pdf"
+title = "Guía paso a paso — Actualización a la App Store"
