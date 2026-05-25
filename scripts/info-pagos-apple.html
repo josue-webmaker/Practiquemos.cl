@@ -92,16 +92,18 @@
     <div class="flow-title">Recorrido del pago</div>
     <div class="flow-step"><strong>1.</strong> <span>Usuario compra el plan desde iPhone con su Apple ID</span></div>
     <div class="flow-step"><span class="arrow">↓</span></div>
-    <div class="flow-step"><strong>2.</strong> <span><strong>Apple cobra</strong> el dinero (no MercadoPago, no RevenueCat)</span></div>
+    <div class="flow-step"><strong>2.</strong> <span><strong>Apple cobra</strong> el dinero al usuario</span></div>
     <div class="flow-step"><span class="arrow">↓</span></div>
     <div class="flow-step"><strong>3.</strong> <span>Apple descuenta su comisión (15% o 30% según el caso)</span></div>
     <div class="flow-step"><span class="arrow">↓</span></div>
-    <div class="flow-step"><strong>4.</strong> <span>Apple deposita el resto <strong>directo en la cuenta bancaria</strong> registrada en App Store Connect</span></div>
+    <div class="flow-step"><strong>4.</strong> <span><strong>RevenueCat</strong> registra y valida la transacción (gestión técnica de la suscripción, sin tocar el dinero)</span></div>
+    <div class="flow-step"><span class="arrow">↓</span></div>
+    <div class="flow-step"><strong>5.</strong> <span>Apple deposita el monto neto en la cuenta <strong>MercadoPago</strong> registrada en App Store Connect</span></div>
   </div>
 
   <div class="alert-box">
-    <strong>📌 Importante: RevenueCat NO recibe dinero, MercadoPago NO recibe dinero (en iOS).</strong>
-    <span>RevenueCat es solo una herramienta técnica que organiza las suscripciones. El dinero de iOS lo cobra y deposita Apple directamente. MercadoPago solo recibe los pagos de usuarios de Android y la versión web.</span>
+    <strong>📌 Sobre el rol de RevenueCat</strong>
+    <span>RevenueCat es la plataforma técnica que organiza y valida las suscripciones (saber quién compró, cuándo vence, renovaciones, cancelaciones). <strong>RevenueCat no recibe ni administra dinero</strong>: el dinero lo cobra Apple y lo deposita directamente en la cuenta MercadoPago registrada en App Store Connect.</span>
   </div>
 
   <div class="section-label">Plazo oficial de pago</div>
@@ -128,7 +130,7 @@
   <div class="section-label">Texto oficial citado</div>
   <h2>¿Dónde dice Apple esto exactamente?</h2>
 
-  <p>El plazo de pago está establecido en el documento oficial firmado con Apple llamado <strong>"Acuerdo de Licencia del Programa para Desarrolladores de Apple"</strong>, específicamente en el <strong>Anexo 2 (Schedule 2)</strong>, también conocido como <em>Paid Apps Agreement</em>.</p>
+  <p>El plazo de pago está establecido en el documento oficial <strong>"Acuerdo de Licencia del Programa para Desarrolladores de Apple"</strong>, específicamente en el <strong>Anexo 2 (Schedule 2)</strong>, también conocido como <em>Paid Apps Agreement</em>. Este acuerdo <strong>ya fue firmado y aceptado por WebMaker</strong> como propietario y administrador de la cuenta de Apple Developer de Practiquemos.cl al momento de inscribir la app en la App Store.</p>
 
   <div class="quote-box">
     <div class="quote-source">📜 Anexo 2 · Sección 3.5 — Acuerdo de Licencia Apple Developer Program</div>
@@ -144,42 +146,44 @@
     </div>
   </div>
 
-  <div class="section-label">Cómo verificarlo</div>
-  <h2>¿Dónde puedo leer el contrato completo?</h2>
+  <div class="section-label">Información ya establecida</div>
+  <h2>Documentación oficial de respaldo</h2>
+
+  <p>Todos los términos descritos en este documento ya están <strong>firmados, aceptados y configurados por WebMaker</strong> dentro de la cuenta de Apple Developer de Practiquemos.cl. El cliente no necesita realizar ningún trámite — la información se entrega como respaldo y transparencia del proceso ya implementado:</p>
 
   <div class="path-box">
     <div class="path-step">
-      <div class="num">1</div>
+      <div class="num">✓</div>
       <div class="txt">
-        <strong>Entrar a App Store Connect</strong>
-        <span>Ingresar a <code>appstoreconnect.apple.com</code> con la cuenta de Apple Developer de Practiquemos.cl.</span>
+        <strong>Cuenta de Apple Developer Program</strong>
+        <span>Inscrita y activa en <code>appstoreconnect.apple.com</code> bajo administración de WebMaker como propietario de la cuenta.</span>
       </div>
     </div>
     <div class="path-step">
-      <div class="num">2</div>
+      <div class="num">✓</div>
       <div class="txt">
-        <strong>Ir a la sección "Acuerdos, impuestos y banca"</strong>
-        <span>Menú superior → <code>Empresa</code> → <code>Acuerdos, impuestos y banca</code> (o <em>Agreements, Tax and Banking</em>).</span>
+        <strong>"Acuerdos, impuestos y banca" configurado</strong>
+        <span>Sección <code>Empresa → Acuerdos, impuestos y banca</code> completada con datos tributarios y cuenta MercadoPago de Practiquemos.cl como destino de los depósitos de Apple.</span>
       </div>
     </div>
     <div class="path-step">
-      <div class="num">3</div>
+      <div class="num">✓</div>
       <div class="txt">
-        <strong>Abrir el "Paid Apps Agreement"</strong>
-        <span>Ahí aparece el Acuerdo de Licencia con su Anexo 2 completo, en español, con la firma electrónica del desarrollador y fecha de aceptación.</span>
+        <strong>"Paid Apps Agreement" aceptado</strong>
+        <span>Acuerdo de Licencia con Anexo 2 firmado electrónicamente por WebMaker al momento de habilitar las compras dentro de la app. Disponible en español dentro de App Store Connect.</span>
       </div>
     </div>
     <div class="path-step">
-      <div class="num">4</div>
+      <div class="num">✓</div>
       <div class="txt">
-        <strong>Buscar la Sección 3.5 del Anexo 2</strong>
-        <span>Es el párrafo citado en la página anterior. También se puede consultar la sección <code>Pagos y reportes financieros</code> dentro de la misma plataforma App Store Connect.</span>
+        <strong>Sección 3.5 del Anexo 2 — citada arriba</strong>
+        <span>Es el párrafo donde Apple define que descuenta su comisión y remite el resto al desarrollador según sus prácticas comerciales estándar (33-45 días después del cierre del mes fiscal).</span>
       </div>
     </div>
     <div class="path-step">
-      <div class="num">5</div>
+      <div class="num">✓</div>
       <div class="txt">
-        <strong>Calendario fiscal oficial de Apple</strong>
+        <strong>Calendario fiscal de Apple</strong>
         <span>Apple publica las fechas exactas de cierre de cada mes fiscal en el portal Apple Developer Support, sección <code>Fiscal Calendar</code>. Estos cierres determinan desde cuándo se cuentan los 33-45 días.</span>
       </div>
     </div>
@@ -192,7 +196,7 @@
     <p><strong>Venta hecha en mayo 2026 desde iPhone:</strong></p>
     <p>📅 El mes fiscal de Apple de mayo cierra alrededor del <strong>31 de mayo</strong>.</p>
     <p>💰 Apple deposita el dinero en la cuenta bancaria entre el <strong>~3 de julio</strong> (33 días) y el <strong>15 de julio</strong> (45 días, plazo máximo del contrato).</p>
-    <p>🏦 El depósito llega a la cuenta bancaria registrada en App Store Connect → <strong>NO a MercadoPago.</strong></p>
+    <p>🏦 El depósito llega a la cuenta <strong>MercadoPago</strong> registrada en App Store Connect (configurada por WebMaker).</p>
     <p>📊 Cada mes se puede descargar el reporte financiero detallado desde App Store Connect → <em>Pagos y reportes financieros</em>.</p>
   </div>
 </div>
