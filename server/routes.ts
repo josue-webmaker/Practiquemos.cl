@@ -696,11 +696,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const event = req.body?.event;
       if (!event) return res.sendStatus(200);
 
-      const appUserId = event.app_user_id;
-      if (!appUserId) return res.sendStatus(200);
+      const isUuid = (s: string) => /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(s);
+
+      const candidateIds: string[] = [];
+      if (event.app_user_id) candidateIds.push(event.app_user_id);
+      if (event.original_app_user_id) candidateIds.push(event.original_app_user_id);
+      if (Array.isArray(event.aliases)) candidateIds.push(...event.aliases);
+
+      let targetUserId: string | null = candidateIds.find(isUuid) || null;
+
+      if (!targetUserId) {
+        const rcApiKey = process.env.REVENUECAT_API_KEY;
+        const lookupId = event.app_user_id || event.original_app_user_id;
+        if (rcApiKey && lookupId) {
+          try {
+            const rcResp = await fetch(`https://api.revenuecat.com/v1/subscribers/${lookupId}`, {
+              headers: { "Authorization": `Bearer ${rcApiKey}` },
+            });
+            if (rcResp.ok) {
+              const sub = await rcResp.json() as any;
+              const allIds: string[] = [];
+              if (sub?.subscriber?.original_app_user_id) allIds.push(sub.subscriber.original_app_user_id);
+              if (Array.isArray(sub?.subscriber?.subscriber_aliases)) allIds.push(...sub.subscriber.subscriber_aliases);
+              targetUserId = allIds.find(isUuid) || null;
+            }
+          } catch (e) {
+            console.error("RevenueCat alias lookup failed:", e);
+          }
+        }
+      }
+
+      if (!targetUserId) {
+        console.warn(`RevenueCat webhook: no UUID user found. event.app_user_id=${event.app_user_id} aliases=${JSON.stringify(event.aliases)}`);
+        return res.sendStatus(200);
+      }
 
       const eventType = event.type;
-      if (["INITIAL_PURCHASE", "RENEWAL", "PRODUCT_CHANGE"].includes(eventType)) {
+      if (["INITIAL_PURCHASE", "RENEWAL", "PRODUCT_CHANGE", "NON_RENEWING_PURCHASE", "UNCANCELLATION"].includes(eventType)) {
         const productId = event.product_id || "";
         let plan = "premium_30";
         let days = 30;
@@ -710,11 +742,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
         const expiry = new Date();
         expiry.setDate(expiry.getDate() + days);
-        await db.update(users).set({ plan, planExpiry: expiry }).where(eq(users.id, appUserId));
-        console.log(`RevenueCat: ${eventType} for user ${appUserId}, plan ${plan}`);
+        const result = await db.update(users).set({ plan, planExpiry: expiry }).where(eq(users.id, targetUserId)).returning({ id: users.id });
+        console.log(`RevenueCat: ${eventType} matched=${result.length} user=${targetUserId} plan=${plan}`);
       } else if (["EXPIRATION", "CANCELLATION"].includes(eventType)) {
-        await db.update(users).set({ plan: "free", planExpiry: null }).where(eq(users.id, appUserId));
-        console.log(`RevenueCat: ${eventType} for user ${appUserId}, reverted to free`);
+        await db.update(users).set({ plan: "free", planExpiry: null }).where(eq(users.id, targetUserId));
+        console.log(`RevenueCat: ${eventType} user=${targetUserId} reverted to free`);
       }
 
       res.sendStatus(200);

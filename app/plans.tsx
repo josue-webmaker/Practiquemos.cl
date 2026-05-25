@@ -37,12 +37,21 @@ export default function PlansScreen() {
     if (useRevenueCat && RC_IOS_API_KEY && user) {
       const initRC = async () => {
         try {
-          Purchases.configure({ apiKey: RC_IOS_API_KEY, appUserID: user.id });
+          try {
+            Purchases.configure({ apiKey: RC_IOS_API_KEY, appUserID: user.id });
+          } catch {}
+          try {
+            await Purchases.logIn(user.id);
+          } catch {}
           const offerings = await Purchases.getOfferings();
           if (offerings.current?.availablePackages) {
             setRcPackages(offerings.current.availablePackages);
           }
           setRcReady(true);
+          try {
+            await apiRequest('POST', '/api/payments/revenucat-activate', {});
+            await refreshUser();
+          } catch {}
         } catch {
           setRcReady(false);
         }
@@ -82,6 +91,9 @@ export default function PlansScreen() {
 
     setLoading(plan);
     try {
+      try {
+        await Purchases.logIn(user.id);
+      } catch {}
       const productId = RC_PRODUCT_IDS[plan as keyof typeof RC_PRODUCT_IDS];
       const targetPackage = rcPackages.find(
         (p: any) => p.product?.identifier === productId
