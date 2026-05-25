@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+  @page { size: A4; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #0f172a; font-size: 11.5px; line-height: 1.5; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  .top-bar { background: #0f172a; padding: 12px 38px; display: flex; justify-content: space-between; align-items: center; }
+  .top-bar img { height: 28px; }
+  .top-bar .doc-meta { color: white; text-align: right; font-size: 9px; letter-spacing: 1.8px; text-transform: uppercase; opacity: 0.8; font-weight: 600; }
+  .top-bar .doc-meta strong { color: #f97316; font-size: 11px; margin-right: 8px; }
+
+  .page { padding: 20px 38px 14px; }
+
+  .hero { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #f97316; }
+  .hero .fox { width: 54px; height: 54px; flex-shrink: 0; }
+  .hero h1 { font-size: 19px; font-weight: 800; letter-spacing: -0.3px; line-height: 1.15; }
+  .hero h1 .accent { color: #f97316; }
+  .hero .sub { color: #64748b; font-size: 11.5px; margin-top: 2px; }
+
+  .section-label { font-size: 9px; letter-spacing: 1.8px; text-transform: uppercase; color: #f97316; font-weight: 800; margin: 14px 0 4px; }
+  h2 { font-size: 14px; font-weight: 800; margin-bottom: 8px; color: #0f172a; }
+  p { color: #334155; margin-bottom: 6px; font-size: 11.5px; }
+
+  .intro-box { background: #f8fafc; border-left: 3px solid #f97316; border-radius: 6px; padding: 11px 14px; margin-bottom: 12px; }
+  .intro-box p { color: #334155; font-size: 11.5px; margin: 0 0 4px; line-height: 1.5; }
+  .intro-box p:last-child { margin-bottom: 0; }
+
+  .path-box { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px 16px; margin-bottom: 12px; }
+  .path-step { display: flex; gap: 10px; align-items: flex-start; padding: 7px 0; border-bottom: 1px dashed #e2e8f0; }
+  .path-step:last-child { border-bottom: none; }
+  .path-step .num { width: 22px; height: 22px; background: #0f172a; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 11px; flex-shrink: 0; }
+  .path-step .txt strong { color: #0f172a; font-size: 11.5px; }
+  .path-step .txt span { display: block; color: #64748b; font-size: 10.5px; margin-top: 1px; }
+  .path-step .txt code { background: #fef3c7; padding: 1px 5px; border-radius: 3px; font-size: 10.5px; color: #92400e; font-family: 'Courier New', monospace; }
+
+  .quote-box { background: #fff7ed; border: 1px solid #fed7aa; border-left: 4px solid #f97316; border-radius: 8px; padding: 12px 16px; margin: 10px 0 12px; }
+  .quote-box .quote-source { font-size: 10px; color: #9a3412; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; }
+  .quote-box .quote-text { color: #7c2d12; font-size: 11.5px; font-style: italic; line-height: 1.55; }
+  .quote-box .quote-text strong { color: #0f172a; font-style: normal; background: #fde68a; padding: 0 3px; border-radius: 2px; }
+
+  .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0 12px; }
+  .summary-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 11px 14px; }
+  .summary-card .label { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: #f97316; font-weight: 800; margin-bottom: 4px; }
+  .summary-card .value { font-size: 16px; font-weight: 800; color: #0f172a; line-height: 1.1; }
+  .summary-card .desc { font-size: 10.5px; color: #64748b; margin-top: 3px; line-height: 1.4; }
+
+  .flow-box { background: linear-gradient(135deg, #0f172a, #1e293b); color: white; border-radius: 10px; padding: 14px 18px; margin: 10px 0 12px; }
+  .flow-title { font-size: 9px; letter-spacing: 1.8px; text-transform: uppercase; color: #f97316; font-weight: 800; margin-bottom: 8px; }
+  .flow-step { display: flex; align-items: center; gap: 8px; padding: 4px 0; font-size: 11.5px; color: #cbd5e1; }
+  .flow-step .arrow { color: #f97316; font-weight: 800; }
+  .flow-step strong { color: #fff; }
+
+  .alert-box { background: #fef3c7; border: 1px solid #fcd34d; border-radius: 8px; padding: 10px 14px; margin: 8px 0 12px; }
+  .alert-box strong { color: #92400e; font-size: 11.5px; display: block; margin-bottom: 2px; }
+  .alert-box span { color: #78350f; font-size: 10.5px; line-height: 1.45; }
+
+  .footer { background: #0f172a; padding: 12px 38px; color: white; font-size: 10px; display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+  .footer .left strong { color: #f97316; font-size: 11.5px; display: block; margin-bottom: 1px; }
+  .footer .left span { color: #94a3b8; display: block; line-height: 1.45; font-size: 10px; }
+  .footer .right { text-align: right; color: #cbd5e1; line-height: 1.5; font-size: 10px; }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <img src="assets/webmaker-logo-white.png" alt="WebMaker">
+  <div class="doc-meta">
+    <strong>Informativo</strong>Pagos Apple · Practiquemos.cl
+  </div>
+</div>
+
+<div class="page">
+  <div class="hero">
+    <img class="fox" src="assets/webmaker-fox-orange.png" alt="">
+    <div>
+      <h1>¿Cuándo paga Apple? <span class="accent">Información oficial</span></h1>
+      <p class="sub">Pagos de App Store · Fuente: Apple Inc. · Mayo 2026</p>
+    </div>
+  </div>
+
+  <div class="intro-box">
+    <p>Este documento explica <strong>cuándo y cómo Apple realiza los pagos</strong> a Practiquemos.cl por las ventas hechas dentro de la App Store (compras desde iPhone). La información está respaldada por el contrato oficial firmado con Apple al inscribirse en el Apple Developer Program.</p>
+  </div>
+
+  <div class="section-label">Flujo de dinero (iOS)</div>
+  <h2>¿Por dónde pasa la plata de una compra en iPhone?</h2>
+
+  <div class="flow-box">
+    <div class="flow-title">Recorrido del pago</div>
+    <div class="flow-step"><strong>1.</strong> <span>Usuario compra el plan desde iPhone con su Apple ID</span></div>
+    <div class="flow-step"><span class="arrow">↓</span></div>
+    <div class="flow-step"><strong>2.</strong> <span><strong>Apple cobra</strong> el dinero (no MercadoPago, no RevenueCat)</span></div>
+    <div class="flow-step"><span class="arrow">↓</span></div>
+    <div class="flow-step"><strong>3.</strong> <span>Apple descuenta su comisión (15% o 30% según el caso)</span></div>
+    <div class="flow-step"><span class="arrow">↓</span></div>
+    <div class="flow-step"><strong>4.</strong> <span>Apple deposita el resto <strong>directo en la cuenta bancaria</strong> registrada en App Store Connect</span></div>
+  </div>
+
+  <div class="alert-box">
+    <strong>📌 Importante: RevenueCat NO recibe dinero, MercadoPago NO recibe dinero (en iOS).</strong>
+    <span>RevenueCat es solo una herramienta técnica que organiza las suscripciones. El dinero de iOS lo cobra y deposita Apple directamente. MercadoPago solo recibe los pagos de usuarios de Android y la versión web.</span>
+  </div>
+
+  <div class="section-label">Plazo oficial de pago</div>
+  <h2>¿Cuándo deposita Apple el dinero?</h2>
+
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="label">Plazo según contrato</div>
+      <div class="value">45 días</div>
+      <div class="desc">Plazo máximo establecido en el contrato firmado con Apple. Contados desde el cierre del mes fiscal de Apple en que se realizó la venta.</div>
+    </div>
+    <div class="summary-card">
+      <div class="label">Plazo real habitual</div>
+      <div class="value">33 días</div>
+      <div class="desc">En la práctica, Apple suele pagar antes del plazo máximo: aproximadamente a los 33 días del cierre del mes fiscal.</div>
+    </div>
+  </div>
+
+  <div class="alert-box" style="background:#fef2f2; border-color:#fecaca;">
+    <strong style="color:#991b1b;">⚠️ El primer pago siempre demora más</strong>
+    <span style="color:#7f1d1d;">La primera vez que Apple paga a una cuenta nueva puede tomar hasta 45 días (o un poco más), porque Apple debe verificar los datos bancarios, tributarios y el cumplimiento del Acuerdo. A partir del segundo pago, el ritmo es mensual y más rápido.</span>
+  </div>
+
+  <div class="section-label">Texto oficial citado</div>
+  <h2>¿Dónde dice Apple esto exactamente?</h2>
+
+  <p>El plazo de pago está establecido en el documento oficial firmado con Apple llamado <strong>"Acuerdo de Licencia del Programa para Desarrolladores de Apple"</strong>, específicamente en el <strong>Anexo 2 (Schedule 2)</strong>, también conocido como <em>Paid Apps Agreement</em>.</p>
+
+  <div class="quote-box">
+    <div class="quote-source">📜 Anexo 2 · Sección 3.5 — Acuerdo de Licencia Apple Developer Program</div>
+    <div class="quote-text">
+      "Al cobrar cualquier monto de cualquier Usuario final como precio por cualquier Aplicación con licencia entregada a ese Usuario final en virtud del presente, <strong>Apple deducirá el monto total de su comisión</strong> con respecto a esa Aplicación con licencia y cualquier impuesto recaudado por Apple en virtud de las Secciones 3.2 y 3.4 del presente, y <strong>se lo remitirá a Usted</strong> o emitirá un crédito a Su favor, según sea el caso, <strong>el resto de esos precios de acuerdo con las prácticas comerciales estándar de Apple</strong>."
+    </div>
+  </div>
+
+  <div class="quote-box">
+    <div class="quote-source">📜 Anexo 2 · Sección 3.6 — Sobre impuestos y retenciones</div>
+    <div class="quote-text">
+      "En el caso de que la comisión de Apple o cualquier precio pagadero por cualquier Usuario final por cualquiera de las Aplicaciones Licenciadas esté sujeto a cualquier <strong>retención o impuesto similar</strong>, cualquier impuesto o gravamen sobre ventas, uso, bienes y servicios, valor agregado, telecomunicaciones u otro impuesto o gravamen no recaudado por Apple..."
+    </div>
+  </div>
+
+  <div class="section-label">Cómo verificarlo</div>
+  <h2>¿Dónde puedo leer el contrato completo?</h2>
+
+  <div class="path-box">
+    <div class="path-step">
+      <div class="num">1</div>
+      <div class="txt">
+        <strong>Entrar a App Store Connect</strong>
+        <span>Ingresar a <code>appstoreconnect.apple.com</code> con la cuenta de Apple Developer de Practiquemos.cl.</span>
+      </div>
+    </div>
+    <div class="path-step">
+      <div class="num">2</div>
+      <div class="txt">
+        <strong>Ir a la sección "Acuerdos, impuestos y banca"</strong>
+        <span>Menú superior → <code>Empresa</code> → <code>Acuerdos, impuestos y banca</code> (o <em>Agreements, Tax and Banking</em>).</span>
+      </div>
+    </div>
+    <div class="path-step">
+      <div class="num">3</div>
+      <div class="txt">
+        <strong>Abrir el "Paid Apps Agreement"</strong>
+        <span>Ahí aparece el Acuerdo de Licencia con su Anexo 2 completo, en español, con la firma electrónica del desarrollador y fecha de aceptación.</span>
+      </div>
+    </div>
+    <div class="path-step">
+      <div class="num">4</div>
+      <div class="txt">
+        <strong>Buscar la Sección 3.5 del Anexo 2</strong>
+        <span>Es el párrafo citado en la página anterior. También se puede consultar la sección <code>Pagos y reportes financieros</code> dentro de la misma plataforma App Store Connect.</span>
+      </div>
+    </div>
+    <div class="path-step">
+      <div class="num">5</div>
+      <div class="txt">
+        <strong>Calendario fiscal oficial de Apple</strong>
+        <span>Apple publica las fechas exactas de cierre de cada mes fiscal en el portal Apple Developer Support, sección <code>Fiscal Calendar</code>. Estos cierres determinan desde cuándo se cuentan los 33-45 días.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Resumen práctico</div>
+  <h2>Ejemplo concreto para Practiquemos.cl</h2>
+
+  <div class="intro-box">
+    <p><strong>Venta hecha en mayo 2026 desde iPhone:</strong></p>
+    <p>📅 El mes fiscal de Apple de mayo cierra alrededor del <strong>31 de mayo</strong>.</p>
+    <p>💰 Apple deposita el dinero en la cuenta bancaria entre el <strong>~3 de julio</strong> (33 días) y el <strong>15 de julio</strong> (45 días, plazo máximo del contrato).</p>
+    <p>🏦 El depósito llega a la cuenta bancaria registrada en App Store Connect → <strong>NO a MercadoPago.</strong></p>
+    <p>📊 Cada mes se puede descargar el reporte financiero detallado desde App Store Connect → <em>Pagos y reportes financieros</em>.</p>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="left">
+    <strong>WebMaker</strong>
+    <span>Diseño Web OlivaresArancibia Ltda. · RUT 78.042.968-2 · Lucas Olivares</span>
+  </div>
+  <div class="right">
+    contacto@practiquemos.cl<br>+56 9 8920 0476
+  </div>
+</div>
+
+</body>
+</html>
