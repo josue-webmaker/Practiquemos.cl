@@ -281,3 +281,9 @@ id = "F_kO9cTG5kZh4VdcOxDKN"
 uri = "file://scripts/guia-actualizacion-apple.pdf"
 type = "pdf"
 title = "Guía paso a paso — Actualización a la App Store"
+
+[[outputs]]
+id = "nrbjHWdXa2CjvYr1QoDOz"
+uri = "file://scripts/cotizacion-recuperar-password.pdf"
+type = "pdf"
+title = "Cotización — Recuperación de contraseña automática"
