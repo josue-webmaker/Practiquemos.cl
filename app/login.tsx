@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Pressable, Platform, Alert, KeyboardAvoidingView, ScrollView, Image } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Pressable, Platform, Alert, KeyboardAvoidingView, ScrollView, Image, Linking } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -33,6 +33,23 @@ export default function LoginScreen() {
     }
   };
 
+  const handleForgotPassword = () => {
+    const identifier = username.trim();
+    const subject = encodeURIComponent('Recuperar contraseña - Practiquemos.cl');
+    const body = encodeURIComponent(
+      `Hola, olvidé mi contraseña y necesito recuperarla.\n\n` +
+      `Mi usuario o correo es: ${identifier || '(escribe aquí tu usuario o correo)'}\n\n` +
+      `Por favor ayúdame a restablecerla. Gracias.`
+    );
+    const mailto = `mailto:contacto@practiquemos.cl?subject=${subject}&body=${body}`;
+    Linking.openURL(mailto).catch(() => {
+      Alert.alert(
+        'Recuperar contraseña',
+        'Escríbenos a contacto@practiquemos.cl con tu usuario o correo y te ayudamos a recuperar tu cuenta en menos de 24 horas.'
+      );
+    });
+  };
+
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <LinearGradient colors={[Colors.primary, Colors.primaryDark]} style={[styles.header, { paddingTop: (insets.top || webTopInset) + 12 }]}>
@@ -53,16 +70,17 @@ export default function LoginScreen() {
         {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
         <View style={styles.inputGroup}>
-          <Text style={styles.label}>Usuario</Text>
+          <Text style={styles.label}>Usuario o correo electrónico</Text>
           <View style={styles.inputWrapper}>
             <Ionicons name="person-outline" size={20} color={Colors.textMuted} />
             <TextInput
               style={styles.input}
               value={username}
               onChangeText={setUsername}
-              placeholder="Tu nombre de usuario"
+              placeholder="Tu usuario o tu correo"
               autoCapitalize="none"
               autoCorrect={false}
+              keyboardType="email-address"
             />
           </View>
         </View>
@@ -87,6 +105,10 @@ export default function LoginScreen() {
           style={({ pressed }) => [styles.loginBtn, pressed && { opacity: 0.8 }, loading && { opacity: 0.6 }]}
         >
           <Text style={styles.loginBtnText}>{loading ? 'Ingresando...' : 'Ingresar'}</Text>
+        </Pressable>
+
+        <Pressable onPress={handleForgotPassword} hitSlop={8} style={styles.forgotRow}>
+          <Text style={styles.forgotText}>¿Olvidaste tu contraseña?</Text>
         </Pressable>
 
         <View style={styles.registerRow}>
@@ -115,6 +137,8 @@ const styles = StyleSheet.create({
   input: { flex: 1, paddingVertical: 14, fontSize: 16, fontFamily: 'Nunito_400Regular', color: Colors.text },
   loginBtn: { width: '100%', backgroundColor: Colors.primary, paddingVertical: 16, borderRadius: 14, alignItems: 'center', marginTop: 8 },
   loginBtnText: { color: '#fff', fontSize: 17, fontFamily: 'Nunito_700Bold' },
+  forgotRow: { marginTop: 14, alignItems: 'center' },
+  forgotText: { color: Colors.primary, fontSize: 14, fontFamily: 'Nunito_700Bold', textDecorationLine: 'underline' },
   registerRow: { flexDirection: 'row', marginTop: 20 },
   registerText: { fontSize: 14, fontFamily: 'Nunito_400Regular', color: Colors.textSecondary },
   registerLink: { fontSize: 14, fontFamily: 'Nunito_700Bold', color: Colors.primary },

@@ -136,27 +136,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // AUTH ROUTES
   app.post("/api/auth/register", async (req: Request, res: Response) => {
     try {
-      const { username, password, email, fullName } = req.body;
-      if (!username || !password) {
+      const rawUsername = (req.body.username || "").trim();
+      const rawEmail = (req.body.email || "").trim().toLowerCase();
+      const fullName = req.body.fullName;
+      const password = req.body.password;
+      if (!rawUsername || !password) {
         return res.status(400).json({ message: "Usuario y contraseña requeridos" });
       }
-      if (username.toLowerCase() === SUPER_ADMIN_USERNAME) {
+      if (rawUsername.toLowerCase() === SUPER_ADMIN_USERNAME) {
         return res.status(400).json({ message: "Ese nombre de usuario no está disponible" });
       }
-      const existing = await storage.getUserByUsername(username);
+      const existing = await storage.getUserByUsername(rawUsername);
       if (existing) {
         return res.status(400).json({ message: "Ese nombre de usuario ya está en uso. Elige otro." });
       }
-      if (email) {
-        const existingEmail = await storage.getUserByEmail(email);
+      if (rawEmail) {
+        const existingEmail = await storage.getUserByEmail(rawEmail);
         if (existingEmail) {
-          return res.status(400).json({ message: "Ese correo electrónico ya está registrado. Usa otro o inicia sesión." });
+          return res.status(400).json({ message: "Ese correo electrónico ya está registrado. Inicia sesión con tu cuenta existente." });
         }
       }
       const user = await storage.createUser({
-        username,
+        username: rawUsername,
         password: await hashPassword(password),
-        email: email || null,
+        email: rawEmail || null,
         fullName: fullName || null,
       });
       const token = createSession(user.id, user.role);
@@ -172,7 +175,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!parsed.success) {
         return res.status(400).json({ message: "Datos inválidos" });
       }
-      const user = await storage.getUserByUsername(parsed.data.username);
+      const identifier = (parsed.data.username || "").trim();
+      const isEmail = identifier.includes("@");
+      const user = isEmail
+        ? await storage.getUserByEmail(identifier)
+        : await storage.getUserByUsername(identifier);
       if (!user || !(await verifyPassword(parsed.data.password, user.password))) {
         return res.status(401).json({ message: "Usuario o contraseña incorrectos" });
       }

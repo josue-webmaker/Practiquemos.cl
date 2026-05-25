@@ -7,7 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Colors from '@/constants/colors';
 import { useUser } from '@/lib/UserContext';
 import { apiRequest } from '@/lib/query-client';
-import { categorias } from '@/lib/mockDatabase';
+import { categorias, fetchQuestionsByLicense } from '@/lib/mockDatabase';
 
 interface Progress {
   category: string;
@@ -20,27 +20,46 @@ export default function MiCursoScreen() {
   const insets = useSafeAreaInsets();
   const { isLoggedIn, licenseType } = useUser();
   const [progress, setProgress] = useState<Progress[]>([]);
+  const [categoryTotals, setCategoryTotals] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(true);
   const webTopInset = Platform.OS === 'web' ? 67 : 0;
 
   useEffect(() => {
     if (!isLoggedIn) { setLoading(false); return; }
-    apiRequest('GET', `/api/progress/${licenseType}`)
-      .then(res => res.json())
-      .then(data => setProgress(data))
-      .catch(() => {})
-      .finally(() => setLoading(false));
+    Promise.all([
+      apiRequest('GET', `/api/progress/${licenseType}`).then(res => res.json()).catch(() => []),
+      fetchQuestionsByLicense(licenseType).catch(() => []),
+    ]).then(([prog, qs]) => {
+      setProgress(prog || []);
+      const totals: Record<string, number> = {};
+      (qs || []).forEach((q: any) => {
+        const c = q.categoria || 'Otros';
+        totals[c] = (totals[c] || 0) + 1;
+      });
+      setCategoryTotals(totals);
+    }).finally(() => setLoading(false));
   }, [isLoggedIn, licenseType]);
 
   const getProgressForCategory = (cat: string) => {
     const p = progress.find(pr => pr.category === cat);
-    if (!p || p.totalAnswered === 0) return { answered: 0, correct: 0, pct: 0 };
-    return { answered: p.totalAnswered, correct: p.totalCorrect, pct: Math.round((p.totalCorrect / p.totalAnswered) * 100) };
+    const total = categoryTotals[cat] || 0;
+    const answered = p?.totalAnswered || 0;
+    const correct = p?.totalCorrect || 0;
+    const cappedAnswered = total > 0 ? Math.min(answered, total) : 0;
+    const pct = total > 0 ? Math.round((cappedAnswered / total) * 100) : 0;
+    const accuracy = answered > 0 ? Math.round((correct / answered) * 100) : 0;
+    return { answered: cappedAnswered, correct, total, pct, accuracy };
   };
 
-  const totalAnswered = progress.reduce((s, p) => s + p.totalAnswered, 0);
-  const totalCorrect = progress.reduce((s, p) => s + p.totalCorrect, 0);
-  const overallPct = totalAnswered > 0 ? Math.round((totalCorrect / totalAnswered) * 100) : 0;
+  const totalQuestions = Object.values(categoryTotals).reduce((s, n) => s + n, 0);
+  const totalAnsweredCapped = categorias.reduce((s, cat) => {
+    const p = progress.find(pr => pr.category === cat);
+    const total = categoryTotals[cat] || 0;
+    if (total === 0) return s;
+    const ans = p?.totalAnswered || 0;
+    return s + Math.min(ans, total);
+  }, 0);
+  const overallPct = totalQuestions > 0 ? Math.round((totalAnsweredCapped / totalQuestions) * 100) : 0;
 
   return (
     <View style={styles.container}>
@@ -59,15 +78,15 @@ export default function MiCursoScreen() {
           </View>
           <View style={styles.overviewInfo}>
             <Text style={styles.overviewTitle}>Tu progreso general</Text>
-            <Text style={styles.overviewStat}>{totalAnswered} preguntas respondidas</Text>
-            <Text style={styles.overviewStat}>{totalCorrect} respuestas correctas</Text>
+            <Text style={styles.overviewStat}>{totalAnsweredCapped} de {totalQuestions} preguntas practicadas</Text>
+            <Text style={styles.overviewStat}>{Math.max(0, totalQuestions - totalAnsweredCapped)} te faltan por practicar</Text>
           </View>
         </View>
 
         <Text style={styles.sectionTitle}>Progreso por Categoria</Text>
 
         {categorias.map(cat => {
-          const { answered, correct, pct } = getProgressForCategory(cat);
+          const { answered, correct, total, pct, accuracy } = getProgressForCategory(cat);
           const barColor = pct >= 75 ? Colors.success : pct >= 50 ? Colors.accent : Colors.primaryLight;
           return (
             <Pressable
@@ -82,7 +101,13 @@ export default function MiCursoScreen() {
               <View style={styles.progressBar}>
                 <View style={[styles.progressFill, { width: `${Math.max(pct, 2)}%`, backgroundColor: barColor }]} />
               </View>
-              <Text style={styles.categoryStat}>{answered > 0 ? `${correct}/${answered} correctas` : 'Sin practicar'}</Text>
+              <Text style={styles.categoryStat}>
+                {total > 0
+                  ? (answered > 0
+                      ? `${answered} de ${total} practicadas · ${accuracy}% acertadas`
+                      : `Sin practicar · ${total} preguntas disponibles`)
+                  : 'Sin practicar'}
+              </Text>
             </Pressable>
           );
         })}
