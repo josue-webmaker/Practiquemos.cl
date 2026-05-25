@@ -1,0 +1,79 @@
+Workflows
+
+019e5c97
+
+launch.expo.dev/expo/ios
+launch.expo.dev/expo/ios
+
+
+Re-run Workflow
+
+Status
+
+Errored
+
+Duration
+
+7m 17s
+
+Trigger
+
+Expo Launch
+
+Triggered by
+
+Unknown
+
+Started
+
+May 24, 2026 8:44 PM
+
+
+Workflow graph
+
+
+Workflow file
+
+React Flow
+Annotations
+14
+
+View All
+
+[33m[altool] 2026-05-24 17:51:36.699 [1m[31mERROR: [altool.6000005BC140] Validation failed This bundle is invalid. The value for key CFBundleShortVersionString [1.0.0] in the Info.plist file must contain a higher version than that of the previously approved version [1.0.0]. Please find more information about CFBundleShortVersionString at https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring (ID: 5d8c0900-6cbb-42fe-90c3-cfcf2e247ce9) (409)
+app-store / 🚀 Submit to App Store
+
+[33m[altool] NSLocalizedFailureReason = "This bundle is invalid. The value for key CFBundleShortVersionString [1.0.0] in the Info.plist file must contain a higher version than that of the previously approved version [1.0.0]. Please find more information about CFBundleShortVersionString at https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring (ID: 5d8c0900-6cbb-42fe-90c3-cfcf2e247ce9)";
+app-store / 🚀 Submit to App Store
+
+[33m[altool] NSUnderlyingError = "Error Domain=IrisAPI Code=-19241 \"Validation failed\" UserInfo={status=409, detail=This bundle is invalid. The value for key CFBundleShortVersionString [1.0.0] in the Info.plist file must contain a higher version than that of the previously approved version [1.0.0]. Please find more information about CFBundleShortVersionString at https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring, id=5d8c0900-6cbb-42fe-90c3-cfcf2e247ce9, code=STATE_ERROR.VALIDATION_ERROR, title=Validation failed, NSLocalizedFailureReason=This bundle is invalid. The value for key CFBundleShortVersionString [1.0.0] in the Info.plist file must contain a higher version than that of the previously approved version [1.0.0]. Please find more information about CFBundleShortVersionString at https://developer.apple.com/documentation/bundleresources/information_property_list/cfbundleshortversionstring, NSLocalizedDescription=Validation failed}";
+app-store / 🚀 Submit to App Store
+Artifacts
+0
+No artifacts
+
+Jobs
+
+app-store
+
+ca53a71
+
+production
+
+59a878e
+Profile
+production
+Version
+1.0.0 (3)
+Type
+App Store
+6m 37s
+
+
+Logs
+
+
+Artifacts
+
+Job errors
+Unknown custom build error. See logs for more information.

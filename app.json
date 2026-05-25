@@ -2,7 +2,7 @@
   "expo": {
     "name": "Practiquemos.cl",
     "slug": "practiquemos-cl",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/app-icon.png",
     "scheme": "practiquemos",
@@ -16,7 +16,7 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "cl.practiquemos.app",
-      "buildNumber": "1",
+      "buildNumber": "3",
       "privacyPolicyUrl": "https://practiquemos.cl/legal",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
