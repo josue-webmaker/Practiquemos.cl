@@ -942,6 +942,82 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Static pages (privacy policy, terms)
+  app.get("/privacidad", (_req: Request, res: Response) => {
+    const html = `<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Política de Privacidad – Practiquemos.cl</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f8fafc;color:#334155;line-height:1.65;padding:28px 20px}
+.wrapper{max-width:720px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.brand-icon{width:44px;height:44px;background:linear-gradient(135deg,#1d4ed8,#2563eb);border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:20px}
+.brand-text h1{font-size:20px;color:#0f172a;font-weight:800;letter-spacing:-0.3px}
+.brand-text span{font-size:12px;color:#64748b}
+.section{background:#fff;border-radius:14px;padding:24px 26px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,0.05)}
+.section h2{font-size:16px;color:#1d4ed8;font-weight:800;margin-bottom:10px}
+.section p{font-size:13.5px;color:#475569;margin-bottom:10px}
+.section p:last-child{margin-bottom:0}
+.section ul{padding-left:20px;margin-bottom:10px}
+.section li{font-size:13px;color:#475569;margin-bottom:5px}
+.updated{font-size:11px;color:#94a3b8;margin-top:20px;text-align:center}
+@media(min-width:768px){body{padding:48px 32px}.section{padding:28px 32px}.brand-text h1{font-size:22px}}
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="brand">
+    <div class="brand-icon">P</div>
+    <div class="brand-text"><h1>Practiquemos.cl</h1><span>Política de Privacidad</span></div>
+  </div>
+  <div class="section">
+    <h2>1. Datos que recolectamos</h2>
+    <p>Practiquemos.cl recopila la siguiente información personal cuando creas una cuenta:</p>
+    <ul>
+      <li>Nombre completo</li>
+      <li>Correo electrónico</li>
+      <li>Nombre de usuario</li>
+      <li>Tipo de licencia seleccionada</li>
+      <li>Progreso en exámenes y resultados de práctica</li>
+      <li>Preguntas guardadas como favoritas</li>
+    </ul>
+  </div>
+  <div class="section">
+    <h2>2. Cómo usamos tus datos</h2>
+    <p>Utilizamos tu información para personalizar tu experiencia de aprendizaje, guardar tu progreso y estadísticas, gestionar tu cuenta y plan de suscripción, mejorar nuestros servicios y contenido educativo, y comunicarnos contigo sobre tu cuenta.</p>
+  </div>
+  <div class="section">
+    <h2>3. Cómo almacenamos tus datos</h2>
+    <p>Tus datos se almacenan de forma segura en servidores protegidos. Las contraseñas se cifran utilizando algoritmos de hashing seguros (bcrypt). No almacenamos información de tarjetas de crédito ni datos financieros directamente; los pagos son procesados por plataformas de pago seguras de terceros (Apple App Store, Mercado Pago).</p>
+  </div>
+  <div class="section">
+    <h2>4. Tus derechos</h2>
+    <p>Como usuario, tienes derecho a acceder a tus datos personales desde tu perfil, solicitar la corrección de tus datos, eliminar tu cuenta y todos los datos asociados en cualquier momento desde la sección de perfil, exportar tus datos de progreso, y retirar tu consentimiento para el uso de tus datos.</p>
+  </div>
+  <div class="section">
+    <h2>5. Eliminación de cuenta</h2>
+    <p>Puedes eliminar tu cuenta en cualquier momento desde la pantalla de perfil de la app. Al eliminar tu cuenta, se borrarán permanentemente todos tus datos, incluyendo resultados de exámenes, favoritos y progreso por categoría. Esta acción es irreversible.</p>
+  </div>
+  <div class="section">
+    <h2>6. Compartir datos con terceros</h2>
+    <p>No vendemos ni compartimos tu información personal con terceros, excepto con los proveedores de servicios de pago necesarios para procesar transacciones (Apple, Mercado Pago) y con los servicios de infraestructura necesarios para operar la aplicación (hosting, base de datos).</p>
+  </div>
+  <div class="section">
+    <h2>7. Contacto</h2>
+    <p>Para consultas sobre esta política de privacidad, contáctanos en <strong>contacto@practiquemos.cl</strong> o escríbenos por WhatsApp al +56 9 8920 0476.</p>
+  </div>
+  <p class="updated">© 2026 Practiquemos.cl – Última actualización: Mayo 2026</p>
+</div>
+</body>
+</html>`;
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    res.status(200).send(html);
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
