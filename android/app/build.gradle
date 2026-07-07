@@ -81,6 +81,12 @@ def enableMinifyInReleaseBuilds = (findProperty('android.enableMinifyInReleaseBu
  */
 def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
 
+def keystorePropertiesFile = rootProject.file('key.properties')
+def keystoreProperties = new Properties()
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 android {
     ndkVersion rootProject.ext.ndkVersion
 
@@ -105,16 +111,19 @@ android {
             keyPassword 'android'
         }
         release {
-            def releaseStoreFile = findProperty('android.injected.signing.store.file') ?: System.getenv('ANDROID_KEYSTORE_FILE')
-            def releaseStorePassword = findProperty('android.injected.signing.store.password') ?: System.getenv('ANDROID_KEYSTORE_PASSWORD')
-            def releaseKeyAlias = findProperty('android.injected.signing.key.alias') ?: System.getenv('ANDROID_KEY_ALIAS')
-            def releaseKeyPassword = findProperty('android.injected.signing.key.password') ?: System.getenv('ANDROID_KEY_PASSWORD')
-
-            if (releaseStoreFile && releaseStorePassword && releaseKeyAlias && releaseKeyPassword) {
-                storeFile file(releaseStoreFile)
-                storePassword releaseStorePassword
-                keyAlias releaseKeyAlias
-                keyPassword releaseKeyPassword
+            if (keystorePropertiesFile.exists()) {
+                def releaseStoreFile = rootProject.file(keystoreProperties['storeFile'])
+                storeFile releaseStoreFile
+                storePassword keystoreProperties['storePassword']
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                println("Using release keystore: ${releaseStoreFile}")
+            } else {
+                println('WARNING: android/key.properties not found. Release builds will fall back to debug signing. For Play Store uploads, provide a proper release keystore.')
+                storeFile file('debug.keystore')
+                storePassword 'android'
+                keyAlias 'androiddebugkey'
+                keyPassword 'android'
             }
         }
     }
